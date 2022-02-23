@@ -8,17 +8,17 @@
 
 Coded by www.creative-tim.com
 
- =========================================================
+=========================================================
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
 const channelChartData = {
-  labels: ["Facebook", "Direct", "Organic", "Referral"],
+  labels: ["Line A", "Mini Line", "MM3"],
   datasets: {
-    label: "Projects",
-    backgroundColors: ["info", "primary", "dark", "secondary", "primary"],
-    data: [15, 20, 12, 60],
+    label: "Assets",
+    backgroundColors: ["info", "primary", "dark", "secondary"],
+    data: [37, 14, 43],
   },
 };
 

@@ -1,30 +1,20 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 const defaultLineChartData = {
-  labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
   datasets: [
     {
-      label: "Facebook Ads",
+      label: "Line A",
       color: "info",
-      data: [50, 100, 200, 190, 400, 350, 500, 450, 700],
+      data: [50, 100, 200, 190, 400, 350, 500, 450, 350, 250, 320, 200],
     },
     {
-      label: "Google Ads",
+      label: "Mini Line",
+      color: "primary",
+      data: [10, 30, 40, 120, 150, 220, 280, 250, 280, 300, 120, 400],
+    },
+    {
+      label: "MM3",
       color: "dark",
-      data: [10, 30, 40, 120, 150, 220, 280, 250, 280],
+      data: [30, 50, 20, 100, 80, 200, 210, 220, 260, 290, 210, 230],
     },
   ],
 };

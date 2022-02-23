@@ -17,8 +17,6 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DefaultStatisticsCard from "examples/Cards/StatisticsCards/DefaultStatisticsCard";
 import DefaultLineChart from "examples/Charts/LineCharts/DefaultLineChart";
-import HorizontalBarChart from "examples/Charts/BarCharts/HorizontalBarChart";
-import SalesTable from "examples/Tables/SalesTable";
 import DataTable from "examples/Tables/DataTable";
 
 // Sales dashboard components
@@ -26,8 +24,6 @@ import ChannelsChart from "layouts/dashboards/historyMachine/components/Channels
 
 // Data
 import defaultLineChartData from "layouts/dashboards/historyMachine/data/defaultLineChartData";
-import horizontalBarChartData from "layouts/dashboards/historyMachine/data/horizontalBarChartData";
-import salesTableData from "layouts/dashboards/historyMachine/data/salesTableData";
 import dataTableData from "layouts/dashboards/historyMachine/data/dataTableData";
 
 function Sales() {
@@ -41,7 +37,7 @@ function Sales() {
               <DefaultStatisticsCard title="Total Line" count="3 Lines" />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <DefaultStatisticsCard title="Total Aset" count="94" />
+              <DefaultStatisticsCard title="Total Assets" count="94" />
             </Grid>
             <Grid item xs={12} sm={4}>
               <DefaultStatisticsCard title="Model" count="7" />
@@ -55,12 +51,13 @@ function Sales() {
             </Grid>
             <Grid item xs={12} sm={6} lg={8}>
               <DefaultLineChart
-                title="Revenue"
+                title="Downtime"
                 description={
                   <MDBox display="flex" justifyContent="space-between">
                     <MDBox display="flex" ml={-1}>
-                      <MDBadgeDot color="info" size="sm" badgeContent="Facebook Ads" />
-                      <MDBadgeDot color="dark" size="sm" badgeContent="Google Ads" />
+                      <MDBadgeDot color="info" size="sm" badgeContent="Line A" />
+                      <MDBadgeDot color="primary" size="sm" badgeContent="Mini Line" />
+                      <MDBadgeDot color="dark" size="sm" badgeContent="MM3" />
                     </MDBox>
                     <MDBox mt={-4} mr={-1} position="absolute" right="1.5rem">
                       <Tooltip title="See which ads perform better" placement="left" arrow>
@@ -82,22 +79,12 @@ function Sales() {
             </Grid>
           </Grid>
         </MDBox>
-        <MDBox mb={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} lg={8}>
-              <HorizontalBarChart title="Sales by age" chart={horizontalBarChartData} />
-            </Grid>
-            <Grid item xs={12} lg={4}>
-              <SalesTable title="Sales by Country" rows={salesTableData} />
-            </Grid>
-          </Grid>
-        </MDBox>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Card>
               <MDBox pt={3} px={3}>
                 <MDTypography variant="h6" fontWeight="medium">
-                  Top Selling Products
+                  Top Downtime Machine
                 </MDTypography>
               </MDBox>
               <MDBox py={1}>

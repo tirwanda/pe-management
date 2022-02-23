@@ -1,40 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-/** 
-  All of the routes for the Material Dashboard 2 PRO React are added here,
-  You can add a new route, customize the routes and delete the routes here.
-
-  Once you add a new route on this file it will be visible automatically on
-  the Sidenav.
-
-  For adding a new route you can follow the existing routes in the routes array.
-  1. The `type` key with the `collapse` value is used for a route.
-  2. The `type` key with the `title` value is used for a title inside the Sidenav. 
-  3. The `type` key with the `divider` value is used for a divider between Sidenav items.
-  4. The `name` key is used for the name of the route on the Sidenav.
-  5. The `key` key is used for the key of the route (It will help you with the key prop inside a loop).
-  6. The `icon` key is used for the icon of the route on the Sidenav, you have to add a node.
-  7. The `collapse` key is used for making a collapsible item on the Sidenav that contains other routes
-  inside (nested routes), you need to pass the nested routes inside an array as a value for the `collapse` key.
-  8. The `route` key is used to store the route location which is used for the react router.
-  9. The `href` key is used to store the external links location.
-  10. The `title` key is only for the item with the type of `title` and its used for the title text on the Sidenav.
-  10. The `component` key is used to store the component of its route.
-*/
-
 // Material Dashboard 2 PRO React layouts
 import Analytics from "layouts/dashboards/analytics";
 import HistoryMachine from "layouts/dashboards/historyMachine";
@@ -57,8 +20,6 @@ import Calendar from "layouts/applications/calendar";
 import NewProduct from "layouts/ecommerce/products/new-product";
 import EditProduct from "layouts/ecommerce/products/edit-product";
 import ProductPage from "layouts/ecommerce/products/product-page";
-import OrderList from "layouts/ecommerce/orders/order-list";
-import OrderDetails from "layouts/ecommerce/orders/order-details";
 import SignInBasic from "layouts/authentication/sign-in/basic";
 import SignInCover from "layouts/authentication/sign-in/cover";
 import SignInIllustration from "layouts/authentication/sign-in/illustration";
@@ -246,49 +207,79 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Ecommerce",
-    key: "ecommerce",
+    name: "Assets",
+    key: "assets",
     icon: <Icon fontSize="medium">shopping_basket</Icon>,
     collapse: [
       {
-        name: "Products",
-        key: "products",
+        name: "Line A",
+        key: "line-a",
         collapse: [
           {
-            name: "New Product",
-            key: "new-product",
-            route: "/ecommerce/products/new-product",
+            name: "New Asset",
+            key: "new-asset",
+            route: "/assets/line-a/new-asset",
             component: <NewProduct />,
           },
           {
-            name: "Edit Product",
-            key: "edit-product",
-            route: "/ecommerce/products/edit-product",
+            name: "Edit Asset",
+            key: "edit-asset",
+            route: "/assets/line-a/edit-asset",
             component: <EditProduct />,
           },
           {
-            name: "Product Page",
-            key: "product-page",
-            route: "/ecommerce/products/product-page",
+            name: "Assets Page",
+            key: "assets-page",
+            route: "/assets/line-a/assets-page",
             component: <ProductPage />,
           },
         ],
       },
       {
-        name: "Orders",
-        key: "orders",
+        name: "Mini Line",
+        key: "mini-line",
         collapse: [
           {
-            name: "Order List",
-            key: "order-list",
-            route: "/ecommerce/orders/order-list",
-            component: <OrderList />,
+            name: "New Asset",
+            key: "new-asset",
+            route: "/assets/mini-line/new-asset",
+            component: <NewProduct />,
           },
           {
-            name: "Order Details",
-            key: "order-details",
-            route: "/ecommerce/orders/order-details",
-            component: <OrderDetails />,
+            name: "Edit Asset",
+            key: "edit-asset",
+            route: "/assets/mini-line/edit-asset",
+            component: <EditProduct />,
+          },
+          {
+            name: "Assets Page",
+            key: "assets-page",
+            route: "/assets/mini-line/assets-page",
+            component: <ProductPage />,
+          },
+        ],
+      },
+      {
+        name: "MM3",
+        key: "mm3",
+        collapse: [
+          {
+            name: "New Asset",
+            key: "new-asset",
+            route: "/assets/mm3/new-asset",
+            component: <NewProduct />,
+          },
+          {
+            name: "Edit Asset",
+            key: "edit-asset",
+            route: "/assets/mm3/edit-asset",
+            component: <EditProduct />,
+          },
+          {
+            name: "Assets Page",
+            key: "assets-page",
+            route: "/assets/mm3/assets-page",
+            component: <ProductPage />,
           },
         ],
       },

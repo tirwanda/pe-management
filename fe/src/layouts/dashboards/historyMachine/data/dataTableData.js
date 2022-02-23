@@ -1,72 +1,48 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // Sales dashboard components
 import ProductCell from "layouts/dashboards/historyMachine/components/ProductCell";
-import RefundsCell from "layouts/dashboards/historyMachine/components/RefundsCell";
 import DefaultCell from "layouts/dashboards/historyMachine/components/DefaultCell";
 
 // Images
-import nikeV22 from "assets/images/ecommerce/blue-shoe.jpeg";
-import businessKit from "assets/images/ecommerce/black-mug.jpeg";
-import blackChair from "assets/images/ecommerce/black-chair.jpeg";
-import wirelessCharger from "assets/images/ecommerce/bang-sound.jpeg";
-import tripKit from "assets/images/ecommerce/photo-tools.jpeg";
+import mcLogo from "assets/images/products/mc-logo.jpg";
 
 const dataTableData = {
   columns: [
-    { Header: "product", accessor: "product", width: "55%" },
-    { Header: "value", accessor: "value" },
-    { Header: "ads spent", accessor: "adsSpent", align: "center" },
-    { Header: "refunds", accessor: "refunds", align: "center" },
+    { Header: "Machine", accessor: "machine", width: "55%" },
+    { Header: "No Asset", accessor: "noAsset" },
+    { Header: "Time (Minute)", accessor: "time", align: "center" },
+    { Header: "Location", accessor: "line", align: "center" },
   ],
 
   rows: [
     {
-      product: <ProductCell image={nikeV22} name="Nike v22 Running" orders={8.232} />,
-      value: <DefaultCell>$130.992</DefaultCell>,
-      adsSpent: <DefaultCell>$9.500</DefaultCell>,
-      refunds: <RefundsCell value={13} icon={{ color: "success", name: "keyboard_arrow_up" }} />,
+      machine: <ProductCell image={mcLogo} name="MC Modul L" />,
+      noAsset: <DefaultCell>12345678</DefaultCell>,
+      time: <DefaultCell>36</DefaultCell>,
+      line: <DefaultCell>MM3</DefaultCell>,
     },
     {
-      product: (
-        <ProductCell image={businessKit} name="Business Kit (Mug + Notebook)" orders={12.821} />
-      ),
-      value: <DefaultCell>$80.250</DefaultCell>,
-      adsSpent: <DefaultCell>$4.200</DefaultCell>,
-      refunds: <RefundsCell value={40} icon={{ color: "error", name: "keyboard_arrow_down" }} />,
+      machine: <ProductCell image={mcLogo} name="MC Press Fit" />,
+      noAsset: <DefaultCell>87654321</DefaultCell>,
+      time: <DefaultCell>25</DefaultCell>,
+      line: <DefaultCell>MM3</DefaultCell>,
     },
     {
-      product: <ProductCell image={blackChair} name="Black Chair" orders={2.421} />,
-      value: <DefaultCell>$40.600</DefaultCell>,
-      adsSpent: <DefaultCell>$9.430</DefaultCell>,
-      refunds: <RefundsCell value={54} icon={{ color: "success", name: "keyboard_arrow_up" }} />,
+      machine: <ProductCell image={mcLogo} name="MC Rotary Numbering" />,
+      noAsset: <DefaultCell>32145687</DefaultCell>,
+      time: <DefaultCell>20</DefaultCell>,
+      line: <DefaultCell>Line A</DefaultCell>,
     },
     {
-      product: <ProductCell image={wirelessCharger} name="Wireless Charger" orders={5.921} />,
-      value: <DefaultCell>$91.300</DefaultCell>,
-      adsSpent: <DefaultCell>$7.364</DefaultCell>,
-      refunds: <RefundsCell value={5} icon={{ color: "error", name: "keyboard_arrow_down" }} />,
+      machine: <ProductCell image={mcLogo} name="MC Press Bearing Crank Case R" />,
+      noAsset: <DefaultCell>76548321</DefaultCell>,
+      time: <DefaultCell>20</DefaultCell>,
+      line: <DefaultCell>Line</DefaultCell>,
     },
     {
-      product: (
-        <ProductCell image={tripKit} name="Mountain Trip Kit (Camera + Backpack)" orders={921} />
-      ),
-      value: <DefaultCell>$140.925</DefaultCell>,
-      adsSpent: <DefaultCell>$20.531</DefaultCell>,
-      refunds: <RefundsCell value={121} icon={{ color: "success", name: "keyboard_arrow_up" }} />,
+      machine: <ProductCell image={mcLogo} name="MC Numbering Laser" />,
+      noAsset: <DefaultCell>43526178</DefaultCell>,
+      time: <DefaultCell>15</DefaultCell>,
+      line: <DefaultCell>Mini Line</DefaultCell>,
     },
   ],
 };
