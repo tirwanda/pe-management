@@ -1,24 +1,9 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 /* eslint-disable react/prop-types */
 // ProductsList page components
-import IdCell from "layouts/ecommerce/orders/order-list/components/IdCell";
-import DefaultCell from "layouts/ecommerce/orders/order-list/components/DefaultCell";
-import StatusCell from "layouts/ecommerce/orders/order-list/components/StatusCell";
-import CustomerCell from "layouts/ecommerce/orders/order-list/components/CustomerCell";
+import IdCell from "layouts/maintain/orders/order-list/components/IdCell";
+import DefaultCell from "layouts/maintain/orders/order-list/components/DefaultCell";
+import StatusCell from "layouts/maintain/orders/order-list/components/StatusCell";
+import CustomerCell from "layouts/maintain/orders/order-list/components/CustomerCell";
 
 // Images
 import team1 from "assets/images/team-1.jpg";

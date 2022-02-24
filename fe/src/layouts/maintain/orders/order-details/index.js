@@ -27,12 +27,12 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 
 // OrderDetails page components
-import Header from "layouts/ecommerce/orders/order-details/components/Header";
-import OrderInfo from "layouts/ecommerce/orders/order-details/components/OrderInfo";
-import TrackOrder from "layouts/ecommerce/orders/order-details/components/TrackOrder";
-import PaymentDetails from "layouts/ecommerce/orders/order-details/components/PaymentDetails";
-import BillingInformation from "layouts/ecommerce/orders/order-details/components/BillingInformation";
-import OrderSummary from "layouts/ecommerce/orders/order-details/components/OrderSummary";
+import Header from "layouts/maintain/orders/order-details/components/Header";
+import OrderInfo from "layouts/maintain/orders/order-details/components/OrderInfo";
+import TrackOrder from "layouts/maintain/orders/order-details/components/TrackOrder";
+import PaymentDetails from "layouts/maintain/orders/order-details/components/PaymentDetails";
+import BillingInformation from "layouts/maintain/orders/order-details/components/BillingInformation";
+import OrderSummary from "layouts/maintain/orders/order-details/components/OrderSummary";
 
 function OrderDetails() {
   return (

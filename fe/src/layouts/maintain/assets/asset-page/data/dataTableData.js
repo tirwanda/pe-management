@@ -18,9 +18,9 @@ import MDBox from "components/MDBox";
 import MDProgress from "components/MDProgress";
 
 // ProductPage page components
-import ProductCell from "layouts/ecommerce/products/product-page/components/ProductCell";
-import ReviewCell from "layouts/ecommerce/products/product-page/components/ReviewCell";
-import DefaultCell from "layouts/ecommerce/products/product-page/components/DefaultCell";
+import ProductCell from "layouts/maintain/assets/asset-page/components/ProductCell";
+import ReviewCell from "layouts/maintain/assets/asset-page/components/ReviewCell";
+import DefaultCell from "layouts/maintain/assets/asset-page/components/DefaultCell";
 
 // Images
 import blackChair from "assets/images/ecommerce/black-chair.jpeg";

@@ -34,7 +34,7 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
-import dataTableData from "layouts/ecommerce/orders/order-list/data/dataTableData";
+import dataTableData from "layouts/maintain/orders/order-list/data/dataTableData";
 
 function OrderList() {
   const [menu, setMenu] = useState(null);

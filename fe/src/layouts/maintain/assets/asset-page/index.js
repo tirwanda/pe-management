@@ -27,14 +27,14 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 
-// ProductPage page components
-import ProductImages from "layouts/ecommerce/products/product-page/components/ProductImages";
-import ProductInfo from "layouts/ecommerce/products/product-page/components/ProductInfo";
+// AssetPage page components
+import ProductImages from "layouts/maintain/assets/asset-page/components/ProductImages";
+import ProductInfo from "layouts/maintain/assets/asset-page/components/ProductInfo";
 
 // Data
-import dataTableData from "layouts/ecommerce/products/product-page/data/dataTableData";
+import dataTableData from "layouts/maintain/assets/asset-page/data/dataTableData";
 
-function ProductPage() {
+function AssetPage() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -77,4 +77,4 @@ function ProductPage() {
   );
 }
 
-export default ProductPage;
+export default AssetPage;

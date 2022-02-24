@@ -17,9 +17,9 @@ import Kanban from "layouts/applications/kanban";
 import Wizard from "layouts/applications/wizard";
 import DataTables from "layouts/applications/data-tables";
 import Calendar from "layouts/applications/calendar";
-import NewProduct from "layouts/ecommerce/products/new-product";
-import EditProduct from "layouts/ecommerce/products/edit-product";
-import ProductPage from "layouts/ecommerce/products/product-page";
+import NewProduct from "layouts/maintain/assets/new-product";
+import EditProduct from "layouts/maintain/assets/edit-product";
+import AssetPage from "layouts/maintain/assets/asset-page";
 import SignInBasic from "layouts/authentication/sign-in/basic";
 import SignInCover from "layouts/authentication/sign-in/cover";
 import SignInIllustration from "layouts/authentication/sign-in/illustration";
@@ -231,7 +231,7 @@ const routes = [
             name: "Assets Page",
             key: "assets-page",
             route: "/assets/line-a/assets-page",
-            component: <ProductPage />,
+            component: <AssetPage />,
           },
         ],
       },
@@ -255,7 +255,7 @@ const routes = [
             name: "Assets Page",
             key: "assets-page",
             route: "/assets/mini-line/assets-page",
-            component: <ProductPage />,
+            component: <AssetPage />,
           },
         ],
       },
@@ -279,7 +279,7 @@ const routes = [
             name: "Assets Page",
             key: "assets-page",
             route: "/assets/mm3/assets-page",
-            component: <ProductPage />,
+            component: <AssetPage />,
           },
         ],
       },

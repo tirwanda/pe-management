@@ -27,7 +27,7 @@ import MDEditor from "components/MDEditor";
 import MDInput from "components/MDInput";
 
 // NewProduct page components
-import FormField from "layouts/ecommerce/products/edit-product/components/FormField";
+import FormField from "layouts/maintain/assets/edit-product/components/FormField";
 
 function ProductInfo() {
   const [editorValue, setEditorValue] = useState(

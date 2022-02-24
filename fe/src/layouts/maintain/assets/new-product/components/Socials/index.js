@@ -14,38 +14,35 @@ Coded by www.creative-tim.com
 */
 
 // @mui material components
-import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 
 // Material Dashboard 2 PRO React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
-// EditProduct page components
-import FormField from "layouts/ecommerce/products/edit-product/components/FormField";
+// NewProduct page components
+import FormField from "layouts/maintain/assets/new-product/components/FormField";
 
 function Socials() {
   return (
-    <Card>
-      <MDBox p={3}>
-        <MDTypography variant="h5" fontWeight="bold">
-          Socials
-        </MDTypography>
-        <MDBox mt={1}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <FormField type="text" label="Shoppify Handle" defaultValue="@soft" />
-            </Grid>
-            <Grid item xs={12}>
-              <FormField type="text" label="Facebook Account" defaultValue="https://..." />
-            </Grid>
-            <Grid item xs={12}>
-              <FormField type="text" label="Instagram Account" defaultValue="https://..." />
-            </Grid>
+    <MDBox>
+      <MDTypography variant="h5" fontWeight="bold">
+        Socials
+      </MDTypography>
+      <MDBox mt={2}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <FormField type="text" label="Shoppify Handle" />
           </Grid>
-        </MDBox>
+          <Grid item xs={12}>
+            <FormField type="text" label="Facebook Account" />
+          </Grid>
+          <Grid item xs={12}>
+            <FormField type="text" label="Instagram Account" />
+          </Grid>
+        </Grid>
       </MDBox>
-    </Card>
+    </MDBox>
   );
 }
 

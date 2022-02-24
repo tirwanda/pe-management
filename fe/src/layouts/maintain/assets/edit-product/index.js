@@ -27,10 +27,10 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 
 // EditProduct page components
-import ProductImage from "layouts/ecommerce/products/edit-product/components/ProductImage";
-import ProductInfo from "layouts/ecommerce/products/edit-product/components/ProductInfo";
-import Socials from "layouts/ecommerce/products/edit-product/components/Socials";
-import Pricing from "layouts/ecommerce/products/edit-product/components/Pricing";
+import ProductImage from "layouts/maintain/assets/edit-product/components/ProductImage";
+import ProductInfo from "layouts/maintain/assets/edit-product/components/ProductInfo";
+import Socials from "layouts/maintain/assets/edit-product/components/Socials";
+import Pricing from "layouts/maintain/assets/edit-product/components/Pricing";
 
 function EditProduct() {
   return (

@@ -220,15 +220,15 @@ const pageRoutes = [
         collapse: [
           {
             name: "new product",
-            route: "/ecommerce/products/new-product",
+            route: "/ecommerce/assets/new-product",
           },
           {
             name: "edit product",
-            route: "/ecommerce/products/edit-product",
+            route: "/ecommerce/assets/edit-product",
           },
           {
             name: "product page",
-            route: "/ecommerce/products/product-page",
+            route: "/ecommerce/assets/asset-page",
           },
         ],
       },

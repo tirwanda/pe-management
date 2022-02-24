@@ -23,7 +23,7 @@ import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 
 // NewProduct page components
-import FormField from "layouts/ecommerce/products/new-product/components/FormField";
+import FormField from "layouts/maintain/assets/new-product/components/FormField";
 
 function Pricing() {
   return (

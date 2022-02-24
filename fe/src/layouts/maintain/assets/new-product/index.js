@@ -33,10 +33,10 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 
 // NewProduct page components
-import ProductInfo from "layouts/ecommerce/products/new-product/components/ProductInfo";
-import Media from "layouts/ecommerce/products/new-product/components/Media";
-import Socials from "layouts/ecommerce/products/new-product/components/Socials";
-import Pricing from "layouts/ecommerce/products/new-product/components/Pricing";
+import ProductInfo from "layouts/maintain/assets/new-product/components/ProductInfo";
+import Media from "layouts/maintain/assets/new-product/components/Media";
+import Socials from "layouts/maintain/assets/new-product/components/Socials";
+import Pricing from "layouts/maintain/assets/new-product/components/Pricing";
 
 function getSteps() {
   return ["1. Product Info", "2. Media", "3. Social", "4. Pricing"];
