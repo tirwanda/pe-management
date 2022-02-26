@@ -5,6 +5,8 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
@@ -17,7 +19,10 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+public class User extends BaseEntity<String> implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,13 +40,17 @@ public class User {
     @NotEmpty(message = "Password is required")
     private String password;
 
+    @Column(nullable = false, unique = true)
+    @NotEmpty(message = "NRP is required")
+    private Integer nrp;
+
     private String name;
 
     private String section;
 
-    private String Department;
+    private String department;
 
-    private String Division;
+    private String division;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles = new ArrayList<>();

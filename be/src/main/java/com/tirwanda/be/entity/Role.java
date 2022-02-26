@@ -4,6 +4,8 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
@@ -14,14 +16,17 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Role {
+public class Role extends BaseEntity<String> implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long roleId;
 
     @Column(nullable = false, unique = true)
-    private String role;
+    private String roleName;
 
     @Override
     public boolean equals(Object o) {
