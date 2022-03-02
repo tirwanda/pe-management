@@ -5,6 +5,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,7 +15,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -41,7 +41,7 @@ public class User extends BaseEntity<String> implements Serializable {
     private String password;
 
     @Column(nullable = false, unique = true)
-    @NotEmpty(message = "NRP is required")
+    @NotNull(message = "NRP is required")
     private Integer nrp;
 
     private String name;
