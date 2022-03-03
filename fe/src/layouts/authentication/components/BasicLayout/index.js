@@ -22,12 +22,7 @@ import Grid from "@mui/material/Grid";
 // Material Dashboard 2 PRO React components
 import MDBox from "components/MDBox";
 
-// Material Dashboard 2 PRO React examples
-import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import PageLayout from "examples/LayoutContainers/PageLayout";
-
-// Material Dashboard 2 PRO React page layout routes
-import pageRoutes from "page.routes";
 
 // Authentication pages components
 import Footer from "layouts/authentication/components/Footer";
@@ -35,16 +30,6 @@ import Footer from "layouts/authentication/components/Footer";
 function BasicLayout({ image, children }) {
   return (
     <PageLayout>
-      <DefaultNavbar
-        routes={pageRoutes}
-        action={{
-          type: "external",
-          route: "https://creative-tim.com/product/material-dashboard-pro-react",
-          label: "buy now",
-        }}
-        transparent
-        light
-      />
       <MDBox
         position="absolute"
         width="100%"

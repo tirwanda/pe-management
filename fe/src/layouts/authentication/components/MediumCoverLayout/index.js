@@ -9,28 +9,14 @@ import MDBox from "components/MDBox";
 // import MDTypography from "components/MDTypography";
 
 // Material Dashboard 2 PRO React examples
-import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import PageLayout from "examples/LayoutContainers/PageLayout";
 
 // Authentication layout components
 import Footer from "layouts/authentication/components/Footer";
 
-// Material Dashboard 2 PRO React page layout routes
-import pageRoutes from "page.routes";
-
-function CoverLayout({ coverHeight, image, children }) {
+function MeduimCoverLayout({ coverHeight, image, children }) {
   return (
     <PageLayout>
-      <DefaultNavbar
-        routes={pageRoutes}
-        action={{
-          type: "external",
-          route: "https://creative-tim.com/product/material-dashboard-pro-react",
-          label: "buy now",
-        }}
-        transparent
-        light
-      />
       <MDBox
         width="calc(100% - 2rem)"
         minHeight={coverHeight}
@@ -51,9 +37,9 @@ function CoverLayout({ coverHeight, image, children }) {
           backgroundRepeat: "no-repeat",
         }}
       />
-      <MDBox mt={{ xs: -20, lg: -18 }} px={1} width="calc(100% - 2rem)" mx="auto">
+      <MDBox mt={{ xs: -20, lg: -20 }} px={1} width="calc(100% - 2rem)" mx="auto">
         <Grid container spacing={1} justifyContent="center">
-          <Grid item xs={11} sm={9} md={5} lg={4} xl={3}>
+          <Grid item xs={11} sm={10} md={10} lg={6} xl={6}>
             {children}
           </Grid>
         </Grid>
@@ -63,16 +49,16 @@ function CoverLayout({ coverHeight, image, children }) {
   );
 }
 
-// Setting default props for the CoverLayout
-CoverLayout.defaultProps = {
+// Setting default props for the MeduimCoverLayout
+MeduimCoverLayout.defaultProps = {
   coverHeight: "35vh",
 };
 
-// Typechecking props for the CoverLayout
-CoverLayout.propTypes = {
+// Typechecking props for the MeduimCoverLayout
+MeduimCoverLayout.propTypes = {
   coverHeight: PropTypes.string,
   image: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
 };
 
-export default CoverLayout;
+export default MeduimCoverLayout;

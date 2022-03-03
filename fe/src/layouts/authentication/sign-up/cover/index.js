@@ -1,20 +1,7 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // react-router-dom components
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -27,14 +14,56 @@ import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
 
 // Authentication layout components
-import CoverLayout from "layouts/authentication/components/CoverLayout";
+import MeduimCoverLayout from "layouts/authentication/components/MediumCoverLayout";
 
 // Images
 import bgImage from "assets/images/bg-sign-up-cover.jpeg";
+import { Grid } from "@mui/material";
 
 function Cover() {
+  const navigate = useNavigate();
+
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [nrp, setNrp] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [checked, setChecked] = useState(false);
+  // const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await axios
+      .post("http://localhost:8080/api/user/save", {
+        name,
+        username,
+        nrp,
+        email,
+        password,
+      })
+      .then((res) => {
+        console.log(res);
+        navigate("/sign-in");
+      })
+      .catch((error) => {
+        if (error.response) {
+          // Request made and server responded
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log("Error", error.message);
+        }
+      });
+  };
+
   return (
-    <CoverLayout image={bgImage}>
+    <MeduimCoverLayout image={bgImage}>
       <Card>
         <MDBox
           variant="gradient"
@@ -56,17 +85,91 @@ function Cover() {
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
-            <MDBox mb={2}>
-              <MDInput type="text" label="Name" variant="standard" fullWidth />
-            </MDBox>
-            <MDBox mb={2}>
-              <MDInput type="email" label="Email" variant="standard" fullWidth />
-            </MDBox>
-            <MDBox mb={2}>
-              <MDInput type="password" label="Password" variant="standard" fullWidth />
-            </MDBox>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
+                <MDBox mb={2}>
+                  <MDInput
+                    type="text"
+                    label="Name"
+                    variant="standard"
+                    fullWidth
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </MDBox>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <MDBox mb={2}>
+                  <MDInput
+                    type="text"
+                    label="Username"
+                    variant="standard"
+                    fullWidth
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                </MDBox>
+              </Grid>
+            </Grid>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
+                <MDBox mb={2}>
+                  <MDInput
+                    type="number"
+                    label="NRP"
+                    variant="standard"
+                    fullWidth
+                    value={nrp}
+                    onChange={(e) => setNrp(e.target.value)}
+                  />
+                </MDBox>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <MDBox mb={2}>
+                  <MDInput
+                    type="email"
+                    label="Email"
+                    variant="standard"
+                    fullWidth
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </MDBox>
+              </Grid>
+            </Grid>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
+                <MDBox mb={2}>
+                  <MDInput
+                    type="password"
+                    label="Password"
+                    variant="standard"
+                    fullWidth
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </MDBox>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <MDBox mb={2}>
+                  <MDInput
+                    type="password"
+                    label="Confirm Password"
+                    variant="standard"
+                    fullWidth
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                </MDBox>
+              </Grid>
+            </Grid>
             <MDBox display="flex" alignItems="center" ml={-1}>
-              <Checkbox />
+              <Checkbox
+                checked={checked}
+                onChange={(e) => {
+                  setChecked(e.target.checked);
+                }}
+              />
               <MDTypography
                 variant="button"
                 fontWeight="regular"
@@ -87,8 +190,8 @@ function Cover() {
               </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
-                sign in
+              <MDButton variant="gradient" color="info" fullWidth onClick={handleSubmit}>
+                sign up
               </MDButton>
             </MDBox>
             <MDBox mt={3} mb={1} textAlign="center">
@@ -96,7 +199,7 @@ function Cover() {
                 Already have an account?{" "}
                 <MDTypography
                   component={Link}
-                  to="/authentication/sign-in/cover"
+                  to="/sign-in"
                   variant="button"
                   color="info"
                   fontWeight="medium"
@@ -109,7 +212,7 @@ function Cover() {
           </MDBox>
         </MDBox>
       </Card>
-    </CoverLayout>
+    </MeduimCoverLayout>
   );
 }
 
