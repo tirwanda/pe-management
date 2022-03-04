@@ -2,7 +2,7 @@ import { useState } from "react";
 
 // @mui material components
 import Card from "@mui/material/Card";
-import { Grid, Step, StepLabel, Stepper } from "@mui/material";
+import { Grid } from "@mui/material";
 
 // Material Dashboard 2 PRO React components
 import MDBox from "components/MDBox";
@@ -13,33 +13,26 @@ import MeduimCoverLayout from "layouts/authentication/components/MediumCoverLayo
 
 // Images
 import bgImage from "assets/images/bg-sign-up-cover.jpeg";
-import UserInfo from "layouts/pages/users/new-user/components/UserInfo";
-import Address from "layouts/pages/users/new-user/components/Address";
-import Socials from "layouts/pages/users/new-user/components/Socials";
-import Profile from "layouts/pages/users/new-user/components/Profile";
+import UserData from "layouts/authentication/sign-up/Validate/UserData";
 
 // Formik
 import { Form, Formik } from "formik";
 
 // NewUser layout schemas for form and form feilds
-import validations from "layouts/pages/users/new-user/schemas/validations";
-import form from "layouts/pages/users/new-user/schemas/form";
-import initialValues from "layouts/pages/users/new-user/schemas/initialValues";
+import validations from "layouts/authentication/sign-up/Validate/schema/validations";
+import signUpForm from "layouts/authentication/sign-up/Validate/schema/signUpForm";
+import initialValues from "layouts/authentication/sign-up/Validate/schema/initialValues";
+import MDTypography from "components/MDTypography";
+import { Link } from "react-router-dom";
 
 function getSteps() {
-  return ["User Info", "Address", "Social", "Profile"];
+  return ["User Info"];
 }
 
 function getStepContent(stepIndex, formData) {
   switch (stepIndex) {
     case 0:
-      return <UserInfo formData={formData} />;
-    case 1:
-      return <Address formData={formData} />;
-    case 2:
-      return <Socials formData={formData} />;
-    case 3:
-      return <Profile formData={formData} />;
+      return <UserData formData={formData} />;
     default:
       return null;
   }
@@ -48,8 +41,8 @@ function getStepContent(stepIndex, formData) {
 function RegisterStepper() {
   const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
-  const { formId, formField } = form;
-  const currentValidation = validations[activeStep];
+  const { formId, formField } = signUpForm;
+  const currentValidation = validations;
   const isLastStep = activeStep === steps.length - 1;
 
   const sleep = (ms) =>
@@ -93,14 +86,23 @@ function RegisterStepper() {
               {({ values, errors, touched, isSubmitting }) => (
                 <Form id={formId} autoComplete="off">
                   <Card sx={{ height: "100%" }}>
-                    <MDBox mx={2} mt={-3}>
-                      <Stepper activeStep={activeStep} alternativeLabel>
-                        {steps.map((label) => (
-                          <Step key={label}>
-                            <StepLabel>{label}</StepLabel>
-                          </Step>
-                        ))}
-                      </Stepper>
+                    <MDBox
+                      variant="gradient"
+                      bgColor="info"
+                      borderRadius="lg"
+                      coloredShadow="success"
+                      mx={2}
+                      mt={-3}
+                      p={3}
+                      mb={1}
+                      textAlign="center"
+                    >
+                      <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
+                        Join us today
+                      </MDTypography>
+                      <MDTypography display="block" variant="button" color="white" my={1}>
+                        Enter your Information to register
+                      </MDTypography>
                     </MDBox>
                     <MDBox p={3}>
                       <MDBox>
@@ -110,6 +112,21 @@ function RegisterStepper() {
                           formField,
                           errors,
                         })}
+                        <MDBox mt={3} mb={1} textAlign="center">
+                          <MDTypography variant="button" color="text">
+                            Already have an account?{" "}
+                            <MDTypography
+                              component={Link}
+                              to="/sign-in"
+                              variant="button"
+                              color="info"
+                              fontWeight="medium"
+                              textGradient
+                            >
+                              Sign In
+                            </MDTypography>
+                          </MDTypography>
+                        </MDBox>
                         <MDBox mt={2} width="100%" display="flex" justifyContent="space-between">
                           {activeStep === 0 ? (
                             <MDBox />
@@ -124,7 +141,7 @@ function RegisterStepper() {
                             variant="gradient"
                             color="dark"
                           >
-                            {isLastStep ? "send" : "next"}
+                            {isLastStep ? "Sign Up" : "next"}
                           </MDButton>
                         </MDBox>
                       </MDBox>

@@ -1,4 +1,4 @@
-import checkout from "layouts/authentication/sign-up/cover/schema/SignUpForm";
+import checkout from "layouts/authentication/sign-up/Validate/schema/signUpForm";
 
 const {
   formField: { name, username, nrp, email, password, confirmPassword },

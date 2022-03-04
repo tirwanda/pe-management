@@ -37,9 +37,9 @@ function MeduimCoverLayout({ coverHeight, image, children }) {
           backgroundRepeat: "no-repeat",
         }}
       />
-      <MDBox mt={{ xs: -20, lg: -20 }} px={1} width="calc(100% - 2rem)" mx="auto">
+      <MDBox mt={{ xs: -25, lg: -25 }} px={1} width="calc(100% - 2rem)" mx="auto">
         <Grid container spacing={1} justifyContent="center">
-          <Grid item xs={11} sm={10} md={10} lg={6} xl={6}>
+          <Grid item xs={11} sm={10} md={10} lg={10} xl={10}>
             {children}
           </Grid>
         </Grid>

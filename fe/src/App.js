@@ -40,7 +40,8 @@ import brandDark from "assets/images/ahm-brand-dark.png";
 
 // Layouts Component
 import SignInBasic from "layouts/authentication/sign-in/basic";
-import SignUpCover from "layouts/authentication/sign-up/cover";
+// import SignUpCover from "layouts/authentication/sign-up/cover";
+import RegisterStepper from "layouts/authentication/sign-up/Validate";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -182,7 +183,7 @@ export default function App() {
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboards/analytics" />} />
         <Route path="/sign-in" element={<SignInBasic />} />
-        <Route path="/sign-up" element={<SignUpCover />} />
+        <Route path="/sign-up" element={<RegisterStepper />} />
       </Routes>
     </ThemeProvider>
   );
