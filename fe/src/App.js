@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState, useEffect, useMemo } from "react";
 
 // react-router components
@@ -52,6 +37,10 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 // Images
 import brandWhite from "assets/images/ahm-brand-white.png";
 import brandDark from "assets/images/ahm-brand-dark.png";
+
+// Layouts Component
+import SignInBasic from "layouts/authentication/sign-in/basic";
+import SignUpCover from "layouts/authentication/sign-up/cover";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -192,6 +181,8 @@ export default function App() {
       <Routes>
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboards/analytics" />} />
+        <Route path="/sign-in" element={<SignInBasic />} />
+        <Route path="/sign-up" element={<SignUpCover />} />
       </Routes>
     </ThemeProvider>
   );
