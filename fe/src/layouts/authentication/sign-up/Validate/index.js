@@ -24,6 +24,8 @@ import signUpForm from "layouts/authentication/sign-up/Validate/schema/signUpFor
 import initialValues from "layouts/authentication/sign-up/Validate/schema/initialValues";
 import MDTypography from "components/MDTypography";
 import { Link } from "react-router-dom";
+import { saveUser } from "api/userAPI";
+import MDSnackbar from "components/MDSnackbar";
 
 function getSteps() {
   return ["User Info"];
@@ -40,6 +42,9 @@ function getStepContent(stepIndex, formData) {
 
 function RegisterStepper() {
   const [activeStep, setActiveStep] = useState(0);
+  const [successSB, setSuccesSB] = useState(false);
+  const [errorSB, setErrorSB] = useState(false);
+  const [message, setMessage] = useState("");
   const steps = getSteps();
   const { formId, formField } = signUpForm;
   const currentValidation = validations;
@@ -51,11 +56,32 @@ function RegisterStepper() {
     });
   const handleBack = () => setActiveStep(activeStep - 1);
 
+  const openSuccessSB = (data) => {
+    setSuccesSB(true);
+    setMessage(data);
+  };
+  const closeSuccessSB = () => setSuccesSB(false);
+  const openErrorSB = (data) => {
+    setErrorSB(true);
+    setMessage(data);
+  };
+  const closeErrorSB = () => setErrorSB(false);
+
   const submitForm = async (values, actions) => {
     await sleep(1000);
 
-    // eslint-disable-next-line no-alert
-    alert(JSON.stringify(values, null, 2));
+    saveUser(values)
+      .then((response) => openSuccessSB(response.data.payload.username))
+      .catch((error) => {
+        if (error.response) {
+          // Request made and server responded
+          openErrorSB(error.response.data.message[0]);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          openErrorSB("Your data already exist");
+        }
+        openErrorSB("Your data already exist");
+      });
 
     actions.setSubmitting(false);
     actions.resetForm();
@@ -72,6 +98,34 @@ function RegisterStepper() {
       actions.setSubmitting(false);
     }
   };
+
+  const renderSuccessSB = (
+    <MDSnackbar
+      color="success"
+      icon="check"
+      title="Successfully save data"
+      content={`Congratulations, you have successfully created a user with the username ${message}`}
+      dateTime="A few seconds ago"
+      open={successSB}
+      onClose={closeSuccessSB}
+      close={closeSuccessSB}
+      bgWhite
+    />
+  );
+
+  const renderErrorSB = (
+    <MDSnackbar
+      color="error"
+      icon="warning"
+      title="Failed to create user"
+      content={message}
+      dateTime="A few secons ago"
+      open={errorSB}
+      onClose={closeErrorSB}
+      close={closeErrorSB}
+      bgWhite
+    />
+  );
 
   return (
     <MeduimCoverLayout image={bgImage}>
@@ -152,6 +206,8 @@ function RegisterStepper() {
             </Formik>
           </Grid>
         </Grid>
+        {renderSuccessSB}
+        {renderErrorSB}
       </MDBox>
     </MeduimCoverLayout>
   );

@@ -1,10 +1,10 @@
 {
-  "name": "material-dashboard-2-pro-react",
+  "name": "pe-management",
   "version": "2.1.0",
   "private": true,
-  "author": "Creative Tim",
-  "license": "See license in https://www.creative-tim.com/license",
-  "description": "React version of Material Dashboard 2 PRO by Creative Tim",
+  "author": "Tirwanda Dev",
+  "license": "",
+  "description": "This is project created for my thesis",
   "bugs": {
     "url": "https://github.com/creativetimofficial/ct-material-dashboard-pro-react/issues"
   },
@@ -36,6 +36,7 @@
     "axios": "^0.26.0",
     "chart.js": "3.4.1",
     "chroma-js": "2.4.2",
+    "dotenv": "^16.0.0",
     "dropzone": "5.9.2",
     "flatpickr": "4.6.9",
     "formik": "2.2.9",
