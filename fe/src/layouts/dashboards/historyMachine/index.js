@@ -1,4 +1,5 @@
-// import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Tooltip from "@mui/material/Tooltip";
@@ -25,8 +26,40 @@ import ChannelsChart from "layouts/dashboards/historyMachine/components/Channels
 // Data
 import defaultLineChartData from "layouts/dashboards/historyMachine/data/defaultLineChartData";
 import dataTableData from "layouts/dashboards/historyMachine/data/dataTableData";
+import jwtDecode from "jwt-decode";
+import { getUserData } from "api/userAPI";
 
-function Sales() {
+function HistoryMachine() {
+  const [user, setUser] = useState({});
+
+  const navigate = useNavigate();
+
+  const getToken = async () => {
+    try {
+      const decode = jwtDecode(localStorage.getItem("ACCESS_TOKEN"));
+      localStorage.setItem("EXPIRES_IN", decode.exp);
+    } catch (error) {
+      if (error.response) {
+        navigate("/sign-in");
+      }
+    }
+  };
+
+  const getUser = async () => {
+    try {
+      const response = await getUserData();
+      setUser(response.data.payload);
+    } catch (error) {
+      console.log("Error", error);
+      console.log(user);
+    }
+  };
+
+  useEffect(() => {
+    getToken();
+    getUser();
+  }, []);
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -105,4 +138,4 @@ function Sales() {
   );
 }
 
-export default Sales;
+export default HistoryMachine;

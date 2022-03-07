@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tirwanda.be.dto.ResponseData;
 import com.tirwanda.be.entity.Role;
 import com.tirwanda.be.entity.User;
 import com.tirwanda.be.service.userservice.PrintUserServiceImpl;
@@ -33,6 +34,15 @@ public class GetUserController {
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers() {
         return ResponseEntity.ok().body(printUserService.getUsers());
+    }
+
+    @GetMapping("/user/{username}")
+    public ResponseEntity<ResponseData<User>> getUser(@PathVariable("username") String username) {
+        ResponseData<User> responseData = new ResponseData<>();
+        responseData.setStatus(true);
+        responseData.setPayload(printUserService.getUser(username));
+
+        return ResponseEntity.ok().body(responseData);
     }
 
     @GetMapping("/token/refresh")

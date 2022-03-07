@@ -1,6 +1,8 @@
 import axios from "axios";
+import { axiosJWT } from "./authAPI";
 
-const getToken = () => localStorage.getItem("USER_KEY");
+const getToken = () => localStorage.getItem("ACCESS_TOKEN");
+const getUsername = () => localStorage.getItem("USERNAME");
 
 const config = {
   headers: {
@@ -16,6 +18,15 @@ export const saveUser = (userData) =>
     data: userData,
     headers: {
       "Content-Type": "application/json",
+    },
+  });
+
+export const getUserData = () =>
+  axiosJWT({
+    method: "GET",
+    url: `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/user/${getUsername()}`,
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
     },
   });
 
