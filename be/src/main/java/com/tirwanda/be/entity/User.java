@@ -10,6 +10,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -51,6 +52,11 @@ public class User extends BaseEntity<String> implements Serializable {
     private String department;
 
     private String division;
+
+    @OneToMany(targetEntity = Line.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "userId")
+    @ToString.Exclude
+    private List<Line> lines = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles = new ArrayList<>();
