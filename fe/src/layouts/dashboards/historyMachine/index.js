@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Tooltip from "@mui/material/Tooltip";
@@ -29,9 +30,12 @@ import dataTableData from "layouts/dashboards/historyMachine/data/dataTableData"
 import jwtDecode from "jwt-decode";
 import { getUserData } from "api/userAPI";
 
-function HistoryMachine() {
-  const [user, setUser] = useState({});
+// Context
+import { useMaterialUIController, setUser } from "context";
 
+function HistoryMachine() {
+  const [dispatch] = useMaterialUIController();
+  // const { user } = controller;
   const navigate = useNavigate();
 
   const getToken = async () => {
@@ -48,10 +52,11 @@ function HistoryMachine() {
   const getUser = async () => {
     try {
       const response = await getUserData();
-      setUser(response.data.payload);
+      setUser(dispatch, response.data.payload);
     } catch (error) {
-      console.log("Error", error);
-      console.log(user);
+      if (error.response) {
+        navigate("/sign-in");
+      }
     }
   };
 

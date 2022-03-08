@@ -1,23 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-/**
-  This file is used for controlling the global states of the components,
-  you can customize the states for the different components here.
-*/
-
 import { createContext, useContext, useMemo, useReducer } from "react";
 
 // prop-types is a library for typechecking of props
@@ -62,6 +42,9 @@ function reducer(state, action) {
     case "DARKMODE": {
       return { ...state, darkMode: action.value };
     }
+    case "SET_USER": {
+      return { ...state, user: action.value };
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -81,6 +64,7 @@ function MaterialUIControllerProvider({ children }) {
     direction: "ltr",
     layout: "dashboard",
     darkMode: false,
+    user: {},
   };
 
   const [controller, dispatch] = useReducer(reducer, initialState);
@@ -120,6 +104,8 @@ const setDirection = (dispatch, value) => dispatch({ type: "DIRECTION", value })
 const setLayout = (dispatch, value) => dispatch({ type: "LAYOUT", value });
 const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
 
+const setUser = (dispatch, value) => dispatch({ type: "SET_USER", value });
+
 export {
   MaterialUIControllerProvider,
   useMaterialUIController,
@@ -133,4 +119,5 @@ export {
   setDirection,
   setLayout,
   setDarkMode,
+  setUser,
 };
