@@ -27,6 +27,10 @@ public class Line extends BaseEntity<String> implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long lineId;
 
+    @NotEmpty(message = "Line code is required")
+    @Column(nullable = false, unique = true)
+    private String lineCode;
+
     @NotEmpty(message = "Line name is required")
     private String lineName;
 
