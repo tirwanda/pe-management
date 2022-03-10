@@ -2,6 +2,8 @@ package com.tirwanda.be.entity;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -36,6 +38,7 @@ public class Line extends BaseEntity<String> implements Serializable {
 
     @OneToMany(targetEntity = Asset.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "line_id", referencedColumnName = "lineId")
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ToString.Exclude
     List<Asset> assets = new ArrayList<>();
 

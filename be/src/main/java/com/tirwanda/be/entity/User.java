@@ -2,6 +2,8 @@ package com.tirwanda.be.entity;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -55,6 +57,7 @@ public class User extends BaseEntity<String> implements Serializable {
 
     @OneToMany(targetEntity = Line.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "userId")
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ToString.Exclude
     private List<Line> lines = new ArrayList<>();
 
