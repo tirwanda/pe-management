@@ -1,6 +1,14 @@
 package com.tirwanda.be.exception;
 
+import org.springframework.web.bind.annotation.ControllerAdvice;
+
+import java.io.Serial;
+
+@ControllerAdvice
 public class ResourceNotFoundException extends Exception{
+
+    @Serial
+    private static final long serialVersionUID = 113943163774071997L;
 
     public ResourceNotFoundException() {
         super();
