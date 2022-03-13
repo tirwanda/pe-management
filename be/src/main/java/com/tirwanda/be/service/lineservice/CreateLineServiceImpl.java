@@ -2,6 +2,7 @@ package com.tirwanda.be.service.lineservice;
 
 import com.tirwanda.be.entity.Line;
 import com.tirwanda.be.entity.User;
+import com.tirwanda.be.exception.ResourceExistsException;
 import com.tirwanda.be.repository.LineRepository;
 import com.tirwanda.be.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Transactional
@@ -21,17 +21,21 @@ public class CreateLineServiceImpl implements CreateLineService{
     private final UserRepository userRepository;
 
     @Override
-    public Line saveLine(Line line) {
-        Optional<Line> lineCheck = Optional.ofNullable(lineRepository.findLineByLineCode(line.getLineCode()));
-        return lineCheck.orElseGet(() -> lineRepository.save(line));
+    public Line saveLine(Line line) throws ResourceExistsException {
+        Line lineCheck = lineRepository.findLineByLineCode(line.getLineCode());
+        if (lineCheck != null) {
+            throw new ResourceExistsException("Line already exists in database");
+        }
+        assert false;
+        return lineRepository.save(lineCheck);
     }
 
     @Override
-    public User createLineAndSaveToUser(Line line, String username) {
-        Optional<Line> lineCheck = Optional.ofNullable(lineRepository.findLineByLineCode(line.getLineCode()));
+    public User createLineAndSaveToUser(Line line, String username) throws ResourceExistsException {
+        Line lineCheck = lineRepository.findLineByLineCode(line.getLineCode());
         User user = userRepository.findByUsername(username);
-        if (lineCheck.isPresent()) {
-            throw new IllegalArgumentException("Line already on database");
+        if (lineCheck != null) {
+            throw new ResourceExistsException("Line already on database");
         }
         Line lineSave = lineRepository.save(line);
         user.getLines().add(lineSave);
