@@ -19,7 +19,7 @@ public class PrintRoleServiceImpl implements PrintRoleService{
     private final RoleRepository roleRepository;
 
     @Override
-    public Role getRole(Long roleId) {
+    public Role getRole(Long roleId) throws ResourceNotFoundException {
         return roleRepository.findById(roleId).orElseThrow(() -> new ResourceNotFoundException("Role is not found"));
     }
 
