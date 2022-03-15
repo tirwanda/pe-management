@@ -49,11 +49,19 @@ public class User extends BaseEntity<String> implements Serializable {
 
     private String name;
 
+    @Lob
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
     private String section;
 
-    private String department;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "department_Id", referencedColumnName = "departmentId")
+    private Department department;
 
-    private String division;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "division_id", referencedColumnName = "divisionId")
+    private Division division;
 
     @OneToMany(targetEntity = Line.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "userId")
