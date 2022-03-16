@@ -1,6 +1,5 @@
 package com.tirwanda.be.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.LazyCollection;
@@ -33,7 +32,6 @@ public class Division extends BaseEntity<String> implements Serializable {
     @JoinColumn(name = "division_id", referencedColumnName = "divisionId")
     @LazyCollection(LazyCollectionOption.FALSE)
     @ToString.Exclude
-    @JsonIgnore
     private List<Department> department;
 
     @Override
