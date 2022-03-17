@@ -82,7 +82,13 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     }
 
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        super.unsuccessfulAuthentication(request, response, failed);
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed)
+            throws IOException {
+        Map<String,  String> message = new HashMap<>();
+        message.put("error_message", "Username or Password is Invalid");
+
+        response.setContentType(APPLICATION_JSON_VALUE);
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        new ObjectMapper().writeValue(response.getOutputStream(), message);
     }
 }
