@@ -180,10 +180,10 @@ export default function App() {
       )}
       {layout === "vr" && <Configurator />}
       <Routes>
-        {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/dashboards/analytics" />} />
         <Route path="/sign-in" element={<SignInBasic />} />
         <Route path="/sign-up" element={<RegisterStepper />} />
+        {localStorage.getItem("ACCESS_TOKEN") && getRoutes(routes)}
+        <Route path="*" element={<Navigate to="/sign-in" />} />
       </Routes>
     </ThemeProvider>
   );

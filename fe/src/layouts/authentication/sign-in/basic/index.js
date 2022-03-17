@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // react-router-dom components
 import { Link, useNavigate } from "react-router-dom";
@@ -21,9 +21,13 @@ import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 import { userLogin } from "api/authAPI";
 
 import qs from "query-string";
+import MDSnackbar from "components/MDSnackbar";
 
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
+  const [message, setMessage] = useState("");
+  const [errorSB, setErrorSB] = useState(false);
+
   const initialState = {
     username: "",
     password: "",
@@ -32,6 +36,11 @@ function Basic() {
   const navigate = useNavigate();
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+  const closeErrorSB = () => setErrorSB(false);
+  const openErrorSB = (errorMessage) => {
+    setErrorSB(true);
+    setMessage(errorMessage);
+  };
 
   const handleInputChange = (e) => {
     setData({
@@ -55,20 +64,38 @@ function Basic() {
       .catch((err) => {
         if (err && err.response) {
           switch (err.response.status) {
+            case 400:
+              openErrorSB(err.response.data.error_message);
+              break;
             case 401:
-              console.log("401 status");
-              // props.loginFailure("Authentication Failed.Bad Credentials");
+              openErrorSB("Authentication Failed.Bad Credentials");
               break;
             default:
-              console.log("Something Wrong!Please Try Again");
-            // props.loginFailure("Something Wrong!Please Try Again");
+              openErrorSB("Something Wrong!Please Try Again");
           }
         } else {
-          console.log("Something Wrong!Please Try Again");
-          // props.loginFailure("Something Wrong!Please Try Again");
+          openErrorSB("Something Wrong!Please Try Again");
         }
       });
   };
+
+  const renderErrorSB = (
+    <MDSnackbar
+      color="error"
+      icon="warning"
+      title="Sign In Failed"
+      content={message}
+      dateTime="1 sec ago"
+      open={errorSB}
+      onClose={closeErrorSB}
+      close={closeErrorSB}
+      bgWhite
+    />
+  );
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   return (
     <BasicLayout image={bgImage}>
@@ -148,6 +175,7 @@ function Basic() {
           </MDBox>
         </MDBox>
       </Card>
+      {renderErrorSB}
     </BasicLayout>
   );
 }

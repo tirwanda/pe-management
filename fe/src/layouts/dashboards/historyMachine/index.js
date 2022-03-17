@@ -43,9 +43,8 @@ function HistoryMachine() {
       const decode = jwtDecode(localStorage.getItem("ACCESS_TOKEN"));
       localStorage.setItem("EXPIRES_IN", decode.exp);
     } catch (error) {
-      if (error.response) {
-        navigate("/sign-in");
-      }
+      localStorage.clear();
+      navigate("/sign-in");
     }
   };
 
@@ -55,6 +54,7 @@ function HistoryMachine() {
       setUser(dispatch, response.data.payload);
     } catch (error) {
       if (error.response) {
+        localStorage.clear();
         navigate("/sign-in");
       }
     }
