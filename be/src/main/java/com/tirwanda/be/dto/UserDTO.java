@@ -21,4 +21,7 @@ public class UserDTO {
 
     @NotEmpty(message = "Password is required")
     private String password;
+
+    private String section;
+    private String description;
 }
