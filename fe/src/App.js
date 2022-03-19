@@ -42,6 +42,10 @@ import brandDark from "assets/images/ahm-brand-dark.png";
 import SignInBasic from "layouts/authentication/sign-in/basic";
 // import SignUpCover from "layouts/authentication/sign-up/cover";
 import RegisterStepper from "layouts/authentication/sign-up/Validate";
+import NewProduct from "layouts/maintain/assets/new-product";
+import AssetPage from "layouts/maintain/assets/asset-page";
+// import NewProduct from "layouts/maintain/assets/new-product";
+// import AssetPage from "layouts/maintain/assets/asset-page";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -54,9 +58,12 @@ export default function App() {
     transparentSidenav,
     whiteSidenav,
     darkMode,
+    user,
   } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
+  const [customRoutes, setCustomRoutes] = useState(routes);
+  // const [userData, setUserData] = useState(user);
   const { pathname } = useLocation();
 
   // Cache for the rtl
@@ -88,6 +95,58 @@ export default function App() {
   // Change the openConfigurator state
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
 
+  const handleRoutes = () => {
+    const newRoutes = [...customRoutes];
+    const pos = newRoutes.findIndex((route) => route.key === "assets");
+    console.log("User Data: ", user);
+    newRoutes[pos].collapse = [
+      localStorage.getItem("LINES")?.map((line) => ({
+        name: line.lineName,
+        key: line.lineId,
+        collapse: [
+          {
+            name: "New Asset",
+            key: "new-asset",
+            route: `/assets/${line.lineName}/new-asset`,
+            component: <NewProduct />,
+          },
+          {
+            name: "Assets Page",
+            key: "assets-page",
+            route: `/assets/${line.lineName}/assets-page`,
+            component: <AssetPage title={line.lineName} />,
+          },
+        ],
+      })),
+      {
+        name: "Create New Line",
+        key: "new-line",
+        route: `/assets/new-line`,
+        component: <NewProduct />,
+      },
+    ];
+    //   name: "Mini Line",
+    //   key: "mini-line",
+    //   collapse: [
+    // {
+    //   name: "New Asset",
+    //   key: "new-asset",
+    //   route: "/assets/mini-line/new-asset",
+    //   component: <NewProduct />,
+    // },
+    // {
+    //   name: "Assets Page",
+    //   key: "assets-page",
+    //   route: "/assets/mini-line/assets-page",
+    //   component: <AssetPage title="Mini Line" />,
+    // },
+    //   ],
+    // },
+    // ];
+    setCustomRoutes(newRoutes);
+    console.log("New Routes: ", localStorage.getItem("LINES"));
+  };
+
   // Setting the dir attribute for the body element
   useEffect(() => {
     document.body.setAttribute("dir", direction);
@@ -97,6 +156,8 @@ export default function App() {
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
+
+    handleRoutes();
   }, [pathname]);
 
   const getRoutes = (allRoutes) =>
@@ -146,7 +207,7 @@ export default function App() {
               color={sidenavColor}
               brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
               brandName="PE Management"
-              routes={routes}
+              routes={customRoutes}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
             />
@@ -156,7 +217,7 @@ export default function App() {
         )}
         {layout === "vr" && <Configurator />}
         <Routes>
-          {getRoutes(routes)}
+          {getRoutes(customRoutes)}
           <Route path="*" element={<Navigate to="/dashboards/analytics" />} />
         </Routes>
       </ThemeProvider>
@@ -170,7 +231,7 @@ export default function App() {
             color={sidenavColor}
             brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
             brandName="PE Management"
-            routes={routes}
+            routes={customRoutes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
@@ -182,7 +243,7 @@ export default function App() {
       <Routes>
         <Route path="/sign-in" element={<SignInBasic />} />
         <Route path="/sign-up" element={<RegisterStepper />} />
-        {localStorage.getItem("ACCESS_TOKEN") && getRoutes(routes)}
+        {localStorage.getItem("ACCESS_TOKEN") && getRoutes(customRoutes)}
         <Route path="*" element={<Navigate to="/sign-in" />} />
       </Routes>
     </ThemeProvider>
