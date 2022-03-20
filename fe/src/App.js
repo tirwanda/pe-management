@@ -40,15 +40,13 @@ import brandDark from "assets/images/ahm-brand-dark.png";
 
 // Layouts Component
 import SignInBasic from "layouts/authentication/sign-in/basic";
-// import SignUpCover from "layouts/authentication/sign-up/cover";
 import RegisterStepper from "layouts/authentication/sign-up/Validate";
 import NewProduct from "layouts/maintain/assets/new-product";
 import AssetPage from "layouts/maintain/assets/asset-page";
-// import NewProduct from "layouts/maintain/assets/new-product";
-// import AssetPage from "layouts/maintain/assets/asset-page";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
+  const [render, setRender] = useState(false);
   const {
     miniSidenav,
     direction,
@@ -58,7 +56,6 @@ export default function App() {
     transparentSidenav,
     whiteSidenav,
     darkMode,
-    user,
   } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
@@ -95,61 +92,43 @@ export default function App() {
   // Change the openConfigurator state
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
 
-  const handleRoutes = () => {
-    const newRoutes = [...customRoutes];
-    const pos = newRoutes.findIndex((route) => route.key === "assets");
-    console.log("User Data: ", user);
-    newRoutes[pos].collapse = [
-      localStorage.getItem("LINES")?.map((line) => ({
+  function getRoutesCustom() {
+    const lineData = JSON.parse(localStorage.getItem("LINES"));
+    if (lineData) {
+      return lineData?.map((line) => ({
         name: line.lineName,
         key: line.lineId,
         collapse: [
           {
             name: "New Asset",
             key: "new-asset",
-            route: `/assets/${line.lineName}/new-asset`,
+            route: `/assets/${line.lineCode}/new-asset`,
             component: <NewProduct />,
           },
           {
             name: "Assets Page",
             key: "assets-page",
-            route: `/assets/${line.lineName}/assets-page`,
+            route: `/assets/${line.lineCode}/assets-page`,
             component: <AssetPage title={line.lineName} />,
           },
         ],
-      })),
-      {
-        name: "Create New Line",
-        key: "new-line",
-        route: `/assets/new-line`,
-        component: <NewProduct />,
-      },
-    ];
-    //   name: "Mini Line",
-    //   key: "mini-line",
-    //   collapse: [
-    // {
-    //   name: "New Asset",
-    //   key: "new-asset",
-    //   route: "/assets/mini-line/new-asset",
-    //   component: <NewProduct />,
-    // },
-    // {
-    //   name: "Assets Page",
-    //   key: "assets-page",
-    //   route: "/assets/mini-line/assets-page",
-    //   component: <AssetPage title="Mini Line" />,
-    // },
-    //   ],
-    // },
-    // ];
+      }));
+    }
+    return null;
+  }
+
+  const handleRoutes = () => {
+    const newRoutes = [...customRoutes];
+    const pos = newRoutes.findIndex((route) => route.key === "assets");
+
+    newRoutes[pos].collapse = getRoutesCustom();
     setCustomRoutes(newRoutes);
-    console.log("New Routes: ", localStorage.getItem("LINES"));
   };
 
   // Setting the dir attribute for the body element
   useEffect(() => {
     document.body.setAttribute("dir", direction);
+    handleRoutes();
   }, [direction]);
 
   // Setting page scroll to 0 when changing the route
@@ -158,10 +137,16 @@ export default function App() {
     document.scrollingElement.scrollTop = 0;
 
     handleRoutes();
+    setTimeout(() => {
+      setRender(true);
+    }, 1000);
   }, [pathname]);
 
   const getRoutes = (allRoutes) =>
     allRoutes.map((route) => {
+      if (route === null) {
+        return null;
+      }
       if (route.collapse) {
         return getRoutes(route.collapse);
       }
@@ -244,7 +229,7 @@ export default function App() {
         <Route path="/sign-in" element={<SignInBasic />} />
         <Route path="/sign-up" element={<RegisterStepper />} />
         {localStorage.getItem("ACCESS_TOKEN") && getRoutes(customRoutes)}
-        <Route path="*" element={<Navigate to="/sign-in" />} />
+        {render && <Route path="*" element={<Navigate to="/sign-in" />} />}
       </Routes>
     </ThemeProvider>
   );

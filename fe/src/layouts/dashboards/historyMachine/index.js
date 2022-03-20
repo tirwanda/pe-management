@@ -34,8 +34,7 @@ import { getUserData } from "api/userAPI";
 import { useMaterialUIController, setUser } from "context";
 
 function HistoryMachine() {
-  const [dispatch] = useMaterialUIController();
-  // const { user } = controller;
+  const [, dispatch] = useMaterialUIController();
   const navigate = useNavigate();
 
   const getToken = async () => {

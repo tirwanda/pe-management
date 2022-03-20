@@ -22,9 +22,15 @@ import { userLogin } from "api/authAPI";
 
 import qs from "query-string";
 import MDSnackbar from "components/MDSnackbar";
+import { getUserData } from "api/userAPI";
+import jwtDecode from "jwt-decode";
+
+// Context
+import { useMaterialUIController, setUser } from "context";
 
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
+  const [, dispatch] = useMaterialUIController();
   const [message, setMessage] = useState("");
   const [errorSB, setErrorSB] = useState(false);
 
@@ -49,6 +55,30 @@ function Basic() {
     });
   };
 
+  const getUser = async () => {
+    try {
+      const response = await getUserData();
+      setUser(dispatch, response.data.payload);
+      localStorage.setItem("LINES", JSON.stringify(response.data.payload.lines));
+      navigate("/dashboards/history-machine");
+    } catch (error) {
+      if (error.response) {
+        localStorage.clear();
+        navigate("/sign-in");
+      }
+    }
+  };
+
+  const getToken = async () => {
+    try {
+      const decode = jwtDecode(localStorage.getItem("ACCESS_TOKEN"));
+      localStorage.setItem("EXPIRES_IN", decode.exp);
+    } catch (error) {
+      localStorage.clear();
+      navigate("/sign-in");
+    }
+  };
+
   const handleLogin = async (event) => {
     event.preventDefault();
     await userLogin(qs.stringify(data))
@@ -57,9 +87,11 @@ function Basic() {
           localStorage.setItem("ACCESS_TOKEN", response.data.access_token);
           localStorage.setItem("REFRESH_TOKEN", response.data.refresh_token);
           localStorage.setItem("USERNAME", response.data.username);
-
-          navigate("/dashboards/history-machine");
         }
+      })
+      .then(() => {
+        getToken();
+        getUser();
       })
       .catch((err) => {
         if (err && err.response) {

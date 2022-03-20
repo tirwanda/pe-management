@@ -17,9 +17,6 @@ import Kanban from "layouts/applications/kanban";
 import Wizard from "layouts/applications/wizard";
 import DataTables from "layouts/applications/data-tables";
 import Calendar from "layouts/applications/calendar";
-import NewProduct from "layouts/maintain/assets/new-product";
-import EditProduct from "layouts/maintain/assets/edit-product";
-import AssetPage from "layouts/maintain/assets/asset-page";
 import SignInBasic from "layouts/authentication/sign-in/basic";
 import SignInCover from "layouts/authentication/sign-in/cover";
 import SignInIllustration from "layouts/authentication/sign-in/illustration";
@@ -210,80 +207,7 @@ const routes = [
     name: "Assets",
     key: "assets",
     icon: <Icon fontSize="medium">shopping_basket</Icon>,
-    collapse: [
-      {
-        name: "Line A",
-        key: "line-a",
-        collapse: [
-          {
-            name: "New Asset",
-            key: "new-asset",
-            route: "/assets/line-a/new-asset",
-            component: <NewProduct />,
-          },
-          {
-            name: "Edit Asset",
-            key: "edit-asset",
-            route: "/assets/line-a/edit-asset",
-            component: <EditProduct />,
-          },
-          {
-            name: "Assets Page",
-            key: "assets-page",
-            route: "/assets/line-a/assets-page",
-            component: <AssetPage title="Line A" />,
-          },
-        ],
-      },
-      {
-        name: "Mini Line",
-        key: "mini-line",
-        collapse: [
-          {
-            name: "New Asset",
-            key: "new-asset",
-            route: "/assets/mini-line/new-asset",
-            component: <NewProduct />,
-          },
-          {
-            name: "Edit Asset",
-            key: "edit-asset",
-            route: "/assets/mini-line/edit-asset",
-            component: <EditProduct />,
-          },
-          {
-            name: "Assets Page",
-            key: "assets-page",
-            route: "/assets/mini-line/assets-page",
-            component: <AssetPage title="Mini Line" />,
-          },
-        ],
-      },
-      {
-        name: "MM3",
-        key: "mm3",
-        collapse: [
-          {
-            name: "New Asset",
-            key: "new-asset",
-            route: "/assets/mm3/new-asset",
-            component: <NewProduct />,
-          },
-          {
-            name: "Edit Asset",
-            key: "edit-asset",
-            route: "/assets/mm3/edit-asset",
-            component: <EditProduct />,
-          },
-          {
-            name: "Assets Page",
-            key: "assets-page",
-            route: "/assets/mm3/assets-page",
-            component: <AssetPage title="MM3" />,
-          },
-        ],
-      },
-    ],
+    collapse: [],
   },
   {
     type: "collapse",
