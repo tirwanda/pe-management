@@ -30,6 +30,8 @@ public class UpdateUserServiceImpl implements UpdateUserService {
         userUpdate.setDescription(user.getDescription());
         userUpdate.setNrp(user.getNrp());
         userUpdate.setEmail(user.getEmail());
+        userUpdate.setExtension(user.getExtension());
+        userUpdate.setLocation(user.getLocation());
         return userRepository.save(userUpdate);
     }
 

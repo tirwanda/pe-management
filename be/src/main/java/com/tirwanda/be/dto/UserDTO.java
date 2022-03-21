@@ -24,4 +24,6 @@ public class UserDTO {
 
     private String section;
     private String description;
+    private Integer extension;
+    private String location;
 }

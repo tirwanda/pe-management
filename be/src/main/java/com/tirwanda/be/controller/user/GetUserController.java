@@ -5,11 +5,13 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tirwanda.be.dto.ProfileDTO;
 import com.tirwanda.be.dto.ResponseData;
 import com.tirwanda.be.entity.Role;
 import com.tirwanda.be.entity.User;
 import com.tirwanda.be.service.userservice.PrintUserServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +32,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class GetUserController {
 
     private final PrintUserServiceImpl printUserService;
+    private final ModelMapper modelMapper;
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers() {
@@ -42,6 +45,17 @@ public class GetUserController {
         responseData.setStatus(true);
         responseData.setPayload(printUserService.getUser(username));
 
+        return ResponseEntity.ok().body(responseData);
+    }
+
+    @GetMapping("/user/profile/{username}")
+    public ResponseEntity<ResponseData<ProfileDTO>> getProfile(@PathVariable("username") String username) {
+        ResponseData<ProfileDTO> responseData = new ResponseData<>();
+        User user = printUserService.getUser(username);
+        ProfileDTO profileDTO = modelMapper.map(user, ProfileDTO.class);
+
+        responseData.setStatus(true);
+        responseData.setPayload(profileDTO);
         return ResponseEntity.ok().body(responseData);
     }
 

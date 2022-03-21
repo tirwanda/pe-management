@@ -55,6 +55,10 @@ public class User extends BaseEntity<String> implements Serializable {
 
     private String section;
 
+    private Integer extension;
+
+    private String location;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "department_Id", referencedColumnName = "departmentId")
     private Department department;
