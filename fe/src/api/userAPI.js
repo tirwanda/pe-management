@@ -30,8 +30,19 @@ export const getUserData = () =>
     },
   });
 
+export const getProfileData = () =>
+  axiosJWT({
+    method: "GET",
+    url: `${
+      process.env.REACT_APP_HOST_URL || "http://localhost:8080"
+    }/api/user/profile/${getUsername()}`,
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+
 export const updateUser = (userData) =>
-  axios({
+  axiosJWT({
     method: "PUT",
     url: `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/user/update`,
     data: userData,

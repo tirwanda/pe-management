@@ -60,6 +60,8 @@ function Basic() {
       const response = await getUserData();
       setUser(dispatch, response.data.payload);
       localStorage.setItem("LINES", JSON.stringify(response.data.payload.lines));
+      localStorage.setItem("NAME", response.data.payload.name);
+      localStorage.setItem("LOCATION", response.data.payload.location);
       navigate("/dashboards/history-machine");
     } catch (error) {
       if (error.response) {

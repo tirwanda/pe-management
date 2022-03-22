@@ -31,6 +31,7 @@ import Icon from "@mui/material/Icon";
 
 // Images
 import profilePicture from "assets/images/peae5.jpg";
+import NewProduct from "layouts/maintain/assets/new-product";
 
 const routes = [
   {
@@ -77,6 +78,12 @@ const routes = [
         key: "History Machine",
         route: "/dashboards/history-machine",
         component: <HistoryMachine />,
+      },
+      {
+        name: "Create New Line",
+        key: "create-new-line",
+        route: `/assets/create-new-line`,
+        component: <NewProduct />,
       },
     ],
   },

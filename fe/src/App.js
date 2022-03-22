@@ -60,7 +60,6 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
   const [customRoutes, setCustomRoutes] = useState(routes);
-  // const [userData, setUserData] = useState(user);
   const { pathname } = useLocation();
 
   // Cache for the rtl
