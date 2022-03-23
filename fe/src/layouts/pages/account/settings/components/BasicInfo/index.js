@@ -1,34 +1,62 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
+import { useEffect, useState } from "react";
+// import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 // @material-ui core components
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-import Autocomplete from "@mui/material/Autocomplete";
 
 // Material Dashboard 2 PRO React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
+import MDButton from "components/MDButton";
 
 // Settings page components
 import FormField from "layouts/pages/account/components/FormField";
 
 // Data
-import selectData from "layouts/pages/account/settings/components/BasicInfo/data/selectData";
+import { updateUser } from "api/userAPI";
+import { setUser, useMaterialUIController } from "context";
 
-function BasicInfo() {
+function BasicInfo({ profile }) {
+  const [data, setData] = useState(profile);
+  const [, dispatch] = useMaterialUIController();
+
+  // const navigate = useNavigate();
+
+  const handleInputChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+    console.log("Data: ", data);
+  };
+
+  const handleUpdate = async (event) => {
+    event.preventDefault();
+
+    // updateUser(data)
+    //   .then((response) => {
+    //     setUser(dispatch, response.data.payload);
+    //     console.log("Response: ", response.data.payload);
+    //   })
+    //   .catch((error) => {
+    //     console.log("Error: ", error);
+    //   });
+    try {
+      const response = await updateUser(data);
+      setUser(dispatch, response.data.payload);
+      console.log("Response: ", response.data.payload);
+    } catch (error) {
+      console.log("Error: ", error);
+      // navigate("/sign-in");
+    }
+  };
+
+  useEffect(() => {
+    setData(profile);
+  }, [profile]);
+
   return (
     <Card id="basic-info" sx={{ overflow: "visible" }}>
       <MDBox p={3}>
@@ -37,98 +65,78 @@ function BasicInfo() {
       <MDBox component="form" pb={3} px={3}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
-            <FormField label="First Name" placeholder="Alec" />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormField label="Last Name" placeholder="Thompson" />
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={4}>
-                <Autocomplete
-                  defaultValue="Male"
-                  options={selectData.gender}
-                  renderInput={(params) => (
-                    <FormField {...params} label="I'm" InputLabelProps={{ shrink: true }} />
-                  )}
-                />
-              </Grid>
-              <Grid item xs={12} sm={8}>
-                <Grid container spacing={3}>
-                  <Grid item xs={12} sm={5}>
-                    <Autocomplete
-                      defaultValue="February"
-                      options={selectData.birthDate}
-                      renderInput={(params) => (
-                        <FormField
-                          {...params}
-                          label="Birth Date"
-                          InputLabelProps={{ shrink: true }}
-                        />
-                      )}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={4}>
-                    <Autocomplete
-                      defaultValue="1"
-                      options={selectData.days}
-                      renderInput={(params) => (
-                        <FormField {...params} InputLabelProps={{ shrink: true }} />
-                      )}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={3}>
-                    <Autocomplete
-                      defaultValue="2021"
-                      options={selectData.years}
-                      renderInput={(params) => (
-                        <FormField {...params} InputLabelProps={{ shrink: true }} />
-                      )}
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
+            <FormField
+              name="name"
+              label="Name"
+              placeholder="Name"
+              value={data.name || ""}
+              onChange={handleInputChange}
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormField
+              name="location"
+              label="Location"
+              placeholder="Location"
+              value={data.location || ""}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormField
+              name="email"
               label="Email"
               placeholder="example@email.com"
               inputProps={{ type: "email" }}
+              value={data.email || ""}
+              onChange={handleInputChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormField
-              label="confirmation email"
-              placeholder="example@email.com"
-              inputProps={{ type: "email" }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormField label="your location" placeholder="Sydney, A" />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormField
-              label="Phone Number"
+              name="extension"
+              label="Extension"
               placeholder="+40 735 631 620"
               inputProps={{ type: "number" }}
+              value={data.extension || ""}
+              onChange={handleInputChange}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
-            <FormField label="Language" placeholder="English" />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Autocomplete
-              multiple
-              defaultValue={["react", "angular"]}
-              options={selectData.skills}
-              renderInput={(params) => <FormField {...params} InputLabelProps={{ shrink: true }} />}
+          <Grid item xs={12} md={12}>
+            <FormField
+              name="description"
+              label="Description"
+              placeholder="About me"
+              multiline
+              rows={5}
+              value={data.description || ""}
+              onChange={handleInputChange}
             />
           </Grid>
+          <MDBox ml="auto" mt={3}>
+            <MDButton variant="gradient" color="dark" size="small" onClick={handleUpdate}>
+              Update Profile
+            </MDButton>
+          </MDBox>
         </Grid>
       </MDBox>
     </Card>
   );
 }
+
+BasicInfo.defaultProps = {
+  profile: {},
+};
+
+BasicInfo.propTypes = {
+  profile: PropTypes.shape({
+    username: PropTypes.string,
+    name: PropTypes.string,
+    location: PropTypes.string,
+    email: PropTypes.string,
+    extension: PropTypes.number,
+    description: PropTypes.string,
+  }),
+};
 
 export default BasicInfo;
