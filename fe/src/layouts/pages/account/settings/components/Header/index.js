@@ -1,19 +1,6 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState } from "react";
+
+import PropTypes from "prop-types";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -28,7 +15,7 @@ import MDAvatar from "components/MDAvatar";
 // Images
 import burceMars from "assets/images/bruce-mars.jpg";
 
-function Header() {
+function Header({ name, title }) {
   const [visible, setVisible] = useState(true);
 
   const handleSetVisible = () => setVisible(!visible);
@@ -43,10 +30,10 @@ function Header() {
           <Grid item>
             <MDBox height="100%" mt={0.5} lineHeight={1}>
               <MDTypography variant="h5" fontWeight="medium">
-                Alex Thompson
+                {name}
               </MDTypography>
               <MDTypography variant="button" color="text" fontWeight="medium">
-                CEO / Co-Founder
+                {title}
               </MDTypography>
             </MDBox>
           </Grid>
@@ -70,5 +57,15 @@ function Header() {
     </Card>
   );
 }
+
+Header.defaultProps = {
+  name: "Tirwanda",
+  title: "Backend Developer",
+};
+
+Header.propTypes = {
+  name: PropTypes.string,
+  title: PropTypes.string,
+};
 
 export default Header;

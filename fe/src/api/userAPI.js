@@ -42,9 +42,8 @@ export const getProfileData = () =>
   });
 
 export const updateUser = (userData) =>
-  axiosJWT({
-    method: "PUT",
-    url: `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/user/update`,
-    data: userData,
-    config,
-  });
+  axiosJWT.put(
+    `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/user/update`,
+    userData,
+    config
+  );

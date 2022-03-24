@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // @material-ui core components
@@ -22,34 +22,23 @@ function BasicInfo({ profile }) {
   const [data, setData] = useState(profile);
   const [, dispatch] = useMaterialUIController();
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,
     });
-    console.log("Data: ", data);
   };
 
   const handleUpdate = async (event) => {
     event.preventDefault();
 
-    // updateUser(data)
-    //   .then((response) => {
-    //     setUser(dispatch, response.data.payload);
-    //     console.log("Response: ", response.data.payload);
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error: ", error);
-    //   });
     try {
       const response = await updateUser(data);
       setUser(dispatch, response.data.payload);
-      console.log("Response: ", response.data.payload);
     } catch (error) {
-      console.log("Error: ", error);
-      // navigate("/sign-in");
+      navigate("/sign-in");
     }
   };
 

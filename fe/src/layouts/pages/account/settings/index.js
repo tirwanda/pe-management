@@ -1,17 +1,5 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // @mui material components
 import Grid from "@mui/material/Grid";
@@ -31,7 +19,27 @@ import Notifications from "layouts/pages/account/settings/components/Notificatio
 import Sessions from "layouts/pages/account/settings/components/Sessions";
 import DeleteAccount from "layouts/pages/account/settings/components/DeleteAccount";
 
+// Data
+import { getProfileData } from "api/userAPI";
+
 function Settings() {
+  const [profile, setProfile] = useState({});
+  const navigate = useNavigate();
+
+  const getProfile = async () => {
+    try {
+      const response = await getProfileData();
+      setProfile(response.data.payload);
+    } catch (error) {
+      localStorage.clear();
+      navigate("/sign-in");
+    }
+  };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
   return (
     <BaseLayout>
       <MDBox mt={4}>
@@ -43,10 +51,10 @@ function Settings() {
             <MDBox mb={3}>
               <Grid container spacing={3}>
                 <Grid item xs={12}>
-                  <Header />
+                  <Header name={profile.name} title={profile.location} />
                 </Grid>
                 <Grid item xs={12}>
-                  <BasicInfo />
+                  <BasicInfo profile={profile} />
                 </Grid>
                 <Grid item xs={12}>
                   <ChangePassword />

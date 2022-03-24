@@ -45,6 +45,9 @@ function reducer(state, action) {
     case "SET_USER": {
       return { ...state, user: action.value };
     }
+    case "SET_PROFILE": {
+      return { ...state, profile: action.value };
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -64,7 +67,9 @@ function MaterialUIControllerProvider({ children }) {
     direction: "ltr",
     layout: "dashboard",
     darkMode: false,
+
     user: {},
+    profile: {},
   };
 
   const [controller, dispatch] = useReducer(reducer, initialState);
@@ -105,6 +110,7 @@ const setLayout = (dispatch, value) => dispatch({ type: "LAYOUT", value });
 const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
 
 const setUser = (dispatch, value) => dispatch({ type: "SET_USER", value });
+const setProfile = (dispatch, value) => dispatch({ type: "SET_PROFILE", value });
 
 export {
   MaterialUIControllerProvider,
@@ -120,4 +126,5 @@ export {
   setLayout,
   setDarkMode,
   setUser,
+  setProfile,
 };
