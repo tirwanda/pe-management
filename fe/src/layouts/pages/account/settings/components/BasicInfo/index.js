@@ -10,6 +10,7 @@ import Grid from "@mui/material/Grid";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
+import MDSnackbar from "components/MDSnackbar";
 
 // Settings page components
 import FormField from "layouts/pages/account/components/FormField";
@@ -21,6 +22,9 @@ import { setUser, useMaterialUIController } from "context";
 function BasicInfo({ profile }) {
   const [data, setData] = useState(profile);
   const [, dispatch] = useMaterialUIController();
+  const [successSB, setSuccessSB] = useState(false);
+  const [errorSB, setErrorSB] = useState(false);
+  const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -31,20 +35,70 @@ function BasicInfo({ profile }) {
     });
   };
 
+  const openSuccessSB = (response) => {
+    setSuccessSB(true);
+    setMessage(response);
+  };
+
+  const closeSuccessSB = () => setSuccessSB(false);
+
+  const openErrorSB = (response) => {
+    setErrorSB(true);
+    setMessage(response);
+  };
+
+  const closeErrorSB = () => setErrorSB(false);
+
   const handleUpdate = async (event) => {
     event.preventDefault();
 
     try {
       const response = await updateUser(data);
       setUser(dispatch, response.data.payload);
+      openSuccessSB(response.data.payload.username);
     } catch (error) {
-      navigate("/sign-in");
+      if (error.response === 400) {
+        openErrorSB(error.response.data.message);
+      } else if (error.response === 403) {
+        openErrorSB(error.response.data.message);
+        navigate("/sign-in");
+      } else {
+        openErrorSB("Something went wrong");
+      }
     }
   };
 
   useEffect(() => {
     setData(profile);
   }, [profile]);
+
+  const renderSuccessSB = (
+    <MDSnackbar
+      color="success"
+      icon="check"
+      title="Successfully updated profile"
+      content={`Congratulations, you have successfully updated user profile with the username ${message}`}
+      dateTime="2 seconds ago"
+      open={successSB}
+      onClose={closeSuccessSB}
+      close={closeSuccessSB}
+      bgWhite
+    />
+  );
+
+  const renderErrorSB = (
+    <MDSnackbar
+      color="error"
+      icon="warning"
+      title="Failed to updating user profile"
+      content={message}
+      dateTime="2 second ago"
+      open={errorSB}
+      onClose={closeErrorSB}
+      close={closeErrorSB}
+      bgWhite
+    />
+  );
 
   return (
     <Card id="basic-info" sx={{ overflow: "visible" }}>
@@ -109,6 +163,8 @@ function BasicInfo({ profile }) {
           </MDBox>
         </Grid>
       </MDBox>
+      {renderSuccessSB}
+      {renderErrorSB}
     </Card>
   );
 }
