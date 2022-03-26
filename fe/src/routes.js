@@ -1,6 +1,6 @@
 // Material Dashboard 2 PRO React layouts
 import Analytics from "layouts/dashboards/analytics";
-import HistoryMachine from "layouts/dashboards/historyMachine";
+import HistoryMachine from "layouts/dashboards/history-machine";
 import ProfileOverview from "layouts/pages/profile/profile-overview";
 import AllProjects from "layouts/pages/profile/all-projects";
 import NewUser from "layouts/pages/users/new-user";
@@ -22,6 +22,7 @@ import SignInCover from "layouts/authentication/sign-in/cover";
 import SignInIllustration from "layouts/authentication/sign-in/illustration";
 import SignUpCover from "layouts/authentication/sign-up/cover";
 import ResetCover from "layouts/authentication/reset-password/cover";
+import NewLine from "layouts/dashboards/create-new-line";
 
 // Material Dashboard 2 PRO React components
 import MDAvatar from "components/MDAvatar";
@@ -31,7 +32,6 @@ import Icon from "@mui/material/Icon";
 
 // Images
 import profilePicture from "assets/images/peae5.jpg";
-import NewProduct from "layouts/maintain/assets/new-product";
 
 const routes = [
   {
@@ -83,7 +83,7 @@ const routes = [
         name: "Create New Line",
         key: "create-new-line",
         route: `/assets/create-new-line`,
-        component: <NewProduct />,
+        component: <NewLine />,
       },
     ],
   },

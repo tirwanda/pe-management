@@ -1,6 +1,6 @@
 // Sales dashboard components
-import ProductCell from "layouts/dashboards/historyMachine/components/ProductCell";
-import DefaultCell from "layouts/dashboards/historyMachine/components/DefaultCell";
+import ProductCell from "layouts/dashboards/history-machine/components/ProductCell";
+import DefaultCell from "layouts/dashboards/history-machine/components/DefaultCell";
 
 // Images
 import mcLogo from "assets/images/products/mc-logo.jpg";

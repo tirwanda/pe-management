@@ -22,11 +22,11 @@ import DefaultLineChart from "examples/Charts/LineCharts/DefaultLineChart";
 import DataTable from "examples/Tables/DataTable";
 
 // Sales dashboard components
-import ChannelsChart from "layouts/dashboards/historyMachine/components/ChannelsChart";
+import ChannelsChart from "layouts/dashboards/history-machine/components/ChannelsChart";
 
 // Data
-import defaultLineChartData from "layouts/dashboards/historyMachine/data/defaultLineChartData";
-import dataTableData from "layouts/dashboards/historyMachine/data/dataTableData";
+import defaultLineChartData from "layouts/dashboards/history-machine/data/defaultLineChartData";
+import dataTableData from "layouts/dashboards/history-machine/data/dataTableData";
 import jwtDecode from "jwt-decode";
 import { getUserData } from "api/userAPI";
 
