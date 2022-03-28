@@ -22,13 +22,6 @@ const newLineForm = {
       type: "text",
       errorMsg: "Description is required.",
     },
-    category: {
-      name: "category",
-      placeholder: "Select a Category",
-      label: "Category",
-      type: "text",
-      errorMsg: "Category is required.",
-    },
     cycleTime: {
       name: "cycleTime",
       label: "Cycle Time(sec)",

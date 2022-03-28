@@ -185,36 +185,6 @@ function NewLine() {
                   </Form>
                 )}
               </Formik>
-              {/* <MDBox mt={-3} mb={3} mx={2}>
-                <Stepper activeStep={activeStep} alternativeLabel>
-                  {steps.map((label) => (
-                    <Step key={label}>
-                      <StepLabel>{label}</StepLabel>
-                    </Step>
-                  ))}
-                </Stepper>
-              </MDBox>
-              <MDBox p={2}>
-                <MDBox>
-                  {getStepContent(activeStep)}
-                  <MDBox mt={3} width="100%" display="flex" justifyContent="space-between">
-                    {activeStep === 0 ? (
-                      <MDBox />
-                    ) : (
-                      <MDButton variant="gradient" color="light" onClick={handleBack}>
-                        back
-                      </MDButton>
-                    )}
-                    <MDButton
-                      variant="gradient"
-                      color="dark"
-                      onClick={!isLastStep ? handleNext : undefined}
-                    >
-                      {isLastStep ? "send" : "next"}
-                    </MDButton>
-                  </MDBox>
-                </MDBox>
-              </MDBox> */}
             </Card>
           </Grid>
         </Grid>
