@@ -1,5 +1,6 @@
 package com.tirwanda.be.controller.user;
 
+import com.tirwanda.be.dto.ProfileDTO;
 import com.tirwanda.be.dto.ResponseData;
 import com.tirwanda.be.dto.UserDTO;
 import com.tirwanda.be.entity.User;
@@ -28,11 +29,11 @@ public class UpdateUserController {
     private final ModelMapper modelMapper;
 
     @PutMapping("/user/update")
-    public ResponseEntity<ResponseData<User>> updateUser(@Valid @RequestBody UserDTO userDTO, Errors errors) {
+    public ResponseEntity<ResponseData<User>> updateUser(@Valid @RequestBody ProfileDTO profileDTO, Errors errors) {
         ResponseData<User> responseData = new ResponseData<>();
 
         try {
-            User user = modelMapper.map(userDTO, User.class);
+//            User user = modelMapper.map(userDTO, User.class);
             if (errors.hasErrors()) {
                 for (ObjectError error : errors.getAllErrors()) {
                     responseData.getMessage().add(error.getDefaultMessage());
@@ -42,7 +43,7 @@ public class UpdateUserController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
             }
             responseData.setStatus(true);
-            responseData.setPayload(updateUserService.updateUser(user));
+            responseData.setPayload(updateUserService.updateUser(profileDTO));
             return ResponseEntity.ok().body(responseData);
         } catch (ResourceNotFoundException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());

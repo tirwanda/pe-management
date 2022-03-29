@@ -20,6 +20,7 @@ import MDSnackbar from "components/MDSnackbar";
 
 import { Form, Formik } from "formik";
 import initialValues from "layouts/dashboards/create-new-line/schema/initialValues";
+import { useNavigate } from "react-router-dom";
 import LineInfo from "./components/LineInfo";
 import newLineForm from "./schema/newLineForm";
 import validations from "./schema/validations";
@@ -46,6 +47,7 @@ function NewLine() {
   const { formId, formField } = newLineForm;
   const currentValidation = validations;
   const isLastStep = activeStep === steps.length - 1;
+  const navigate = useNavigate();
 
   const sleep = (ms) =>
     new Promise((resolve) => {
@@ -65,8 +67,16 @@ function NewLine() {
 
   const submitForm = async (values, actions) => {
     await sleep(1000);
-    saveLine(values)
-      .then((response) => openSuccessSB(response.data.payload.lineCode))
+    const lineSave = {
+      ...values,
+      username: localStorage.getItem("USERNAME"),
+    };
+    saveLine(lineSave)
+      .then((response) => {
+        localStorage.setItem("LINES", JSON.stringify(response.data.payload.lines));
+        openSuccessSB(lineSave.lineCode);
+        navigate("/dashboards/history-machine");
+      })
       .catch((error) => {
         if (error.response) {
           openErrorSB(error.response.data.message);
@@ -98,7 +108,7 @@ function NewLine() {
       color="success"
       icon="check"
       title="Successfully save data"
-      content={`Congratulations, you have successfully created a user with the username ${message}`}
+      content={`Successfully added Line with the Line Code ${message}`}
       dateTime="A few seconds ago"
       open={successSB}
       onClose={closeSuccessSB}

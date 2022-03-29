@@ -27,7 +27,7 @@ public class CreateLineServiceImpl implements CreateLineService{
             throw new ResourceExistsException("Line already exists in database");
         }
         assert false;
-        return lineRepository.save(lineCheck);
+        return lineRepository.save(line);
     }
 
     @Override

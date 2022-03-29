@@ -36,6 +36,12 @@ public class Line extends BaseEntity<String> implements Serializable {
     @NotEmpty(message = "Line name is required")
     private String lineName;
 
+    @Lob
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
+    private Integer cycleTime;
+
     @OneToMany(targetEntity = Asset.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "line_id", referencedColumnName = "lineId")
     @LazyCollection(LazyCollectionOption.FALSE)

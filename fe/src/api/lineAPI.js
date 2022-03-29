@@ -1,8 +1,6 @@
-import axios from "axios";
 import { axiosJWT } from "./authAPI";
 
 const getToken = () => localStorage.getItem("ACCESS_TOKEN");
-const getUsername = () => localStorage.getItem("USERNAME");
 
 const config = {
   headers: {
@@ -12,12 +10,11 @@ const config = {
 };
 
 export const saveLine = (lineData) =>
-  axiosJWT({
-    method: "POST",
-    url: `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/line/save`,
-    data: lineData,
-    config,
-  });
+  axiosJWT.post(
+    `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/line/save-and-add-to-user`,
+    lineData,
+    config
+  );
 
 export const updateLine = (lineData) =>
   axiosJWT.put(

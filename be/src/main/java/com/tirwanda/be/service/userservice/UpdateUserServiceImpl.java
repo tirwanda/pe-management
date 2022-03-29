@@ -1,5 +1,6 @@
 package com.tirwanda.be.service.userservice;
 
+import com.tirwanda.be.dto.ProfileDTO;
 import com.tirwanda.be.entity.Line;
 import com.tirwanda.be.entity.User;
 import com.tirwanda.be.exception.ResourceNotFoundException;
@@ -21,17 +22,15 @@ public class UpdateUserServiceImpl implements UpdateUserService {
     private final LineRepository lineRepository;
 
     @Override
-    public User updateUser(User user) throws ResourceNotFoundException {
-        User userUpdate = userRepository.findByUsername(user.getUsername());
+    public User updateUser(ProfileDTO profileDTO) throws ResourceNotFoundException {
+        User userUpdate = userRepository.findByUsername(profileDTO.getUsername());
         if (userUpdate == null)
-            throw new ResourceNotFoundException("User with username : '" + user.getUsername() + "' is not found in database");
-        userUpdate.setName(user.getName());
-        userUpdate.setSection(user.getSection());
-        userUpdate.setDescription(user.getDescription());
-        userUpdate.setNrp(user.getNrp());
-        userUpdate.setEmail(user.getEmail());
-        userUpdate.setExtension(user.getExtension());
-        userUpdate.setLocation(user.getLocation());
+            throw new ResourceNotFoundException("User with username : '" + profileDTO.getUsername() + "' is not found in database");
+        userUpdate.setName(profileDTO.getName());
+        userUpdate.setDescription(profileDTO.getDescription());
+        userUpdate.setNrp(profileDTO.getExtension());
+        userUpdate.setEmail(profileDTO.getEmail());
+        userUpdate.setLocation(profileDTO.getLocation());
         return userRepository.save(userUpdate);
     }
 
