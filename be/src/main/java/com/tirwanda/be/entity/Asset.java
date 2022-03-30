@@ -33,6 +33,10 @@ public class Asset extends BaseEntity<String> implements Serializable {
     @Column(nullable = false)
     private String assetName;
 
+    private String description;
+
+    private String status;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
