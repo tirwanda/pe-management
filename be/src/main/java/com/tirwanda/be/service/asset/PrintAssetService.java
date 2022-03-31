@@ -8,6 +8,6 @@ import java.util.List;
 public interface PrintAssetService {
     Asset getAsset(String assetNumber) throws ResourceNotFoundException;
     List<Asset> getAssetsByLine(String lineCode) throws ResourceNotFoundException;
-    List<Asset> getAssetsBySection(String username) throws ResourceNotFoundException;
+    List<Asset> getAssetsByUser(String username) throws ResourceNotFoundException;
     List<Asset> getAllAssets();
 }

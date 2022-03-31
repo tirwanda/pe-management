@@ -41,7 +41,7 @@ public class PrintAssetServiceImpl implements PrintAssetService{
     }
 
     @Override
-    public List<Asset> getAssetsBySection(String username) throws ResourceNotFoundException{
+    public List<Asset> getAssetsByUser(String username) throws ResourceNotFoundException{
         User user = userRepository.findByUsername(username);
         if (user == null) throw new ResourceNotFoundException("User with username " + username + " is not found");
 
