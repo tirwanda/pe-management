@@ -1,6 +1,6 @@
 package com.tirwanda.be.controller.department;
 
-import com.tirwanda.be.dto.DepartmentDTO;
+import com.tirwanda.be.dto.request.DepartmentDTO;
 import com.tirwanda.be.dto.ResponseData;
 import com.tirwanda.be.entity.Department;
 import com.tirwanda.be.exception.ResourceExistsException;
