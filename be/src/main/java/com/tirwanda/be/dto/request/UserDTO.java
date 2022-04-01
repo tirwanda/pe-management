@@ -1,4 +1,4 @@
-package com.tirwanda.be.dto;
+package com.tirwanda.be.dto.request;
 
 import lombok.Data;
 

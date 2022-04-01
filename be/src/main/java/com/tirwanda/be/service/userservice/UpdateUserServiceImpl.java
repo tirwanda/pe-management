@@ -1,6 +1,6 @@
 package com.tirwanda.be.service.userservice;
 
-import com.tirwanda.be.dto.ProfileDTO;
+import com.tirwanda.be.dto.request.ProfileDTO;
 import com.tirwanda.be.entity.Line;
 import com.tirwanda.be.entity.User;
 import com.tirwanda.be.exception.ResourceNotFoundException;

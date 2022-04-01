@@ -5,7 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tirwanda.be.dto.ProfileDTO;
+import com.tirwanda.be.dto.request.ProfileDTO;
 import com.tirwanda.be.dto.ResponseData;
 import com.tirwanda.be.entity.Role;
 import com.tirwanda.be.entity.User;

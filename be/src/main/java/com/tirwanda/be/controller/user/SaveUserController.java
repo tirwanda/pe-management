@@ -1,8 +1,8 @@
 package com.tirwanda.be.controller.user;
 
 import com.tirwanda.be.dto.ResponseData;
-import com.tirwanda.be.dto.RoleToUserDTO;
-import com.tirwanda.be.dto.UserDTO;
+import com.tirwanda.be.dto.request.RoleToUserDTO;
+import com.tirwanda.be.dto.request.UserDTO;
 import com.tirwanda.be.entity.User;
 import com.tirwanda.be.service.userservice.CreateUserServiceImpl;
 import lombok.RequiredArgsConstructor;
