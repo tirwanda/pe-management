@@ -3,7 +3,7 @@ package com.tirwanda.be.controller.role;
 import com.tirwanda.be.dto.ResponseData;
 import com.tirwanda.be.entity.Role;
 import com.tirwanda.be.exception.ResourceNotFoundException;
-import com.tirwanda.be.service.roleservice.PrintRoleService;
+import com.tirwanda.be.service.role.PrintRoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

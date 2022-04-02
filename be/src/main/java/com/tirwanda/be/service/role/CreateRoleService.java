@@ -1,4 +1,4 @@
-package com.tirwanda.be.service.roleservice;
+package com.tirwanda.be.service.role;
 
 import com.tirwanda.be.entity.Role;
 
