@@ -1,4 +1,4 @@
-package com.tirwanda.be.service.lineservice;
+package com.tirwanda.be.service.line;
 
 import com.tirwanda.be.entity.Line;
 import com.tirwanda.be.repository.LineRepository;

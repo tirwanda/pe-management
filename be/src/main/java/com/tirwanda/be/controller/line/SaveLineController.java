@@ -6,7 +6,7 @@ import com.tirwanda.be.dto.request.SaveLineAddToUserDTO;
 import com.tirwanda.be.entity.Line;
 import com.tirwanda.be.entity.User;
 import com.tirwanda.be.exception.ResourceExistsException;
-import com.tirwanda.be.service.lineservice.CreateLineServiceImpl;
+import com.tirwanda.be.service.line.CreateLineServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;

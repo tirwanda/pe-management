@@ -3,7 +3,7 @@ package com.tirwanda.be.controller.line;
 import com.tirwanda.be.dto.ResponseData;
 import com.tirwanda.be.entity.Line;
 import com.tirwanda.be.exception.ResourceNotFoundException;
-import com.tirwanda.be.service.lineservice.PrintLineServiceImpl;
+import com.tirwanda.be.service.line.PrintLineServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
