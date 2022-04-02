@@ -1,7 +1,7 @@
 package com.tirwanda.be.controller.role;
 
 import com.tirwanda.be.dto.ResponseData;
-import com.tirwanda.be.dto.RoleDTO;
+import com.tirwanda.be.dto.request.RoleDTO;
 import com.tirwanda.be.entity.Role;
 import com.tirwanda.be.service.roleservice.CreateRoleService;
 import lombok.RequiredArgsConstructor;

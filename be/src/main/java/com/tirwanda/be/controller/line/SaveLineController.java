@@ -1,8 +1,8 @@
 package com.tirwanda.be.controller.line;
 
-import com.tirwanda.be.dto.LineDTO;
+import com.tirwanda.be.dto.request.LineDTO;
 import com.tirwanda.be.dto.ResponseData;
-import com.tirwanda.be.dto.SaveLineAddToUserDTO;
+import com.tirwanda.be.dto.request.SaveLineAddToUserDTO;
 import com.tirwanda.be.entity.Line;
 import com.tirwanda.be.entity.User;
 import com.tirwanda.be.exception.ResourceExistsException;

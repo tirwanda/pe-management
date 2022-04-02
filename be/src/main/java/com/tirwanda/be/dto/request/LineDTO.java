@@ -1,4 +1,4 @@
-package com.tirwanda.be.dto;
+package com.tirwanda.be.dto.request;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class SaveLineAddToUserDTO {
+public class LineDTO {
 
     @NotEmpty(message = "Line code is required")
     private String lineCode;
@@ -19,7 +19,4 @@ public class SaveLineAddToUserDTO {
 
     @NotNull(message = "cycleTime is required")
     private Integer cycleTime;
-
-    @NotEmpty(message = "Username is required")
-    private String username;
 }

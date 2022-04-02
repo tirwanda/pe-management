@@ -1,6 +1,6 @@
 package com.tirwanda.be.controller.division;
 
-import com.tirwanda.be.dto.DivisionDTO;
+import com.tirwanda.be.dto.request.DivisionDTO;
 import com.tirwanda.be.dto.ResponseData;
 import com.tirwanda.be.entity.Division;
 import com.tirwanda.be.exception.ResourceNotFoundException;
