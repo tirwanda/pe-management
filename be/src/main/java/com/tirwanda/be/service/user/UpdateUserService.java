@@ -1,4 +1,4 @@
-package com.tirwanda.be.service.userservice;
+package com.tirwanda.be.service.user;
 
 import com.tirwanda.be.dto.request.ProfileDTO;
 import com.tirwanda.be.entity.User;

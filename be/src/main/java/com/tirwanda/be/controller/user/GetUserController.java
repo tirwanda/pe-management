@@ -9,7 +9,7 @@ import com.tirwanda.be.dto.request.ProfileDTO;
 import com.tirwanda.be.dto.ResponseData;
 import com.tirwanda.be.entity.Role;
 import com.tirwanda.be.entity.User;
-import com.tirwanda.be.service.userservice.PrintUserServiceImpl;
+import com.tirwanda.be.service.user.PrintUserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;

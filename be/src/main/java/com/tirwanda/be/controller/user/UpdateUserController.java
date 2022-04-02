@@ -4,7 +4,7 @@ import com.tirwanda.be.dto.request.ProfileDTO;
 import com.tirwanda.be.dto.ResponseData;
 import com.tirwanda.be.entity.User;
 import com.tirwanda.be.exception.ResourceNotFoundException;
-import com.tirwanda.be.service.userservice.UpdateUserServiceImpl;
+import com.tirwanda.be.service.user.UpdateUserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

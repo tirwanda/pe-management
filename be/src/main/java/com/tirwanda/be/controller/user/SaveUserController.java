@@ -4,7 +4,7 @@ import com.tirwanda.be.dto.ResponseData;
 import com.tirwanda.be.dto.request.RoleToUserDTO;
 import com.tirwanda.be.dto.request.UserDTO;
 import com.tirwanda.be.entity.User;
-import com.tirwanda.be.service.userservice.CreateUserServiceImpl;
+import com.tirwanda.be.service.user.CreateUserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;

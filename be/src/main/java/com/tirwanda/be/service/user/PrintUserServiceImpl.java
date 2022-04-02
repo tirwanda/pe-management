@@ -1,4 +1,4 @@
-package com.tirwanda.be.service.userservice;
+package com.tirwanda.be.service.user;
 
 import com.tirwanda.be.entity.User;
 import com.tirwanda.be.repository.UserRepository;
