@@ -108,7 +108,7 @@ export default function App() {
             name: "Assets Page",
             key: "assets-page",
             route: `/assets/${line.lineCode}/assets-page`,
-            component: <AssetPage title={line.lineName} />,
+            component: <AssetPage title={line.lineName} lineCode={line.lineCode} />,
           },
         ],
       }));

@@ -13,8 +13,6 @@ public class AssetDTO {
     @NotEmpty(message = "Asset name is required")
     private String assetName;
 
-    private String description;
-
     @NotEmpty(message = "Status is required")
     private String status;
 
