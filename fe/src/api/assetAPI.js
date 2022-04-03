@@ -25,6 +25,17 @@ export const getLineData = (lineCode) =>
     },
   });
 
+export const getAssetByAssetNumber = (assetNumber) =>
+  axiosJWT({
+    method: "GET",
+    url: `${
+      process.env.REACT_APP_HOST_URL || "http://localhost:8080"
+    }/api/asset/asset-no/${assetNumber}`,
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+
 export const updateAsset = (lineData) =>
   axiosJWT.put(
     `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/asset/update`,

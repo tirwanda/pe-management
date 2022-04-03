@@ -24,7 +24,7 @@ import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 
 // NewProduct page components
-import FormField from "layouts/maintain/assets/edit-product/components/FormField";
+import FormField from "layouts/maintain/assets/edit-asset/components/FormField";
 
 function Pricing() {
   return (

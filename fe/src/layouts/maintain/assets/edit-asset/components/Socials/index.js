@@ -22,7 +22,7 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
 // EditProduct page components
-import FormField from "layouts/maintain/assets/edit-product/components/FormField";
+import FormField from "layouts/maintain/assets/edit-asset/components/FormField";
 
 function Socials() {
   return (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -43,7 +43,12 @@ function AssetPage({ title, lineCode }) {
                 <MDButton variant="text" color="error">
                   <Icon>delete</Icon>&nbsp;delete
                 </MDButton>
-                <MDButton variant="text" color="dark">
+                <MDButton
+                  component={Link}
+                  to={`/asset/edit/${item.assetNumber}`}
+                  variant="text"
+                  color="dark"
+                >
                   <Icon>edit</Icon>&nbsp;edit
                 </MDButton>
                 <MDButton variant="text" color="dark">

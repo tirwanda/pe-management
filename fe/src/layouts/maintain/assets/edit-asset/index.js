@@ -1,17 +1,5 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 // @mui material components
 import Grid from "@mui/material/Grid";
@@ -27,28 +15,44 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 
 // EditProduct page components
-import ProductImage from "layouts/maintain/assets/edit-product/components/ProductImage";
-import ProductInfo from "layouts/maintain/assets/edit-product/components/ProductInfo";
-import Socials from "layouts/maintain/assets/edit-product/components/Socials";
-import Pricing from "layouts/maintain/assets/edit-product/components/Pricing";
+import ProductImage from "layouts/maintain/assets/edit-asset/components/ProductImage";
+import ProductInfo from "layouts/maintain/assets/edit-asset/components/ProductInfo";
+import Socials from "layouts/maintain/assets/edit-asset/components/Socials";
+import Pricing from "layouts/maintain/assets/edit-asset/components/Pricing";
 
-function EditProduct() {
+// Data
+import { getAssetByAssetNumber } from "api/assetAPI";
+
+function EditAsset() {
+  const [detailAsset, setDetailAsset] = useState({});
+  const { assetNumber } = useParams();
+  const navigate = useNavigate();
+
+  const getDetailAsset = (data) => {
+    getAssetByAssetNumber(data)
+      .then((res) => {
+        setDetailAsset(res.data.payload);
+      })
+      .catch(() => {
+        localStorage.clear();
+        navigate("/sign-in");
+      });
+  };
+
+  useEffect(() => {
+    getDetailAsset(assetNumber);
+  }, []);
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox my={3}>
         <MDBox mb={6}>
           <Grid container spacing={3} alignItems="center">
-            <Grid item xs={12} lg={6}>
+            <Grid item xs={12} lg={6} mb={3}>
               <MDTypography variant="h4" fontWeight="medium">
-                Make the changes below
+                {detailAsset.assetName || ""}
               </MDTypography>
-              <MDBox mt={1} mb={2}>
-                <MDTypography variant="body2" color="text">
-                  We’re constantly trying to express ourselves and actualize our dreams. If you have
-                  the opportunity to play.
-                </MDTypography>
-              </MDBox>
             </Grid>
             <Grid item xs={12} lg={6}>
               <MDBox display="flex" justifyContent="flex-end">
@@ -79,4 +83,4 @@ function EditProduct() {
   );
 }
 
-export default EditProduct;
+export default EditAsset;
