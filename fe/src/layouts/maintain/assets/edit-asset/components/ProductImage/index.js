@@ -1,17 +1,4 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
+import PropTypes from "prop-types";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -24,7 +11,7 @@ import MDButton from "components/MDButton";
 // Images
 import productImage from "assets/images/products/product-11.jpg";
 
-function ProductImage() {
+function ProductImage({ assetName }) {
   return (
     <Card
       sx={{
@@ -73,15 +60,19 @@ function ProductImage() {
           </MDButton>
         </MDBox>
         <MDTypography variant="h5" fontWeight="regular" sx={{ mt: 4 }}>
-          Product Image
-        </MDTypography>
-        <MDTypography variant="body2" color="text" sx={{ mt: 1.5, mb: 1 }}>
-          The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to
-          &#8220;Naviglio&#8221; where you can enjoy the main night life in Barcelona.
+          {assetName || ""}
         </MDTypography>
       </MDBox>
     </Card>
   );
 }
+
+ProductImage.defaultProps = {
+  assetName: "Machine Image",
+};
+
+ProductImage.propTypes = {
+  assetName: PropTypes.string,
+};
 
 export default ProductImage;

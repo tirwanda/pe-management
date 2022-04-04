@@ -7,7 +7,6 @@ import Grid from "@mui/material/Grid";
 // Material Dashboard 2 PRO React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-import MDButton from "components/MDButton";
 
 // Material Dashboard 2 PRO React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -17,8 +16,6 @@ import Footer from "examples/Footer";
 // EditProduct page components
 import ProductImage from "layouts/maintain/assets/edit-asset/components/ProductImage";
 import ProductInfo from "layouts/maintain/assets/edit-asset/components/ProductInfo";
-import Socials from "layouts/maintain/assets/edit-asset/components/Socials";
-import Pricing from "layouts/maintain/assets/edit-asset/components/Pricing";
 
 // Data
 import { getAssetByAssetNumber } from "api/assetAPI";
@@ -54,27 +51,14 @@ function EditAsset() {
                 {detailAsset.assetName || ""}
               </MDTypography>
             </Grid>
-            <Grid item xs={12} lg={6}>
-              <MDBox display="flex" justifyContent="flex-end">
-                <MDButton variant="gradient" color="info">
-                  save
-                </MDButton>
-              </MDBox>
-            </Grid>
           </Grid>
         </MDBox>
         <Grid container spacing={3}>
           <Grid item xs={12} lg={4}>
-            <ProductImage />
+            <ProductImage assetName={detailAsset.assetName} />
           </Grid>
           <Grid item xs={12} lg={8}>
-            <ProductInfo />
-          </Grid>
-          <Grid item xs={12} lg={4}>
-            <Socials />
-          </Grid>
-          <Grid item xs={12} lg={8}>
-            <Pricing />
+            <ProductInfo assetInfo={detailAsset} />
           </Grid>
         </Grid>
       </MDBox>

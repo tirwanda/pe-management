@@ -36,9 +36,9 @@ export const getAssetByAssetNumber = (assetNumber) =>
     },
   });
 
-export const updateAsset = (lineData) =>
+export const updateAsset = (assetData) =>
   axiosJWT.put(
     `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/asset/update`,
-    lineData,
+    assetData,
     config
   );
