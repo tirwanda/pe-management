@@ -7,6 +7,8 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class AssetDTO {
 
+    private Long assetId;
+
     @NotEmpty(message = "Asset number is required")
     private String assetNumber;
 
@@ -18,4 +20,14 @@ public class AssetDTO {
 
     @NotEmpty(message = "Line Code is required")
     private String lineCode;
+
+    private String assetLocation;
+
+    private String assetFunction;
+
+    private String process;
+
+    private String output;
+
+    private Integer lastPoPrice;
 }

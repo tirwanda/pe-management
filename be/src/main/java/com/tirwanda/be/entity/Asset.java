@@ -35,6 +35,16 @@ public class Asset extends BaseEntity<String> implements Serializable {
 
     private String status;
 
+    private String assetLocation;
+
+    private String assetFunction;
+
+    private String process;
+
+    private String output;
+
+    private Integer lastPoPrice;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
