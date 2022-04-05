@@ -51,7 +51,7 @@ function ProductInfo({ assetInfo }) {
 
     try {
       const response = await updateAsset(data);
-      openSuccessSB(response.data.payload.username);
+      openSuccessSB(response.data.payload.assetName);
     } catch (error) {
       if (error.response === 400) {
         openErrorSB(error.response.data.message);
@@ -73,7 +73,7 @@ function ProductInfo({ assetInfo }) {
       color="success"
       icon="check"
       title="Successfully updated profile"
-      content={`Congratulations, you have successfully updated user profile with the username ${message}`}
+      content={`Congratulations, you have successfully updated asset with the asset name ${message}`}
       dateTime="2 seconds ago"
       open={successSB}
       onClose={closeSuccessSB}
@@ -86,7 +86,7 @@ function ProductInfo({ assetInfo }) {
     <MDSnackbar
       color="error"
       icon="warning"
-      title="Failed to updating user profile"
+      title="Failed to updating asset detail"
       content={message}
       dateTime="2 second ago"
       open={errorSB}
@@ -182,7 +182,7 @@ function ProductInfo({ assetInfo }) {
                 name="lastPoPrice"
                 type="number"
                 label="Last PO Price (Rp)"
-                value={data.lastPoPrice || 0}
+                value={data.lastPoPrice || ""}
                 onChange={handleInputChange}
               />
             </Grid>
@@ -211,7 +211,7 @@ ProductInfo.propTypes = {
     assetName: PropTypes.string,
     status: PropTypes.string,
     assetLocation: PropTypes.string,
-    assetFunction: PropTypes.number,
+    assetFunction: PropTypes.string,
     process: PropTypes.string,
     output: PropTypes.string,
     lastPoPrice: PropTypes.number,
