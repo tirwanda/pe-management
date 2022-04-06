@@ -44,6 +44,7 @@ import RegisterStepper from "layouts/authentication/sign-up/Validate";
 import NewProduct from "layouts/maintain/assets/new-product";
 import AssetPage from "layouts/maintain/assets/asset-page";
 import EditAsset from "layouts/maintain/assets/edit-asset";
+import DetailAsset from "layouts/maintain/assets/asset-detail";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -229,6 +230,7 @@ export default function App() {
         <Route path="/sign-in" element={<SignInBasic />} />
         <Route path="/sign-up" element={<RegisterStepper />} />
         <Route path="/asset/edit/:assetNumber" element={<EditAsset />} />
+        <Route path="/asset/:assetNumber" element={<DetailAsset />} />
         {localStorage.getItem("ACCESS_TOKEN") && getRoutes(customRoutes)}
         {render && <Route path="*" element={<Navigate to="/sign-in" />} />}
       </Routes>

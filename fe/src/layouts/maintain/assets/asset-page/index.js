@@ -51,7 +51,12 @@ function AssetPage({ title, lineCode }) {
                 >
                   <Icon>edit</Icon>&nbsp;edit
                 </MDButton>
-                <MDButton variant="text" color="dark">
+                <MDButton
+                  variant="text"
+                  color="dark"
+                  component={Link}
+                  to={`/asset/${item.assetNumber}`}
+                >
                   <Icon>preview</Icon>&nbsp;view
                 </MDButton>
               </MDBox>
