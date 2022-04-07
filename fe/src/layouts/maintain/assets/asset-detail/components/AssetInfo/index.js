@@ -7,6 +7,8 @@ import PropTypes from "prop-types";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDBadge from "components/MDBadge";
+import { Divider, Grid } from "@mui/material";
+import AssetInfoCard from "examples/Cards/InfoCards/AssetInfoCard";
 
 function AssetInfo({ assetInfo }) {
   const [data, setData] = useState(assetInfo);
@@ -33,6 +35,20 @@ function AssetInfo({ assetInfo }) {
         </MDTypography>
       </MDBox>
       <MDBadge variant="contained" color="success" badgeContent="Running" container />
+      <Grid item xs={12} md={12} xl={12} sx={{ display: "flex" }}>
+        <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} />
+        <AssetInfoCard
+          title="Asset information"
+          info={{
+            fullName: `${data.assetName}`,
+            assetNumber: `${data.assetNumber}`,
+            status: `${data.status}`,
+            location: `${data.assetLocation}`,
+          }}
+          action={{ route: `/asset/edit/${data.assetNumber}`, tooltip: "Edit Profile" }}
+          shadow={false}
+        />
+      </Grid>
     </MDBox>
   );
 }
