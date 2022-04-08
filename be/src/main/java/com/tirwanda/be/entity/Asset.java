@@ -2,11 +2,15 @@ package com.tirwanda.be.entity;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -44,6 +48,25 @@ public class Asset extends BaseEntity<String> implements Serializable {
     private String output;
 
     private Integer lastPoPrice;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
+    @JoinTable(
+            name = "asset_part_map",
+            joinColumns = @JoinColumn(name = "asset_id"),
+            inverseJoinColumns =@JoinColumn(name = "part_id")
+    )
+    private List<Part> partList = new ArrayList<>();
+
+    public void addPart(Part part) {
+        this.partList.add(part);
+        part.getAssetList().add(this);
+    }
+
+    public void removePart(Part part) {
+        this.partList.remove(part);
+        part.getAssetList().remove(this);
+    }
 
     @Override
     public boolean equals(Object o) {
