@@ -67,7 +67,29 @@ public class SavePartController {
             responseData.setPayload(createPartService.savePartAndSaveToAsset(part, partDTO.getAssetNumber()));
             return ResponseEntity.ok().body(responseData);
         } catch (ResourceExistsException | ResourceNotFoundException exception) {
-            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());
+        }
+    }
+
+    @PostMapping("/part/add-part-to-asset")
+    public ResponseEntity<ResponseData<Part>> addPartToAsset(@Valid @RequestBody PartDTO partDTO, Errors errors) {
+        ResponseData<Part> responseData = new ResponseData<>();
+
+        try {
+            if (errors.hasErrors()) {
+                for (ObjectError error : errors.getAllErrors()) {
+                    responseData.getMessage().add(error.getDefaultMessage());
+                }
+                responseData.setStatus(false);
+                responseData.setPayload(null);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
+            }
+            Part part = modelMapper.map(partDTO, Part.class);
+            responseData.setStatus(true);
+            responseData.setPayload(createPartService.addPartToAsset(part, partDTO.getAssetNumber()));
+            return ResponseEntity.ok().body(responseData);
+        } catch (ResourceNotFoundException exception) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());
         }
     }
 }
