@@ -7,5 +7,5 @@ import com.tirwanda.be.exception.ResourceNotFoundException;
 public interface CreatePartService {
     Part savePart(Part part) throws ResourceExistsException;
     Part savePartAndSaveToAsset(Part part, String assetNumber) throws ResourceExistsException, ResourceNotFoundException;
-    Part addPartToAsset(Part part, String assetNumber) throws ResourceNotFoundException;
+    Part addPartToAsset(String partNumber, String assetNumber) throws ResourceNotFoundException;
 }

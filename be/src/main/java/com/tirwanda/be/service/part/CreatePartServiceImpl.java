@@ -47,11 +47,10 @@ public class CreatePartServiceImpl implements CreatePartService {
     }
 
     @Override
-    public Part addPartToAsset(Part part, String assetNumber) throws ResourceNotFoundException{
-        Part checkPart = partRepository.findById(part.getPartId())
-                .orElseThrow(() -> new ResourceNotFoundException("Part is not found in Database"));
+    public Part addPartToAsset(String partNumber, String assetNumber) throws ResourceNotFoundException{
+        Part checkPart = partRepository.findPartByPartNumber(partNumber);
         Asset assetCheck = assetRepository.findAssetByAssetNumber(assetNumber);
-        if (assetCheck == null) {
+        if (assetCheck == null || checkPart == null) {
             throw new ResourceNotFoundException("Asset is not found in Database");
         }
 

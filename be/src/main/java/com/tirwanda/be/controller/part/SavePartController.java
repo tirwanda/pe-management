@@ -1,6 +1,7 @@
 package com.tirwanda.be.controller.part;
 
 import com.tirwanda.be.dto.ResponseData;
+import com.tirwanda.be.dto.request.AddPartToAssetDTO;
 import com.tirwanda.be.dto.request.PartDTO;
 import com.tirwanda.be.entity.Part;
 import com.tirwanda.be.exception.ResourceExistsException;
@@ -72,7 +73,7 @@ public class SavePartController {
     }
 
     @PostMapping("/part/add-part-to-asset")
-    public ResponseEntity<ResponseData<Part>> addPartToAsset(@Valid @RequestBody PartDTO partDTO, Errors errors) {
+    public ResponseEntity<ResponseData<Part>> addPartToAsset(@Valid @RequestBody AddPartToAssetDTO request, Errors errors) {
         ResponseData<Part> responseData = new ResponseData<>();
 
         try {
@@ -84,9 +85,8 @@ public class SavePartController {
                 responseData.setPayload(null);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
             }
-            Part part = modelMapper.map(partDTO, Part.class);
             responseData.setStatus(true);
-            responseData.setPayload(createPartService.addPartToAsset(part, partDTO.getAssetNumber()));
+            responseData.setPayload(createPartService.addPartToAsset(request.getPartNumber(), request.getAssetNumber()));
             return ResponseEntity.ok().body(responseData);
         } catch (ResourceNotFoundException exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());
