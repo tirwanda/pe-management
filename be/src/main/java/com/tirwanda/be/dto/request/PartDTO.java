@@ -7,6 +7,8 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class PartDTO {
 
+    private Long partId;
+
     @NotEmpty(message = "Part number is required")
     private String partNumber;
 
