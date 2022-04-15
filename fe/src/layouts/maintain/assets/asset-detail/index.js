@@ -22,16 +22,45 @@ import ProductInfo from "layouts/maintain/assets/asset-detail/components/AssetIn
 // Data
 import dataTableData from "layouts/maintain/assets/asset-detail/data/dataTableData";
 import { getAssetByAssetNumber } from "api/assetAPI";
+import MDButton from "components/MDButton";
+import { Icon, Modal } from "@mui/material";
 
 function ProductPage() {
   const [detailAsset, setDetailAsset] = useState({});
+  const [partList, setPartList] = useState(dataTableData);
+  const [open, setOpen] = useState(false);
   const { assetNumber } = useParams();
   const navigate = useNavigate();
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const getDetailAsset = (data) => {
     getAssetByAssetNumber(data)
       .then((res) => {
         setDetailAsset(res.data.payload);
+        setPartList({
+          ...partList,
+          rows: res.data.payload.partList.map((item) => ({
+            ...item,
+            actions: (
+              <MDBox
+                display="flex"
+                justifyContent="space-between"
+                alignItems="flex-start"
+                mt={{ xs: 2, sm: 0 }}
+                mr={{ xs: -1.5, sm: 0 }}
+              >
+                <MDButton variant="text" color="error">
+                  <Icon>delete</Icon>&nbsp;delete
+                </MDButton>
+                <MDButton onClick={handleOpen} variant="text" color="dark">
+                  <Icon>edit</Icon>&nbsp;edit
+                </MDButton>
+              </MDBox>
+            ),
+          })),
+        });
       })
       .catch(() => {
         localStorage.clear();
@@ -67,19 +96,22 @@ function ProductPage() {
             <MDBox mt={8} mb={2}>
               <MDBox mb={1} ml={2}>
                 <MDTypography variant="h5" fontWeight="medium">
-                  Other Products
+                  List Parts
                 </MDTypography>
               </MDBox>
-              <DataTable
-                table={dataTableData}
-                entriesPerPage={false}
-                showTotalEntries={false}
-                isSorted={false}
-              />
+              <DataTable table={partList} canSearch />
             </MDBox>
           </MDBox>
         </Card>
       </MDBox>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <p>Test Modal</p>
+      </Modal>
       <Footer />
     </DashboardLayout>
   );
