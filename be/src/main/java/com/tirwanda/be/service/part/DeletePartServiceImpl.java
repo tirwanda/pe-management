@@ -24,9 +24,9 @@ public class DeletePartServiceImpl implements DeletePartService{
         Part part = partRepository.findById(partId).orElseThrow(() -> new ResourceNotFoundException("Part is not found"));
         List<Asset> assets = part.getAssetList();
         for (Asset asset : assets) {
-            asset.removePart(part);
+            asset.getPartList().remove(part);
         }
-        partRepository.delete(part);
+        partRepository.deleteById(partId);
         return part;
     }
 
