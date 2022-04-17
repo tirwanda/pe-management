@@ -38,7 +38,7 @@ public class DeletePartServiceImpl implements DeletePartService{
         }
         List<Asset> assets = part.getAssetList();
         for (Asset asset : assets) {
-            asset.removePart(part);
+            asset.getPartList().remove(part);
         }
         return part;
     }

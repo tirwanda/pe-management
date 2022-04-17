@@ -63,11 +63,6 @@ public class Asset extends BaseEntity<String> implements Serializable {
         part.getAssetList().add(this);
     }
 
-    public void removePart(Part part) {
-        this.partList.remove(part);
-        part.getAssetList().remove(this);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
