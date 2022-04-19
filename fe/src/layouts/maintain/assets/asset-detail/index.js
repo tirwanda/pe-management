@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 // @mui material components
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
+import { Backdrop, Box, Fade, Icon, Modal } from "@mui/material";
 
 // Material Dashboard 2 PRO React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
+import MDSnackbar from "components/MDSnackbar";
+import MDButton from "components/MDButton";
 
 // Material Dashboard 2 PRO React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -19,22 +22,38 @@ import DataTable from "examples/Tables/DataTable";
 // ProductPage page components
 import ProductImages from "layouts/maintain/assets/asset-detail/components/ProductImages";
 import ProductInfo from "layouts/maintain/assets/asset-detail/components/AssetInfo";
-// import EditPartModal from "layouts/maintain/assets/edit-part";
 
 // Data
 import dataTableData from "layouts/maintain/assets/asset-detail/data/dataTableData";
-import { getAssetByAssetNumber } from "api/assetAPI";
-import MDButton from "components/MDButton";
-import { Backdrop, Box, Fade, Icon, Modal } from "@mui/material";
 import { updatePart } from "api/partAPI";
+import { getAssetByAssetNumber } from "api/assetAPI";
 
 function ProductPage() {
   const [detailAsset, setDetailAsset] = useState({});
   const [partList, setPartList] = useState(dataTableData);
   const [partDetail, setPartDetail] = useState({});
+
+  const [successSB, setSuccessSB] = useState(false);
+  const [errorSB, setErrorSB] = useState(false);
+  const [message, setMessage] = useState("");
   const [open, setOpen] = useState(false);
+
   const { assetNumber } = useParams();
   const navigate = useNavigate();
+
+  const openSuccessSB = (response) => {
+    setSuccessSB(true);
+    setMessage(response);
+  };
+
+  const closeSuccessSB = () => setSuccessSB(false);
+
+  const openErrorSB = (response) => {
+    setErrorSB(true);
+    setMessage(response);
+  };
+
+  const closeErrorSB = () => setErrorSB(false);
 
   const handleOpen = (data) => {
     setPartDetail(data);
@@ -57,15 +76,15 @@ function ProductPage() {
       const response = await updatePart(partDetail);
       setPartDetail(response.data.payload);
       setOpen(false);
-      // openSuccessSB(response.data.payload.username);
+      openSuccessSB(response.data.payload.partName);
     } catch (error) {
       if (error.response === 400) {
-        // openErrorSB(error.response.data.message);
+        openErrorSB(error.response.data.message);
       } else if (error.response === 403) {
-        // openErrorSB(error.response.data.message);
+        openErrorSB(error.response.data.message);
         navigate("/sign-in");
       } else {
-        // openErrorSB("Something went wrong");
+        openErrorSB("Something went wrong");
       }
     }
   };
@@ -119,6 +138,34 @@ function ProductPage() {
     p: 4,
     borderRadius: 2,
   };
+
+  const renderSuccessSB = (
+    <MDSnackbar
+      color="success"
+      icon="check"
+      title="Successfully updated part"
+      content={`Congratulations, you have successfully updated part with the part name ${message}`}
+      dateTime="2 seconds ago"
+      open={successSB}
+      onClose={closeSuccessSB}
+      close={closeSuccessSB}
+      bgWhite
+    />
+  );
+
+  const renderErrorSB = (
+    <MDSnackbar
+      color="error"
+      icon="warning"
+      title="Failed to updating user profile"
+      content={message}
+      dateTime="2 second ago"
+      open={errorSB}
+      onClose={closeErrorSB}
+      close={closeErrorSB}
+      bgWhite
+    />
+  );
 
   return (
     <DashboardLayout>
@@ -263,6 +310,8 @@ function ProductPage() {
           </Box>
         </Fade>
       </Modal>
+      {renderSuccessSB}
+      {renderErrorSB}
       <Footer />
     </DashboardLayout>
   );
