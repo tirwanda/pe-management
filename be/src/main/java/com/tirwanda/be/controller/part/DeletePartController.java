@@ -35,22 +35,14 @@ public class DeletePartController {
         }
     }
 
-    @DeleteMapping("/part/remove-part-from-asset")
-    public ResponseEntity<ResponseData<Part>> removePartFromAsset(@RequestBody PartAndAssetDTO partAndAssetDTO, Errors errors) {
-        ResponseData<Part> responseData = new ResponseData<>();
+    @DeleteMapping("/part/{assetNumber}/remove/{partNumber}")
+    public ResponseEntity<ResponseData<String>> removePartFromAsset(@PathVariable String assetNumber,
+                                                                  @PathVariable String partNumber) {
+        ResponseData<String> responseData = new ResponseData<>();
 
         try {
-            if (errors.hasErrors()) {
-                for (ObjectError error : errors.getAllErrors()) {
-                    responseData.getMessage().add(error.getDefaultMessage());
-                }
-                responseData.setStatus(false);
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
-            }
-
             responseData.setStatus(true);
-            responseData.setPayload(deletePartService.removePartFromAsset(partAndAssetDTO.getAssetNumber(),
-                    partAndAssetDTO.getPartNumber()));
+            responseData.setPayload(deletePartService.removePartFromAsset(assetNumber, partNumber));
 
             return ResponseEntity.ok().body(responseData);
         } catch (ResourceNotFoundException exception) {

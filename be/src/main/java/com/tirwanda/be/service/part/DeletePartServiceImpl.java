@@ -31,7 +31,7 @@ public class DeletePartServiceImpl implements DeletePartService{
     }
 
     @Override
-    public Part removePartFromAsset(String assetNumber, String partNumber) throws ResourceNotFoundException {
+    public String removePartFromAsset(String assetNumber, String partNumber) throws ResourceNotFoundException {
         Part part = partRepository.findPartByPartNumber(partNumber);
         if (part == null) {
             throw new ResourceNotFoundException("Part is not found");
@@ -40,6 +40,6 @@ public class DeletePartServiceImpl implements DeletePartService{
         for (Asset asset : assets) {
             asset.getPartList().remove(part);
         }
-        return part;
+        return "Success Remove Part";
     }
 }

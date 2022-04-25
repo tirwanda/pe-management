@@ -25,8 +25,9 @@ import ProductInfo from "layouts/maintain/assets/asset-detail/components/AssetIn
 
 // Data
 import dataTableData from "layouts/maintain/assets/asset-detail/data/dataTableData";
-import { updatePart } from "api/partAPI";
+import { updatePart, removePartFromAsset } from "api/partAPI";
 import { getAssetByAssetNumber } from "api/assetAPI";
+// import qs from "query-string";
 
 function ProductPage() {
   const [detailAsset, setDetailAsset] = useState({});
@@ -76,7 +77,7 @@ function ProductPage() {
       const response = await updatePart(partDetail);
       setPartDetail(response.data.payload);
       setOpen(false);
-      openSuccessSB(response.data.payload.partName);
+      openSuccessSB(`Success updated ${response.data.payload.partName}`);
     } catch (error) {
       if (error.response === 400) {
         openErrorSB(error.response.data.message);
@@ -86,6 +87,36 @@ function ProductPage() {
       } else {
         openErrorSB("Something went wrong");
       }
+    }
+  };
+
+  // const handleDelete = async (event) => {
+  //   try {
+  //     const response = await removePartFromAsset(event);
+  //     console.log(response);
+  //     setPartDetail(response.data.payload);
+  //     openSuccessSB(`Success deleted ${response.data.status}`);
+  //   } catch (error) {
+  //     console.log("Error: ", error);
+  //     if (error.response === 400) {
+  //       openErrorSB(error.response.data.message);
+  //     } else if (error.response === 403) {
+  //       openErrorSB(error.response.data.message);
+  //       navigate("/sign-in");
+  //     } else {
+  //       openErrorSB("Something went wrong");
+  //     }
+  //   }
+  // };
+
+  const handleDelete = async (asset, part) => {
+    try {
+      await removePartFromAsset(asset, part);
+      openSuccessSB(`Success deleted part`);
+      // eslint-disable-next-line no-use-before-define
+      getDetailAsset(assetNumber);
+    } catch (error) {
+      openErrorSB(error);
     }
   };
 
@@ -105,7 +136,11 @@ function ProductPage() {
                 mt={{ xs: 2, sm: 0 }}
                 mr={{ xs: -1.5, sm: 0 }}
               >
-                <MDButton variant="text" color="error">
+                <MDButton
+                  variant="text"
+                  color="error"
+                  onClick={() => handleDelete(assetNumber, item.partNumber)}
+                >
                   <Icon>delete</Icon>&nbsp;delete
                 </MDButton>
                 <MDButton onClick={() => handleOpen(item)} variant="text" color="dark">
@@ -124,7 +159,7 @@ function ProductPage() {
 
   useEffect(() => {
     getDetailAsset(assetNumber);
-  }, [partDetail]);
+  }, [partDetail, detailAsset]);
 
   const style = {
     position: "absolute",
@@ -143,8 +178,8 @@ function ProductPage() {
     <MDSnackbar
       color="success"
       icon="check"
-      title="Successfully updated part"
-      content={`Congratulations, you have successfully updated part with the part name ${message}`}
+      title="Conratulations!"
+      content={message}
       dateTime="2 seconds ago"
       open={successSB}
       onClose={closeSuccessSB}
@@ -157,7 +192,7 @@ function ProductPage() {
     <MDSnackbar
       color="error"
       icon="warning"
-      title="Failed to updating user profile"
+      title="Failed"
       content={message}
       dateTime="2 second ago"
       open={errorSB}
