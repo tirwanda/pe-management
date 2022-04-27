@@ -25,19 +25,20 @@ import ProductInfo from "layouts/maintain/assets/asset-detail/components/AssetIn
 
 // Data
 import dataTableData from "layouts/maintain/assets/asset-detail/data/dataTableData";
-import { updatePart, removePartFromAsset } from "api/partAPI";
+import { updatePart, removePartFromAsset, savePart, getPartListByAssetNumber } from "api/partAPI";
 import { getAssetByAssetNumber } from "api/assetAPI";
-// import qs from "query-string";
 
 function ProductPage() {
   const [detailAsset, setDetailAsset] = useState({});
   const [partList, setPartList] = useState(dataTableData);
   const [partDetail, setPartDetail] = useState({});
+  const [tempPart, setTempPart] = useState({});
 
   const [successSB, setSuccessSB] = useState(false);
   const [errorSB, setErrorSB] = useState(false);
   const [message, setMessage] = useState("");
   const [open, setOpen] = useState(false);
+  const [openAddPart, setOpenAddPart] = useState(false);
 
   const { assetNumber } = useParams();
   const navigate = useNavigate();
@@ -61,7 +62,14 @@ function ProductPage() {
     setOpen(true);
   };
 
+  const handleOpenAddPart = () => {
+    setPartDetail({});
+    setOpenAddPart(true);
+  };
+
   const handleClose = () => setOpen(false);
+
+  const handleCloseAddPart = () => setOpenAddPart(false);
 
   const handleInputChange = (e) => {
     setPartDetail({
@@ -90,31 +98,24 @@ function ProductPage() {
     }
   };
 
-  // const handleDelete = async (event) => {
-  //   try {
-  //     const response = await removePartFromAsset(event);
-  //     console.log(response);
-  //     setPartDetail(response.data.payload);
-  //     openSuccessSB(`Success deleted ${response.data.status}`);
-  //   } catch (error) {
-  //     console.log("Error: ", error);
-  //     if (error.response === 400) {
-  //       openErrorSB(error.response.data.message);
-  //     } else if (error.response === 403) {
-  //       openErrorSB(error.response.data.message);
-  //       navigate("/sign-in");
-  //     } else {
-  //       openErrorSB("Something went wrong");
-  //     }
-  //   }
-  // };
+  const handleSave = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await savePart(partDetail);
+      setPartDetail(response.data.payload);
+    } catch (error) {
+      openErrorSB(error.response.data.message);
+    }
+  };
 
   const handleDelete = async (asset, part) => {
     try {
       await removePartFromAsset(asset, part);
+      await getPartListByAssetNumber(asset).then((res) => {
+        setTempPart(res.data.payload);
+      });
       openSuccessSB(`Success deleted part`);
-      // eslint-disable-next-line no-use-before-define
-      getDetailAsset(assetNumber);
     } catch (error) {
       openErrorSB(error);
     }
@@ -159,7 +160,7 @@ function ProductPage() {
 
   useEffect(() => {
     getDetailAsset(assetNumber);
-  }, [partDetail, detailAsset]);
+  }, [partDetail, tempPart]);
 
   const style = {
     position: "absolute",
@@ -225,9 +226,23 @@ function ProductPage() {
 
             <MDBox mt={8} mb={2}>
               <MDBox mb={1} ml={2}>
-                <MDTypography variant="h5" fontWeight="medium">
-                  List Parts
-                </MDTypography>
+                <Grid container spacing={3}>
+                  <Grid item xs={12} lg={6} xl={5}>
+                    <MDTypography variant="h5" fontWeight="medium">
+                      List Parts
+                    </MDTypography>
+                  </Grid>
+                  <MDBox ml="auto" mt={3}>
+                    <MDButton
+                      variant="gradient"
+                      color="dark"
+                      size="small"
+                      onClick={() => handleOpenAddPart()}
+                    >
+                      Add Part
+                    </MDButton>
+                  </MDBox>
+                </Grid>
               </MDBox>
               <DataTable table={partList} canSearch />
             </MDBox>
@@ -336,6 +351,116 @@ function ProductPage() {
                     color="secondary"
                     size="small"
                     onClick={handleClose}
+                  >
+                    Cancle
+                  </MDButton>
+                </MDBox>
+              </Grid>
+            </MDBox>
+          </Box>
+        </Fade>
+      </Modal>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={openAddPart}
+        onClose={handleCloseAddPart}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={openAddPart}>
+          <Box sx={style}>
+            <MDBox
+              variant="gradient"
+              bgColor="info"
+              borderRadius="lg"
+              coloredShadow="success"
+              mx={1}
+              mt={-6}
+              p={2}
+              mb={4}
+              textAlign="center"
+            >
+              <MDTypography variant="h5" fontWeight="medium" color="white" mt={1}>
+                Add Part
+              </MDTypography>
+            </MDBox>
+            <MDBox component="form" role="form">
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={6}>
+                  <MDBox mb={2}>
+                    <MDInput
+                      name="partNumber"
+                      type="text"
+                      label="Part Number"
+                      variant="standard"
+                      fullWidth
+                      value={partDetail.partNumber}
+                    />
+                  </MDBox>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <MDBox mb={2}>
+                    <MDInput
+                      name="partName"
+                      type="text"
+                      label="Part Name"
+                      variant="standard"
+                      fullWidth
+                      value={partDetail.partName}
+                      onChange={handleInputChange}
+                    />
+                  </MDBox>
+                </Grid>
+              </Grid>
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={6}>
+                  <MDBox mb={2}>
+                    <MDInput
+                      name="stock"
+                      type="number"
+                      label="Stock"
+                      variant="standard"
+                      fullWidth
+                      value={partDetail.stock}
+                      onChange={handleInputChange}
+                    />
+                  </MDBox>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <MDBox mb={2}>
+                    <MDInput
+                      name="uom"
+                      type="text"
+                      label="UOM"
+                      variant="standard"
+                      fullWidth
+                      value={partDetail.uom}
+                      onChange={handleInputChange}
+                    />
+                  </MDBox>
+                </Grid>
+                <MDBox mt={3} ml="auto" display="flex">
+                  <MDBox mr={1}>
+                    <MDButton
+                      mr={5}
+                      variant="gradient"
+                      color="info"
+                      size="small"
+                      onClick={handleSave}
+                    >
+                      Save
+                    </MDButton>
+                  </MDBox>
+                  <MDButton
+                    mr={5}
+                    variant="gradient"
+                    color="secondary"
+                    size="small"
+                    onClick={handleCloseAddPart}
                   >
                     Cancle
                   </MDButton>

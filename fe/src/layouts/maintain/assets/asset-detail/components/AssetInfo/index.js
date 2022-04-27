@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 // @mui material components
+import { Divider, Grid } from "@mui/material";
 
 // Material Dashboard 2 PRO React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDBadge from "components/MDBadge";
-import { Divider, Grid } from "@mui/material";
 import AssetInfoCard from "examples/Cards/InfoCards/AssetInfoCard";
 
 function AssetInfo({ assetInfo }) {
