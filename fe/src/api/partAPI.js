@@ -1,4 +1,3 @@
-// import axios from "axios";
 import { axiosJWT } from "./authAPI";
 
 const getToken = () => localStorage.getItem("ACCESS_TOKEN");
@@ -10,9 +9,11 @@ const config = {
   },
 };
 
-export const savePart = (partData) =>
+export const savePartAddToAsset = (partData) =>
   axiosJWT.post(
-    `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/part/save`,
+    `${
+      process.env.REACT_APP_HOST_URL || "http://localhost:8080"
+    }/api/part/create-and-save-to-asset`,
     partData,
     config
   );

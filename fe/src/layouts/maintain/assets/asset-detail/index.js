@@ -25,7 +25,12 @@ import ProductInfo from "layouts/maintain/assets/asset-detail/components/AssetIn
 
 // Data
 import dataTableData from "layouts/maintain/assets/asset-detail/data/dataTableData";
-import { updatePart, removePartFromAsset, savePart, getPartListByAssetNumber } from "api/partAPI";
+import {
+  updatePart,
+  removePartFromAsset,
+  getPartListByAssetNumber,
+  savePartAddToAsset,
+} from "api/partAPI";
 import { getAssetByAssetNumber } from "api/assetAPI";
 
 function ProductPage() {
@@ -74,6 +79,7 @@ function ProductPage() {
   const handleInputChange = (e) => {
     setPartDetail({
       ...partDetail,
+      assetNumber: detailAsset.assetNumber,
       [e.target.name]: e.target.value,
     });
   };
@@ -102,8 +108,9 @@ function ProductPage() {
     event.preventDefault();
 
     try {
-      const response = await savePart(partDetail);
+      const response = await savePartAddToAsset(partDetail);
       setPartDetail(response.data.payload);
+      setOpenAddPart(false);
     } catch (error) {
       openErrorSB(error.response.data.message);
     }
@@ -398,7 +405,8 @@ function ProductPage() {
                       label="Part Number"
                       variant="standard"
                       fullWidth
-                      value={partDetail.partNumber}
+                      value={partDetail.partNumber || ""}
+                      onChange={handleInputChange}
                     />
                   </MDBox>
                 </Grid>
@@ -410,7 +418,7 @@ function ProductPage() {
                       label="Part Name"
                       variant="standard"
                       fullWidth
-                      value={partDetail.partName}
+                      value={partDetail.partName || ""}
                       onChange={handleInputChange}
                     />
                   </MDBox>
@@ -425,7 +433,7 @@ function ProductPage() {
                       label="Stock"
                       variant="standard"
                       fullWidth
-                      value={partDetail.stock}
+                      value={partDetail.stock || ""}
                       onChange={handleInputChange}
                     />
                   </MDBox>
@@ -438,7 +446,7 @@ function ProductPage() {
                       label="UOM"
                       variant="standard"
                       fullWidth
-                      value={partDetail.uom}
+                      value={partDetail.uom || ""}
                       onChange={handleInputChange}
                     />
                   </MDBox>

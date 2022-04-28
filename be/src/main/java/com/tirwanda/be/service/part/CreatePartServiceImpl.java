@@ -37,11 +37,11 @@ public class CreatePartServiceImpl implements CreatePartService {
             throw new ResourceExistsException("Part with part number: " + part.getPartNumber() + " already exist");
         }
 
-        Part partSave = partRepository.save(part);
         Asset asset = assetRepository.findAssetByAssetNumber(assetNumber);
         if (asset == null) {
             throw new ResourceNotFoundException("Asset with asset number: " + assetNumber + " is not found");
         }
+        Part partSave = partRepository.save(part);
         asset.addPart(partSave);
         return partSave;
     }
