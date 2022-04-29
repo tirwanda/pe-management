@@ -8,5 +8,6 @@ import java.util.List;
 public interface PrintPartService {
     Part getPartByPartNumber(String partNumber);
     List<Part> getPartByAssetNumber(String assetNumber) throws ResourceNotFoundException;
+    List<Part> getPartsNotInAsset(String assetNumber) throws ResourceNotFoundException;
     List<Part> getAllPart();
 }

@@ -36,6 +36,16 @@ public class PrintPartServiceImpl implements PrintPartService {
     }
 
     @Override
+    public List<Part> getPartsNotInAsset(String assetNumber) throws ResourceNotFoundException {
+        Asset asset = assetRepository.findAssetByAssetNumber(assetNumber);
+        if (asset == null) {
+            throw new ResourceNotFoundException("Asset with asset number: " + assetNumber + " is not found");
+        }
+
+        return partRepository.findPartsByAssetListNotContaining(asset);
+    }
+
+    @Override
     public List<Part> getAllPart() {
         return partRepository.findAll();
     }

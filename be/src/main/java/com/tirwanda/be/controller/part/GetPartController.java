@@ -40,6 +40,20 @@ public class GetPartController {
         }
     }
 
+    @GetMapping("/part/not-in-asset/{assetNumber}")
+    public ResponseEntity<ResponseData<List<Part>>> getPartsNotInAsset(@PathVariable String assetNumber) {
+        ResponseData<List<Part>> responseData = new ResponseData<>();
+        responseData.setStatus(false);
+
+        try {
+            responseData.setPayload(printPartService.getPartsNotInAsset(assetNumber));
+            responseData.setStatus(true);
+            return ResponseEntity.ok().body(responseData);
+        } catch (ResourceNotFoundException exception) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());
+        }
+    }
+
     @GetMapping("/parts")
     public ResponseEntity<ResponseData<List<Part>>> getAllParts() {
         ResponseData<List<Part>> responseData = new ResponseData<>();
