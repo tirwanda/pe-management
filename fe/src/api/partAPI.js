@@ -1,3 +1,4 @@
+import axios from "axios";
 import { axiosJWT } from "./authAPI";
 
 const getToken = () => localStorage.getItem("ACCESS_TOKEN");
@@ -29,6 +30,14 @@ export const getPartListByAssetNumber = (assetNumber) =>
     },
   });
 
+export const getAllPartsNotInAsset = (data) => {
+  axios.get(`http://localhost:8080/api/part/not-in-asset/${data}`, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+};
+
 export const updatePart = (partData) =>
   axiosJWT.put(
     `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/part/update`,
@@ -48,3 +57,10 @@ export const removePartFromAsset = (assetNumber, partNumber) => {
     }
   );
 };
+
+export const addPartToAsset = (data) =>
+  axiosJWT.post(
+    `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/part/add-part-to-asset`,
+    data,
+    config
+  );

@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -30,12 +31,14 @@ import {
   removePartFromAsset,
   getPartListByAssetNumber,
   savePartAddToAsset,
+  addPartToAsset,
 } from "api/partAPI";
 import { getAssetByAssetNumber } from "api/assetAPI";
 
 function ProductPage() {
   const [detailAsset, setDetailAsset] = useState({});
   const [partList, setPartList] = useState(dataTableData);
+  const [allPartList, setAllPartList] = useState(dataTableData);
   const [partDetail, setPartDetail] = useState({});
   const [tempPart, setTempPart] = useState({});
 
@@ -43,10 +46,13 @@ function ProductPage() {
   const [errorSB, setErrorSB] = useState(false);
   const [message, setMessage] = useState("");
   const [open, setOpen] = useState(false);
+  const [openCreatePart, setOpenCreatePart] = useState(false);
   const [openAddPart, setOpenAddPart] = useState(false);
 
   const { assetNumber } = useParams();
   const navigate = useNavigate();
+
+  const getToken = () => localStorage.getItem("ACCESS_TOKEN");
 
   const openSuccessSB = (response) => {
     setSuccessSB(true);
@@ -67,12 +73,14 @@ function ProductPage() {
     setOpen(true);
   };
 
-  const handleOpenAddPart = () => {
+  const handleCreatePart = () => {
     setPartDetail({});
-    setOpenAddPart(true);
+    setOpenCreatePart(true);
   };
 
   const handleClose = () => setOpen(false);
+
+  const handleCloseCreatePart = () => setOpenCreatePart(false);
 
   const handleCloseAddPart = () => setOpenAddPart(false);
 
@@ -110,7 +118,7 @@ function ProductPage() {
     try {
       const response = await savePartAddToAsset(partDetail);
       setPartDetail(response.data.payload);
-      setOpenAddPart(false);
+      setOpenCreatePart(false);
     } catch (error) {
       openErrorSB(error.response.data.message);
     }
@@ -126,6 +134,55 @@ function ProductPage() {
     } catch (error) {
       openErrorSB(error);
     }
+  };
+
+  const hadnleAddPartToAsset = async (partData) => {
+    await addPartToAsset(partData).then((res) => {
+      setPartDetail(res.data.payload);
+      setOpenAddPart(false);
+    });
+  };
+
+  const getAllPartsNotContaining = (asset) => {
+    axios
+      .get(`http://localhost:8080/api/part/not-in-asset/${asset}`, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      })
+      .then((res) => {
+        setAllPartList({
+          ...allPartList,
+          rows: res.data.payload.map((part) => ({
+            ...part,
+            actions: (
+              <MDBox
+                display="flex"
+                justifyContent="space-between"
+                alignItems="flex-start"
+                mt={{ xs: 2, sm: 0 }}
+                mr={{ xs: -1.5, sm: 0 }}
+              >
+                <MDButton
+                  variant="text"
+                  color="success"
+                  onClick={() => hadnleAddPartToAsset({ ...part, assetNumber })}
+                >
+                  <Icon>add_circle</Icon>&nbsp;Add
+                </MDButton>
+              </MDBox>
+            ),
+          })),
+        });
+      })
+      .catch((error) => {
+        openErrorSB(error);
+      });
+  };
+
+  const handleAddPart = () => {
+    getAllPartsNotContaining(assetNumber);
+    setOpenAddPart(true);
   };
 
   const getDetailAsset = (data) => {
@@ -239,15 +296,27 @@ function ProductPage() {
                       List Parts
                     </MDTypography>
                   </Grid>
-                  <MDBox ml="auto" mt={3}>
-                    <MDButton
-                      variant="gradient"
-                      color="dark"
-                      size="small"
-                      onClick={() => handleOpenAddPart()}
-                    >
-                      Add Part
-                    </MDButton>
+                  <MDBox ml="auto" mt={3} display="flex">
+                    <MDBox mr={2}>
+                      <MDButton
+                        variant="gradient"
+                        color="dark"
+                        size="small"
+                        onClick={() => handleAddPart()}
+                      >
+                        Add Part
+                      </MDButton>
+                    </MDBox>
+                    <MDBox>
+                      <MDButton
+                        variant="gradient"
+                        color="dark"
+                        size="small"
+                        onClick={() => handleCreatePart()}
+                      >
+                        Create Part
+                      </MDButton>
+                    </MDBox>
                   </MDBox>
                 </Grid>
               </MDBox>
@@ -256,6 +325,8 @@ function ProductPage() {
           </MDBox>
         </Card>
       </MDBox>
+
+      {/* Modal for Updating Part */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -367,18 +438,20 @@ function ProductPage() {
           </Box>
         </Fade>
       </Modal>
+
+      {/* Modal for Creating Part */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        open={openAddPart}
-        onClose={handleCloseAddPart}
+        open={openCreatePart}
+        onClose={handleCloseCreatePart}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
         }}
       >
-        <Fade in={openAddPart}>
+        <Fade in={openCreatePart}>
           <Box sx={style}>
             <MDBox
               variant="gradient"
@@ -392,7 +465,7 @@ function ProductPage() {
               textAlign="center"
             >
               <MDTypography variant="h5" fontWeight="medium" color="white" mt={1}>
-                Add Part
+                Create New Part
               </MDTypography>
             </MDBox>
             <MDBox component="form" role="form">
@@ -463,6 +536,55 @@ function ProductPage() {
                       Save
                     </MDButton>
                   </MDBox>
+                  <MDButton
+                    mr={5}
+                    variant="gradient"
+                    color="secondary"
+                    size="small"
+                    onClick={handleCloseCreatePart}
+                  >
+                    Cancle
+                  </MDButton>
+                </MDBox>
+              </Grid>
+            </MDBox>
+          </Box>
+        </Fade>
+      </Modal>
+
+      {/* Modal for Adding Part */}
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={openAddPart}
+        onClose={handleCloseAddPart}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={openAddPart}>
+          <Box sx={style}>
+            <MDBox
+              variant="gradient"
+              bgColor="info"
+              borderRadius="lg"
+              coloredShadow="success"
+              mx={1}
+              mt={-6}
+              p={2}
+              mb={4}
+              textAlign="center"
+            >
+              <MDTypography variant="h5" fontWeight="medium" color="white" mt={1}>
+                Add Part to Asset
+              </MDTypography>
+            </MDBox>
+            <DataTable table={allPartList} canSearch />
+            <MDBox mt={3}>
+              <Grid container spacing={3}>
+                <MDBox mt={3} ml="auto" display="flex">
                   <MDButton
                     mr={5}
                     variant="gradient"
