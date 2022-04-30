@@ -72,7 +72,7 @@ function AssetPage({ title, lineCode }) {
 
   useEffect(() => {
     getAsset(lineCode);
-  }, []);
+  }, [lineCode]);
 
   return (
     <DashboardLayout>
