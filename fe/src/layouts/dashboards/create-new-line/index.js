@@ -107,7 +107,7 @@ function NewLine() {
     <MDSnackbar
       color="success"
       icon="check"
-      title="Successfully save data"
+      title="Successfully save line"
       content={`Successfully added Line with the Line Code ${message}`}
       dateTime="A few seconds ago"
       open={successSB}
@@ -121,7 +121,7 @@ function NewLine() {
     <MDSnackbar
       color="error"
       icon="warning"
-      title="Failed to create user"
+      title="Failed to create line"
       content={message}
       dateTime="A few secons ago"
       open={errorSB}
