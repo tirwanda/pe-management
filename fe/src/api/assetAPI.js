@@ -9,10 +9,10 @@ const config = {
   },
 };
 
-export const saveAsset = (lineData) =>
+export const saveAsset = (assetData) =>
   axiosJWT.post(
     `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/asset/save`,
-    lineData,
+    assetData,
     config
   );
 

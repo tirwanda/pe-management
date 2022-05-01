@@ -1,5 +1,6 @@
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 // @mui material components
 import Grid from "@mui/material/Grid";
@@ -9,6 +10,7 @@ import Card from "@mui/material/Card";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
+import MDSnackbar from "components/MDSnackbar";
 
 // Material Dashboard 2 PRO React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -17,10 +19,13 @@ import Footer from "examples/Footer";
 
 // NewProduct page components
 import AssetInfo from "layouts/maintain/assets/new-asset/components/AssetInfo";
-import { Form, Formik } from "formik";
 import initialValues from "layouts/maintain/assets/new-asset/schema/initialValues";
 import validations from "layouts/maintain/assets/new-asset/schema/validations";
 import newAssetForm from "layouts/maintain/assets/new-asset/schema/newAssetForm";
+
+// Data
+import { Form, Formik } from "formik";
+import { saveAsset } from "api/assetAPI";
 
 function getSteps() {
   return ["Asset Info"];
@@ -35,18 +40,45 @@ function getStepContent(stepIndex, formData) {
   }
 }
 
-function NewAsset() {
+function NewAsset({ lineCode }) {
   const [activeStep, setActiveStep] = useState(0);
+  const [successSB, setSuccesSB] = useState(false);
+  const [errorSB, setErrorSB] = useState(false);
+  const [message, setMessage] = useState("");
   const steps = getSteps();
   const { formId, formField } = newAssetForm;
   const currentValidation = validations;
   const isLastStep = activeStep === steps.length - 1;
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  const openSuccessSB = (data) => {
+    setSuccesSB(true);
+    setMessage(data);
+  };
+  const closeSuccessSB = () => setSuccesSB(false);
+  const openErrorSB = (data) => {
+    setErrorSB(true);
+    setMessage(data);
+  };
+  const closeErrorSB = () => setErrorSB(false);
 
   const submitForm = async (values, actions) => {
-    console.log(values);
+    await saveAsset({ ...values, lineCode })
+      .then((res) => {
+        navigate(`/assets/${lineCode}/assets-page`);
+        openSuccessSB(res.assetName);
+        actions.resetForm();
+      })
+      .catch((error) => {
+        if (error.response) {
+          openErrorSB(error.response.data.message);
+        } else {
+          openErrorSB("Network Error");
+        }
+      });
+
     actions.setSubmitting(false);
-    actions.resetForm();
+    setActiveStep(0);
   };
 
   const handleSubmit = (values, actions) => {
@@ -60,6 +92,34 @@ function NewAsset() {
   };
 
   const handleBack = () => setActiveStep(activeStep - 1);
+
+  const renderSuccessSB = (
+    <MDSnackbar
+      color="success"
+      icon="check"
+      title="Successfully save data"
+      content={`Successfully Created Asset ${message}`}
+      dateTime="A few seconds ago"
+      open={successSB}
+      onClose={closeSuccessSB}
+      close={closeSuccessSB}
+      bgWhite
+    />
+  );
+
+  const renderErrorSB = (
+    <MDSnackbar
+      color="error"
+      icon="warning"
+      title="Failed to create asset"
+      content={message}
+      dateTime="A few secons ago"
+      open={errorSB}
+      onClose={closeErrorSB}
+      close={closeErrorSB}
+      bgWhite
+    />
+  );
 
   return (
     <DashboardLayout>
@@ -128,10 +188,16 @@ function NewAsset() {
             </Card>
           </Grid>
         </Grid>
+        {renderSuccessSB}
+        {renderErrorSB}
       </MDBox>
       <Footer />
     </DashboardLayout>
   );
 }
+
+NewAsset.propTypes = {
+  lineCode: PropTypes.string.isRequired,
+};
 
 export default NewAsset;

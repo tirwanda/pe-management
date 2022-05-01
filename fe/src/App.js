@@ -104,7 +104,7 @@ export default function App() {
             name: "New Asset",
             key: "new-asset",
             route: `/assets/${line.lineCode}/new-asset`,
-            component: <NewAsset />,
+            component: <NewAsset lineCode={line.lineCode} />,
           },
           {
             name: "Assets Page",
