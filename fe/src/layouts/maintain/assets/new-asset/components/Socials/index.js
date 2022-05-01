@@ -21,7 +21,7 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
 // NewProduct page components
-import FormField from "layouts/maintain/assets/new-product/components/FormField";
+import FormField from "layouts/maintain/assets/new-asset/components/FormField";
 
 function Socials() {
   return (

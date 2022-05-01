@@ -41,7 +41,7 @@ import brandDark from "assets/images/ahm-brand-dark.png";
 // Layouts Component
 import SignInBasic from "layouts/authentication/sign-in/basic";
 import RegisterStepper from "layouts/authentication/sign-up/Validate";
-import NewProduct from "layouts/maintain/assets/new-product";
+import NewAsset from "layouts/maintain/assets/new-asset";
 import AssetPage from "layouts/maintain/assets/asset-page";
 import EditAsset from "layouts/maintain/assets/edit-asset";
 import DetailAsset from "layouts/maintain/assets/asset-detail";
@@ -104,7 +104,7 @@ export default function App() {
             name: "New Asset",
             key: "new-asset",
             route: `/assets/${line.lineCode}/new-asset`,
-            component: <NewProduct />,
+            component: <NewAsset />,
           },
           {
             name: "Assets Page",
