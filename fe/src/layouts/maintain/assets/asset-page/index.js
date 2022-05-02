@@ -19,11 +19,42 @@ import DataTable from "examples/Tables/DataTable";
 
 // Data
 import dataTableData from "layouts/maintain/assets/asset-page/data/dataTableData";
-import { getLineData } from "api/assetAPI";
+import { getLineData, deleteAsset } from "api/assetAPI";
+import MDSnackbar from "components/MDSnackbar";
 
 function AssetPage({ title, lineCode }) {
   const [asset, setAsset] = useState(dataTableData);
+  const [lastDelete, setLastDelete] = useState({});
+  const [successSB, setSuccesSB] = useState(false);
+  const [errorSB, setErrorSB] = useState(false);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
+
+  const openSuccessSB = (data) => {
+    setSuccesSB(true);
+    setMessage(data);
+  };
+  const closeSuccessSB = () => setSuccesSB(false);
+  const openErrorSB = (data) => {
+    setErrorSB(true);
+    setMessage(data);
+  };
+  const closeErrorSB = () => setErrorSB(false);
+
+  const handleDeleteAsset = async (assetId) => {
+    await deleteAsset(assetId)
+      .then((res) => {
+        setLastDelete(res.data.payload);
+        openSuccessSB(res.data.payload.assetName);
+      })
+      .catch((error) => {
+        if (error.response) {
+          openErrorSB(error.response.data.message);
+        } else {
+          openErrorSB("Network Error");
+        }
+      });
+  };
 
   const getAsset = (data) => {
     getLineData(data)
@@ -40,7 +71,11 @@ function AssetPage({ title, lineCode }) {
                 mt={{ xs: 2, sm: 0 }}
                 mr={{ xs: -1.5, sm: 0 }}
               >
-                <MDButton variant="text" color="error">
+                <MDButton
+                  variant="text"
+                  color="error"
+                  onClick={() => handleDeleteAsset(item.assetId)}
+                >
                   <Icon>delete</Icon>&nbsp;delete
                 </MDButton>
                 <MDButton
@@ -72,7 +107,35 @@ function AssetPage({ title, lineCode }) {
 
   useEffect(() => {
     getAsset(lineCode);
-  }, [lineCode]);
+  }, [lineCode, lastDelete]);
+
+  const renderSuccessSB = (
+    <MDSnackbar
+      color="success"
+      icon="check"
+      title="Success"
+      content={`Successfully deleting asset ${message}`}
+      dateTime="A few seconds ago"
+      open={successSB}
+      onClose={closeSuccessSB}
+      close={closeSuccessSB}
+      bgWhite
+    />
+  );
+
+  const renderErrorSB = (
+    <MDSnackbar
+      color="error"
+      icon="warning"
+      title="Failed to create line"
+      content={message}
+      dateTime="A few secons ago"
+      open={errorSB}
+      onClose={closeErrorSB}
+      close={closeErrorSB}
+      bgWhite
+    />
+  );
 
   return (
     <DashboardLayout>
@@ -89,6 +152,8 @@ function AssetPage({ title, lineCode }) {
           </MDBox>
           <DataTable table={asset} canSearch />
         </Card>
+        {renderSuccessSB}
+        {renderErrorSB}
       </MDBox>
       <Footer />
     </DashboardLayout>

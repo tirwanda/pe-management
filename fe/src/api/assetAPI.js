@@ -42,3 +42,12 @@ export const updateAsset = (assetData) =>
     assetData,
     config
   );
+
+export const deleteAsset = (assetId) =>
+  axiosJWT({
+    method: "delete",
+    url: `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/asset/${assetId}`,
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
