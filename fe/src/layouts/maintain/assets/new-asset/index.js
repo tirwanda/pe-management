@@ -65,15 +65,14 @@ function NewAsset({ lineCode }) {
   const submitForm = async (values, actions) => {
     await saveAsset({ ...values, lineCode })
       .then((res) => {
-        navigate(`/assets/${lineCode}/assets-page`);
-        openSuccessSB(res.assetName);
+        openSuccessSB(res.data.payload.assetName);
         actions.resetForm();
       })
       .catch((error) => {
         if (error.response) {
           openErrorSB(error.response.data.message);
         } else {
-          openErrorSB("Network Error");
+          navigate("/sign-in");
         }
       });
 

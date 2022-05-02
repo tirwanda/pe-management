@@ -1,3 +1,4 @@
+import axios from "axios";
 import { axiosJWT } from "./authAPI";
 
 const getToken = () => localStorage.getItem("ACCESS_TOKEN");
@@ -10,7 +11,7 @@ const config = {
 };
 
 export const saveAsset = (assetData) =>
-  axiosJWT.post(
+  axios.post(
     `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/asset/save`,
     assetData,
     config
