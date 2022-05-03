@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LineRepository extends JpaRepository<Line, Long> {
     Line findLineByLineCode(String lineCode);
+    Integer countLineByCreatedBy(String username);
 }
