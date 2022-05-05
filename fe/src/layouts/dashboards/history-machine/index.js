@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // @mui material components
@@ -32,9 +32,15 @@ import { getUserData } from "api/userAPI";
 
 // Context
 import { useMaterialUIController, setUser } from "context";
+import { getPieChartAssetData } from "api/dashboardAPI";
 
 function HistoryMachine() {
   const [, dispatch] = useMaterialUIController();
+  const [lines, setLines] = useState(0);
+  const [assets, setAssets] = useState(0);
+  const [labels, setLabels] = useState([]);
+  const [backgroundColors, setBackgroundColors] = useState([]);
+  const [pieChartData, setPieChartData] = useState({});
   const navigate = useNavigate();
 
   const getToken = async () => {
@@ -48,20 +54,39 @@ function HistoryMachine() {
   };
 
   const getUser = async () => {
-    try {
-      const response = await getUserData();
-      setUser(dispatch, response.data.payload);
-    } catch (error) {
-      if (error.response) {
-        localStorage.clear();
-        navigate("/sign-in");
-      }
-    }
+    await getUserData()
+      .then((response) => {
+        setUser(dispatch, response.data.payload);
+        setLines(response.data.payload.lines.length);
+        response.data.payload.lines.map((line) => setAssets(assets + line.assets.length));
+      })
+      .catch((error) => {
+        if (error.response) {
+          localStorage.clear();
+          navigate("/sign-in");
+        }
+      });
+  };
+
+  const getPieChartData = async () => {
+    await getPieChartAssetData()
+      .then((response) => {
+        setPieChartData(response.data);
+        setLabels(response.data.labels);
+        setBackgroundColors(response.data.datasets.backgroundColors);
+      })
+      .catch((error) => {
+        if (error.response) {
+          localStorage.clear();
+          navigate("/sign-in");
+        }
+      });
   };
 
   useEffect(() => {
     getToken();
     getUser();
+    getPieChartData();
   }, []);
 
   return (
@@ -71,10 +96,10 @@ function HistoryMachine() {
         <MDBox mb={3}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={4}>
-              <DefaultStatisticsCard title="Total Line" count="3 Lines" />
+              <DefaultStatisticsCard title="Total Line" count={lines} />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <DefaultStatisticsCard title="Total Assets" count="94" />
+              <DefaultStatisticsCard title="Total Assets" count={assets} />
             </Grid>
             <Grid item xs={12} sm={4}>
               <DefaultStatisticsCard title="Model" count="7" />
@@ -84,7 +109,7 @@ function HistoryMachine() {
         <MDBox mb={3}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} lg={4}>
-              <ChannelsChart />
+              <ChannelsChart data={pieChartData} />
             </Grid>
             <Grid item xs={12} sm={6} lg={8}>
               <DefaultLineChart
@@ -92,9 +117,14 @@ function HistoryMachine() {
                 description={
                   <MDBox display="flex" justifyContent="space-between">
                     <MDBox display="flex" ml={-1}>
-                      <MDBadgeDot color="info" size="sm" badgeContent="Line A" />
-                      <MDBadgeDot color="primary" size="sm" badgeContent="Mini Line" />
-                      <MDBadgeDot color="dark" size="sm" badgeContent="MM3" />
+                      {labels.map((label, index) => (
+                        <MDBadgeDot
+                          key={label}
+                          color={backgroundColors[index]}
+                          size="sm"
+                          badgeContent={label}
+                        />
+                      ))}
                     </MDBox>
                     <MDBox mt={-4} mr={-1} position="absolute" right="1.5rem">
                       <Tooltip title="See which ads perform better" placement="left" arrow>

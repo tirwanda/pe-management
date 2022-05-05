@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -32,6 +31,7 @@ import {
   getPartListByAssetNumber,
   savePartAddToAsset,
   addPartToAsset,
+  getAllPartsNotInAsset,
 } from "api/partAPI";
 import { getAssetByAssetNumber } from "api/assetAPI";
 
@@ -51,8 +51,6 @@ function ProductPage() {
 
   const { assetNumber } = useParams();
   const navigate = useNavigate();
-
-  const getToken = () => localStorage.getItem("ACCESS_TOKEN");
 
   const openSuccessSB = (response) => {
     setSuccessSB(true);
@@ -143,13 +141,8 @@ function ProductPage() {
     });
   };
 
-  const getAllPartsNotContaining = (asset) => {
-    axios
-      .get(`http://localhost:8080/api/part/not-in-asset/${asset}`, {
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
-        },
-      })
+  const getAllPartsNotContaining = async (asset) => {
+    await getAllPartsNotInAsset(asset)
       .then((res) => {
         setAllPartList({
           ...allPartList,

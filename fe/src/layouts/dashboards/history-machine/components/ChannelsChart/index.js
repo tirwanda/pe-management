@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 // @mui material components
 import Card from "@mui/material/Card";
 import Tooltip from "@mui/material/Tooltip";
@@ -11,15 +13,13 @@ import MDButton from "components/MDButton";
 import MDBadgeDot from "components/MDBadgeDot";
 import PieChart from "examples/Charts/PieChart";
 
-// Data
-import channelChartData from "layouts/dashboards/history-machine/components/ChannelsChart/data";
-
 // Material Dashboard 2 PRO React contexts
 import { useMaterialUIController } from "context";
 
-function ChannelsChart() {
+function ChannelsChart({ data }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
+  const { labels } = data;
 
   return (
     <Card sx={{ height: "100%" }}>
@@ -34,19 +34,20 @@ function ChannelsChart() {
       <MDBox mt={3}>
         <Grid container alignItems="center">
           <Grid item xs={7}>
-            <PieChart chart={channelChartData} height="12.5rem" />
+            <PieChart chart={data} height="12.5rem" />
           </Grid>
           <Grid item xs={5}>
             <MDBox pr={1}>
-              <MDBox mb={1}>
-                <MDBadgeDot color="info" size="sm" badgeContent="Line A" />
-              </MDBox>
-              <MDBox mb={1}>
-                <MDBadgeDot color="primary" size="sm" badgeContent="Mini Line" />
-              </MDBox>
-              <MDBox mb={1}>
-                <MDBadgeDot color="dark" size="sm" badgeContent="MM3" />
-              </MDBox>
+              {labels &&
+                labels.map((label, index) => (
+                  <MDBox mb={1} key={label}>
+                    <MDBadgeDot
+                      color={data.datasets.backgroundColors[index]}
+                      size="sm"
+                      badgeContent={label}
+                    />
+                  </MDBox>
+                ))}
             </MDBox>
           </Grid>
         </Grid>
@@ -72,5 +73,16 @@ function ChannelsChart() {
     </Card>
   );
 }
+
+ChannelsChart.propTypes = {
+  data: PropTypes.shape({
+    labels: PropTypes.arrayOf(PropTypes.string),
+    datasets: PropTypes.shape({
+      label: PropTypes.string,
+      backgroundColors: PropTypes.arrayOf(PropTypes.string),
+      data: PropTypes.arrayOf(PropTypes.number),
+    }),
+  }).isRequired,
+};
 
 export default ChannelsChart;
