@@ -37,6 +37,7 @@ public class SaveAssetController {
                 }
                 responseData.setStatus(false);
                 responseData.setPayload(null);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
             }
             Asset asset = modelMapper.map(assetDTO, Asset.class);
             responseData.setStatus(true);
