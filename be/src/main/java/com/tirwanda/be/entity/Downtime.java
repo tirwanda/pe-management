@@ -7,8 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serial;
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
 import java.util.Objects;
 
@@ -48,19 +46,11 @@ public class Downtime extends BaseEntity<String> implements Serializable {
 
     @NotEmpty(message = "Start Date is require")
     @Column(nullable = false)
-    private Date startedDate;
-
-    @NotEmpty(message = "Start Time is require")
-    @Column(nullable = false)
-    private Time startedTime;
+    private Long startedDate;
 
     @NotEmpty(message = "Completed Date is require")
     @Column(nullable = false)
-    private Date completedDate;
-
-    @NotEmpty(message = "Completed Time is require")
-    @Column(nullable = false)
-    private Time completedTime;
+    private Long completedDate;
 
     @NotEmpty(message = "Downtime Hours is require")
     @Column(nullable = false)

@@ -4,8 +4,6 @@ import lombok.Data;
 
 import javax.persistence.ElementCollection;
 import javax.validation.constraints.NotEmpty;
-import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
 
 @Data
@@ -26,16 +24,10 @@ public class CreateDowntimeDTO {
     private String requestBy;
 
     @NotEmpty(message = "Start Date is require")
-    private Date startedDate;
-
-    @NotEmpty(message = "Start Time is require")
-    private Time startedTime;
+    private Long startedDate;
 
     @NotEmpty(message = "Completed Date is require")
-    private Date completedDate;
-
-    @NotEmpty(message = "Completed Time is require")
-    private Time completedTime;
+    private Long completedDate;
 
     @NotEmpty(message = "Downtime Hours is require")
     private Long downtimeHours;
