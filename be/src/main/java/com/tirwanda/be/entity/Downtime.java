@@ -1,10 +1,12 @@
 package com.tirwanda.be.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
@@ -28,6 +30,7 @@ public class Downtime extends BaseEntity<String> implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
+    @JsonIgnore
     private Asset asset;
 
     @NotEmpty(message = "Work Order is require")
@@ -44,17 +47,17 @@ public class Downtime extends BaseEntity<String> implements Serializable {
     private String sectionCode;
     private String requestBy;
 
-    @NotEmpty(message = "Start Date is require")
+    @NotNull(message = "Start Date is require")
     @Column(nullable = false)
     private Long startedDate;
 
-    @NotEmpty(message = "Completed Date is require")
+    @NotNull(message = "Completed Date is require")
     @Column(nullable = false)
     private Long completedDate;
 
-    @NotEmpty(message = "Downtime Hours is require")
+    @NotNull(message = "Downtime Hours is require")
     @Column(nullable = false)
-    private Long downtimeHours;
+    private Double downtimeHours;
 
     @ElementCollection
     private List<String> replacedParts;

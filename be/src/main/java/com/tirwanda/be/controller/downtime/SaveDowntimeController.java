@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -22,7 +23,7 @@ public class SaveDowntimeController {
     private final CreateDowntimeServiceImpl createDowntimeService;
 
     @PostMapping("/downtime/save")
-    public ResponseEntity<ResponseData<Downtime>> saveDowntime(CreateDowntimeDTO downtimeDTO, Errors errors) {
+    public ResponseEntity<ResponseData<Downtime>> saveDowntime(@RequestBody CreateDowntimeDTO downtimeDTO, Errors errors) {
         ResponseData<Downtime> responseData = new ResponseData<>();
         responseData.setStatus(false);
 

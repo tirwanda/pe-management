@@ -1,6 +1,5 @@
 package com.tirwanda.be.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Fetch;
@@ -51,7 +50,6 @@ public class Asset extends BaseEntity<String> implements Serializable {
     private Integer lastPoPrice;
 
     @OneToMany(mappedBy = "asset", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     @ToString.Exclude
     private List<Downtime> downtimes = new ArrayList<>();
 
@@ -74,7 +72,7 @@ public class Asset extends BaseEntity<String> implements Serializable {
         downtime.setAsset(this);
     }
 
-    public void removeComment(Downtime downtime) {
+    public void removeDowntime(Downtime downtime) {
         downtimes.remove(downtime);
         downtime.setAsset(null);
     }

@@ -10,8 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
@@ -23,6 +22,7 @@ public class CreateDowntimeServiceImpl implements CreateDowntimeService{
     private final AssetRepository assetRepository;
     private final ModelMapper modelMapper;
 
+    @Transactional(rollbackFor = ResourceNotFoundException.class)
     @Override
     public Downtime saveDowntime(CreateDowntimeDTO downtimeDTO) throws ResourceNotFoundException {
         Asset asset = assetRepository.findAssetByAssetNumber(downtimeDTO.getAssetNumber());
@@ -31,6 +31,8 @@ public class CreateDowntimeServiceImpl implements CreateDowntimeService{
         }
 
         Downtime downtime = modelMapper.map(downtimeDTO, Downtime.class);
+        asset.getDowntimes().add(downtime);
+        downtime.setAsset(asset);
         return downtimeRepository.save(downtime);
     }
 }
