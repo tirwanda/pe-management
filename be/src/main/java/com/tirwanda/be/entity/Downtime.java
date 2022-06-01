@@ -59,14 +59,14 @@ public class Downtime extends BaseEntity<String> implements Serializable {
     @Column(nullable = false)
     private Double downtimeHours;
 
-    @ElementCollection
-    private List<String> replacedParts;
-
-    @ElementCollection
-    private List<String> itemCheck;
-
-    @ElementCollection
-    private List<String> APD;
+//    @ElementCollection
+//    private List<String> replacedParts;
+//
+//    @ElementCollection
+//    private List<String> itemCheck;
+//
+//    @ElementCollection
+//    private List<String> APD;
 
     @Override
     public boolean equals(Object o) {

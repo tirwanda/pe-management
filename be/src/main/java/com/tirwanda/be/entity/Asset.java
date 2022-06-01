@@ -4,6 +4,8 @@ import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -50,6 +52,7 @@ public class Asset extends BaseEntity<String> implements Serializable {
     private Integer lastPoPrice;
 
     @OneToMany(mappedBy = "asset", cascade = CascadeType.ALL, orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ToString.Exclude
     private List<Downtime> downtimes = new ArrayList<>();
 
