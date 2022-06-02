@@ -9,6 +9,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -64,9 +66,9 @@ public class Downtime extends BaseEntity<String> implements Serializable {
 //
 //    @ElementCollection
 //    private List<String> itemCheck;
-//
-//    @ElementCollection
-//    private List<String> APD;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Collection<Apd> apdList = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
