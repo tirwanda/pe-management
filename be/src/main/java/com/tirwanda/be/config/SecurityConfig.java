@@ -51,7 +51,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/dashboard/**",
                         "/api/downtime/**")
                 .hasAnyAuthority("ROLE_ADMIN");
-        http.authorizeRequests().antMatchers(POST, "/api/user/**", "/api/role/**", "/api/part/**")
+        http.authorizeRequests().antMatchers(POST, "/api/user/**",
+                        "/api/role/**",
+                        "/api/part/**",
+                        "/api/apd/**")
                 .hasAnyAuthority("ROLE_ADMIN");
         http.authorizeRequests().antMatchers(POST, "/api/line/**", "/api/asset/**", "/api/downtime/**")
                 .hasAnyAuthority("ROLE_ADMIN");
