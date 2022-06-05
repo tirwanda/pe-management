@@ -38,6 +38,5 @@ public class CreateDowntimeDTO {
     @ElementCollection
     private List<String> itemCheck;
 
-    @ElementCollection
-    private List<String> APD;
+    private List<ApdDTO> apd;
 }
