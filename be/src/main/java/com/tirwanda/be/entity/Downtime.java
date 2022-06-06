@@ -60,11 +60,13 @@ public class Downtime extends BaseEntity<String> implements Serializable {
     @Column(nullable = false)
     private Double downtimeHours;
 
-//    @ElementCollection
-//    private List<String> replacedParts;
-//
-//    @ElementCollection
-//    private List<String> itemCheck;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Collection<ReplacedParts> replacedParts = new ArrayList<>();
+
+/*
+    @ElementCollection
+    private List<String> itemCheck;
+*/
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Apd> apdList = new ArrayList<>();
