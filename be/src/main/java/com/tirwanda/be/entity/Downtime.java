@@ -9,9 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Objects;
+import java.util.*;
 
 @Getter
 @Setter
@@ -61,7 +59,7 @@ public class Downtime extends BaseEntity<String> implements Serializable {
     private Double downtimeHours;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private Collection<ReplacedParts> replacedParts = new ArrayList<>();
+    private Set<ReplacedParts> replacedParts = new HashSet<>();
 
 /*
     @ElementCollection
