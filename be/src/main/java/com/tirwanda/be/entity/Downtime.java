@@ -61,10 +61,8 @@ public class Downtime extends BaseEntity<String> implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<ReplacedParts> replacedParts = new HashSet<>();
 
-/*
-    @ElementCollection
-    private List<String> itemCheck;
-*/
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<ItemCheck> itemChecks = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Apd> apdList = new ArrayList<>();
