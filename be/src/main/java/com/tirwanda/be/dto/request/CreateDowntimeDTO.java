@@ -36,6 +36,7 @@ public class CreateDowntimeDTO {
 
     private Set<ReplacedParts> replacedParts;
 
+    @NotEmpty
     private Set<ItemCheck> itemCheck;
 
     private List<ApdDTO> apd;
