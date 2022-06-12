@@ -2,14 +2,12 @@ package com.tirwanda.be.service.downtime;
 
 import com.tirwanda.be.dto.request.ApdDTO;
 import com.tirwanda.be.dto.request.CreateDowntimeDTO;
-import com.tirwanda.be.entity.Apd;
-import com.tirwanda.be.entity.Asset;
-import com.tirwanda.be.entity.Downtime;
-import com.tirwanda.be.entity.ReplacedParts;
+import com.tirwanda.be.entity.*;
 import com.tirwanda.be.exception.ResourceNotFoundException;
 import com.tirwanda.be.repository.ApdRepository;
 import com.tirwanda.be.repository.AssetRepository;
 import com.tirwanda.be.repository.DowntimeRepository;
+import com.tirwanda.be.service.itemCheck.CreateItemCheckServiceImpl;
 import com.tirwanda.be.service.replacedParts.CreateReplacedPartsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +27,7 @@ public class CreateDowntimeServiceImpl implements CreateDowntimeService{
     private final ApdRepository apdRepository;
     
     private final CreateReplacedPartsServiceImpl createReplacedPartsService;
+    private final CreateItemCheckServiceImpl createItemCheckService;
 
     @Transactional(rollbackFor = ResourceNotFoundException.class)
     @Override
@@ -36,10 +35,16 @@ public class CreateDowntimeServiceImpl implements CreateDowntimeService{
         Asset asset = assetRepository.findAssetByAssetNumber(downtimeDTO.getAssetNumber());
         Collection<Apd> apdList = new ArrayList<>();
         Set<ReplacedParts> replacedParts = new HashSet<>();
+        Set<ItemCheck> itemCheck = new HashSet<>();
 
         for (ApdDTO apd : downtimeDTO.getApd()) {
             apdList.add(apdRepository.findById(apd.getApdId())
                     .orElseThrow(() -> new ResourceNotFoundException("Apd doesn't exist")));
+        }
+
+        for (ItemCheck check : downtimeDTO.getItemCheck()) {
+            log.info(check.toString());
+            itemCheck.add(createItemCheckService.saveItemCheck(check));
         }
         
         if (!downtimeDTO.getReplacedParts().isEmpty()) {
@@ -65,6 +70,7 @@ public class CreateDowntimeServiceImpl implements CreateDowntimeService{
                 .downtimeHours(downtimeDTO.getDowntimeHours().doubleValue())
                 .apdList(apdList)
                 .replacedParts(replacedParts)
+                .itemChecks(itemCheck)
                 .build();
 
         asset.getDowntimes().add(downtime);

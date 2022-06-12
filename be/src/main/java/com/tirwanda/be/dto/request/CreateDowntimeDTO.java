@@ -1,9 +1,9 @@
 package com.tirwanda.be.dto.request;
 
+import com.tirwanda.be.entity.ItemCheck;
 import com.tirwanda.be.entity.ReplacedParts;
 import lombok.Data;
 
-import javax.persistence.ElementCollection;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Set;
@@ -25,19 +25,18 @@ public class CreateDowntimeDTO {
     private String sectionCode;
     private String requestBy;
 
-    @NotEmpty(message = "Start Date is require")
+    @NotEmpty(message = "Start Date is required")
     private Long startedDate;
 
-    @NotEmpty(message = "Completed Date is require")
+    @NotEmpty(message = "Completed Date is required")
     private Long completedDate;
 
-    @NotEmpty(message = "Downtime Hours is require")
+    @NotEmpty(message = "Downtime Hours is required")
     private Long downtimeHours;
 
     private Set<ReplacedParts> replacedParts;
 
-    @ElementCollection
-    private List<String> itemCheck;
+    private Set<ItemCheck> itemCheck;
 
     private List<ApdDTO> apd;
 }
