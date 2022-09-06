@@ -128,7 +128,7 @@ DefaultLineChart.propTypes = {
   title: PropTypes.string,
   description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  chart: PropTypes.objectOf(PropTypes.array).isRequired,
+  chart: PropTypes.shape([]).isRequired,
 };
 
 export default DefaultLineChart;

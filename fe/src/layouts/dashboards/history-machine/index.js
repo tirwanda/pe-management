@@ -47,6 +47,7 @@ function HistoryMachine() {
     try {
       const decode = jwtDecode(localStorage.getItem("ACCESS_TOKEN"));
       localStorage.setItem("EXPIRES_IN", decode.exp);
+      localStorage.setItem("ROLE", decode.roles[0]);
     } catch (error) {
       localStorage.clear();
       navigate("/sign-in");

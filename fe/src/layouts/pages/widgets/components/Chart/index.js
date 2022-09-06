@@ -94,7 +94,7 @@ Chart.propTypes = {
     color: PropTypes.oneOf(["primary", "secondary", "info", "success", "warning", "error", "dark"]),
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   }).isRequired,
-  chart: PropTypes.objectOf(PropTypes.array).isRequired,
+  chart: PropTypes.objectOf(PropTypes.shape).isRequired,
 };
 
 export default Chart;

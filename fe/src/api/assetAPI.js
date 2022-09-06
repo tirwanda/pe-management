@@ -3,19 +3,26 @@ import { axiosJWT } from "./authAPI";
 
 const getToken = () => localStorage.getItem("ACCESS_TOKEN");
 
-const config = {
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${getToken()}`,
-  },
-};
-
 export const saveAsset = (assetData) =>
   axios.post(
     `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/asset/save`,
     assetData,
-    config
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+    }
   );
+
+export const getAssetByLineCode = (lineCode) =>
+  axiosJWT({
+    method: "GET",
+    url: `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/asset/line/${lineCode}`,
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
 
 export const getLineData = (lineCode) =>
   axiosJWT({
@@ -41,7 +48,12 @@ export const updateAsset = (assetData) =>
   axiosJWT.put(
     `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/asset/update`,
     assetData,
-    config
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+    }
   );
 
 export const deleteAsset = (assetId) =>

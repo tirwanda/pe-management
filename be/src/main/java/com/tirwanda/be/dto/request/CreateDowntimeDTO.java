@@ -32,11 +32,16 @@ public class CreateDowntimeDTO {
     private Long completedDate;
 
     @NotEmpty(message = "Downtime Hours is required")
-    private Long downtimeHours;
+    private Double downtimeHours;
+
+    @NotEmpty(message = "Downtime Hours is required")
+    private Integer downtimeMinute;
+
+    @NotEmpty(message = "Approval is required")
+    private String approval;
 
     private Set<ReplacedParts> replacedParts;
 
-    @NotEmpty
     private Set<ItemCheck> itemCheck;
 
     private List<ApdDTO> apd;

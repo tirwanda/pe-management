@@ -13,5 +13,5 @@ public class ItemCheckDTO {
     private String itemCheck;
 
     @NotEmpty(message = "Status is required")
-    private Boolean status;
+    private String status;
 }

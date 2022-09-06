@@ -178,7 +178,7 @@ DefaultPricingCard.propTypes = {
     value: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
   }).isRequired,
-  specifications: PropTypes.arrayOf(PropTypes.object).isRequired,
+  specifications: PropTypes.arrayOf(PropTypes.shape).isRequired,
   action: PropTypes.shape({
     type: PropTypes.oneOf(["external", "internal"]).isRequired,
     route: PropTypes.string.isRequired,

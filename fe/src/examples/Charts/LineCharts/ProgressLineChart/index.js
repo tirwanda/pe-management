@@ -104,7 +104,7 @@ ProgressLineChart.propTypes = {
   count: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   progress: PropTypes.number.isRequired,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  chart: PropTypes.objectOf(PropTypes.array).isRequired,
+  chart: PropTypes.shape([]).isRequired,
 };
 
 export default ProgressLineChart;

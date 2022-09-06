@@ -45,6 +45,7 @@ import NewAsset from "layouts/maintain/assets/new-asset";
 import AssetPage from "layouts/maintain/assets/asset-page";
 import EditAsset from "layouts/maintain/assets/edit-asset";
 import DetailAsset from "layouts/maintain/assets/asset-detail";
+import CreateCM from "layouts/applications/create-cm";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -118,11 +119,28 @@ export default function App() {
     return null;
   }
 
+  function getApplicationsRoutes() {
+    const role = localStorage.getItem("ROLE");
+    if (role === "ROLE_PRODUCTION" || role === "ROLE_ADMIN") {
+      return [
+        {
+          name: "Create CM",
+          key: "create-cm",
+          route: "/cm/form-cm",
+          component: <CreateCM />,
+        },
+      ];
+    }
+    return null;
+  }
+
   const handleRoutes = () => {
     const newRoutes = [...customRoutes];
     const pos = newRoutes.findIndex((route) => route.key === "assets");
-
+    const posApplicationsSideNav = newRoutes.findIndex((route) => route.key === "applications");
     newRoutes[pos].collapse = getRoutesCustom();
+    newRoutes[posApplicationsSideNav].collapse = getApplicationsRoutes();
+
     setCustomRoutes(newRoutes);
   };
 

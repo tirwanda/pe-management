@@ -1,21 +1,20 @@
+import axios from "axios";
 import { axiosJWT } from "./authAPI";
 
 const getToken = () => localStorage.getItem("ACCESS_TOKEN");
 
-const config = {
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${getToken()}`,
-  },
-};
-
 export const savePartAddToAsset = (partData) =>
-  axiosJWT.post(
+  axios.post(
     `${
       process.env.REACT_APP_HOST_URL || "http://localhost:8080"
     }/api/part/create-and-save-to-asset`,
     partData,
-    config
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+    }
   );
 
 export const getPartListByAssetNumber = (assetNumber) =>
@@ -40,7 +39,12 @@ export const updatePart = (partData) =>
   axiosJWT.put(
     `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/part/update`,
     partData,
-    config
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+    }
   );
 
 export const removePartFromAsset = (assetNumber, partNumber) =>
@@ -59,5 +63,10 @@ export const addPartToAsset = (data) =>
   axiosJWT.post(
     `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/part/add-part-to-asset`,
     data,
-    config
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+    }
   );

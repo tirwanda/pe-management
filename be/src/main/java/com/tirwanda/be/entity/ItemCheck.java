@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
@@ -32,8 +31,8 @@ public class ItemCheck extends BaseEntity<String> implements Serializable {
     @NotEmpty(message = "Item check is required")
     private String itemCheck;
 
-    @NotNull(message = "Status is required")
-    private Boolean status;
+    @NotEmpty(message = "Status is required")
+    private String status;
 
     @Override
     public boolean equals(Object o) {

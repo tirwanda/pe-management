@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useRef, useEffect, useState, useMemo } from "react";
 
 // porp-types is a library for typechecking of props
@@ -94,7 +79,7 @@ Chart.propTypes = {
     color: PropTypes.oneOf(["primary", "secondary", "info", "success", "warning", "error", "dark"]),
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   }).isRequired,
-  chart: PropTypes.objectOf(PropTypes.array).isRequired,
+  chart: PropTypes.objectOf(PropTypes.shape).isRequired,
 };
 
 export default Chart;

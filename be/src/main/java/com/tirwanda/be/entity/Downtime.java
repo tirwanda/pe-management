@@ -55,8 +55,16 @@ public class Downtime extends BaseEntity<String> implements Serializable {
     private Long completedDate;
 
     @NotNull(message = "Downtime Hours is require")
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 10, scale = 2)
     private Double downtimeHours;
+
+    @NotNull(message = "Downtime Minute is require")
+    @Column(nullable = false)
+    private Integer downtimeMinute;
+
+    @NotEmpty(message = "Approval is required")
+    @Column(nullable = false)
+    private String approval;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<ReplacedParts> replacedParts = new HashSet<>();
