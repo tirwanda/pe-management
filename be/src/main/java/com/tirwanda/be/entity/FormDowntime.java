@@ -1,6 +1,5 @@
 package com.tirwanda.be.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -9,34 +8,28 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.*;
+import java.util.Objects;
 
+@Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@Entity
-public class Downtime extends BaseEntity<String> implements Serializable {
+public class FormDowntime extends BaseEntity<String> implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 3871925142389590145L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long downtimeId;
+    private Long formDowntimeId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @ToString.Exclude
-    @JsonIgnore
-    private Asset asset;
+    @NotEmpty(message = "Asset Number is required")
+    private String assetNumber;
 
-    @NotEmpty(message = "Asset name is required")
-    @Column(nullable = false)
-    private String assetName;
-
-    @NotEmpty(message = "Work Order is require")
+    @NotEmpty(message = "Work Order is required")
     @Column(nullable = false)
     private String workOrder;
 
@@ -49,10 +42,6 @@ public class Downtime extends BaseEntity<String> implements Serializable {
     private String WOType;
     private String sectionCode;
     private String requestBy;
-
-    @NotEmpty(message = "Line is require")
-    @Column(nullable = false)
-    private String lineName;
 
     @NotNull(message = "Start Date is require")
     @Column(nullable = false)
@@ -74,21 +63,12 @@ public class Downtime extends BaseEntity<String> implements Serializable {
     @Column(nullable = false)
     private String approval;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<ReplacedParts> replacedParts = new HashSet<>();
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<ItemCheck> itemChecks = new HashSet<>();
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Collection<Apd> apdList = new ArrayList<>();
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Downtime downtime = (Downtime) o;
-        return downtimeId != null && Objects.equals(downtimeId, downtime.downtimeId);
+        FormDowntime that = (FormDowntime) o;
+        return formDowntimeId != null && Objects.equals(formDowntimeId, that.formDowntimeId);
     }
 
     @Override

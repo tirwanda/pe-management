@@ -52,7 +52,9 @@ public class CreateDowntimeServiceImpl implements CreateDowntimeService{
                 .requestBy(downtimeDTO.getRequestBy())
                 .startedDate(downtimeDTO.getStartedDate())
                 .completedDate(downtimeDTO.getCompletedDate())
+                .assetName(downtimeDTO.getAssetName())
                 .downtimeHours(downtimeDTO.getDowntimeHours())
+                .lineName(downtimeDTO.getLineName())
                 .downtimeMinute(downtimeDTO.getDowntimeMinute())
                 .build();
 

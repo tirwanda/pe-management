@@ -24,13 +24,15 @@ public class DeleteApdController {
     public ResponseEntity<ResponseData<Apd>> deleteApd(@PathVariable Long apdId) {
         ResponseData<Apd> responseData = new ResponseData<>();
 
-        try {
-            responseData.setPayload(deleteApdService.deleteApd(apdId));
-            responseData.setStatus(true);
-            return ResponseEntity.ok(responseData);
-        } catch (ResourceNotFoundException exception) {
-            responseData.setStatus(false);
-            throw new  ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());
-        }
+//        try {
+//            responseData.setPayload(deleteApdService.deleteApd(apdId));
+//            responseData.setStatus(true);
+//            return ResponseEntity.ok(responseData);
+//        } catch (ResourceNotFoundException exception) {
+//            responseData.setStatus(false);
+//            throw new  ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());
+//        }
+
+        return ResponseEntity.ok(responseData);
     }
 }

@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // @material-ui core components
 import Autocomplete from "@mui/material/Autocomplete";
@@ -38,6 +38,7 @@ function DowntimeInfo() {
   ]);
   const [downtimeData, setDowntimeData] = useState({
     workOrder: "",
+    assetName: "",
     assetNumber: "",
     department: "PEE",
     costCenter: "",
@@ -48,6 +49,7 @@ function DowntimeInfo() {
     status: "On Progress",
   });
 
+  const [isSubmited, setIsSubmited] = useState(false);
   const [listLine, setListLine] = useState([]);
   const [listAPD, setListAPD] = useState([]);
   const [lineName, setLineName] = useState("");
@@ -58,6 +60,8 @@ function DowntimeInfo() {
   const [apdObject, setApdObject] = useState([
     { apdName: "", apdId: 0, createdBy: "", createdDate: "", updatedBy: "", updatedDate: "" },
   ]);
+
+  const Navigate = useNavigate();
 
   const handleStartedDate = (newValue) => {
     setstartedDate(newValue.getTime());
@@ -146,8 +150,8 @@ function DowntimeInfo() {
     setDowntimeData({ ...downtimeData, apd });
   };
 
-  const handleAssetNumberChange = (data) => {
-    setDowntimeData({ ...downtimeData, assetNumber: data });
+  const handleAssetNumberChange = (assetNo, assetName) => {
+    setDowntimeData({ ...downtimeData, assetNumber: assetNo, assetName: assetName });
   };
 
   const handleStatusChange = (data) => {
@@ -155,6 +159,7 @@ function DowntimeInfo() {
   };
 
   const handleInputChange = (e) => {
+    setIsSubmited(false);
     const duration = completedDate - startedDate;
     const downtimeHours = duration / (1000 * 60 * 60);
     const downtimeMinute = duration / (1000 * 60);
@@ -162,14 +167,20 @@ function DowntimeInfo() {
       ...downtimeData,
       downtimeHours,
       downtimeMinute,
+      lineName,
       [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmitForm = async (data) => {
-    await saveDowntime(data).then((res) => {
-      console.log("Downtime : ", res);
-    });
+    setIsSubmited(true);
+    await saveDowntime(data)
+      .then((res) => {
+        Navigate("/cm/list-cm");
+      })
+      .catch((err) => {
+        Navigate("/sign-in");
+      });
   };
 
   const getLinesName = async () => {
@@ -270,6 +281,7 @@ function DowntimeInfo() {
               <Autocomplete
                 onChange={(event, value) => {
                   setLineName(value);
+                  setDowntimeData({ ...downtimeData, lineName: value });
                   getAssetsName(value);
                 }}
                 options={listLine}
@@ -294,7 +306,7 @@ function DowntimeInfo() {
                 onChange={(event, value) =>
                   assetObject.forEach((asset) => {
                     if (value === asset.assetName) {
-                      handleAssetNumberChange(asset.assetNo);
+                      handleAssetNumberChange(asset.assetNo, asset.assetName);
                       getPartName(asset.assetNo);
                     }
                   })
@@ -660,6 +672,14 @@ function DowntimeInfo() {
               variant="gradient"
               color="dark"
               onClick={() => handleSubmitForm(downtimeData)}
+              disabled={
+                !(
+                  downtimeData.assetNumber &&
+                  downtimeData.lineName &&
+                  downtimeData.workOrder &&
+                  downtimeData.requestBy
+                ) || isSubmited
+              }
             >
               Submit
             </MDButton>

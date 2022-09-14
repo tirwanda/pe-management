@@ -13,10 +13,13 @@ public class CreateDowntimeDTO {
     @NotEmpty(message = "Asset number is required")
     private String assetNumber;
 
-    @NotEmpty(message = "Work Order is require")
+    @NotEmpty(message = "Asset name is required")
+    private String assetName;
+
+    @NotEmpty(message = "Work Order is required")
     private String workOrder;
 
-    @NotEmpty(message = "Status is require")
+    @NotEmpty(message = "Status is required")
     private String status;
 
     private String department;
@@ -24,6 +27,9 @@ public class CreateDowntimeDTO {
     private String WOType;
     private String sectionCode;
     private String requestBy;
+
+    @NotEmpty(message = "Line is required")
+    private String lineName;
 
     @NotEmpty(message = "Start Date is required")
     private Long startedDate;

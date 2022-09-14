@@ -46,6 +46,7 @@ import AssetPage from "layouts/maintain/assets/asset-page";
 import EditAsset from "layouts/maintain/assets/edit-asset";
 import DetailAsset from "layouts/maintain/assets/asset-detail";
 import CreateCM from "layouts/applications/create-cm";
+import ListCM from "layouts/applications/list-cm";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -124,10 +125,24 @@ export default function App() {
     if (role === "ROLE_PRODUCTION" || role === "ROLE_ADMIN") {
       return [
         {
-          name: "Create CM",
-          key: "create-cm",
-          route: "/cm/form-cm",
-          component: <CreateCM />,
+          type: "collapse",
+          name: "Corrective MTC",
+          key: "corrective",
+          icon: <Icon fontSize="medium">receipt_long</Icon>,
+          collapse: [
+            {
+              name: "Create CM",
+              key: "create-cm",
+              route: "/cm/form-cm",
+              component: <CreateCM />,
+            },
+            {
+              name: "List CM",
+              key: "list-cm",
+              route: "/cm/list-cm",
+              component: <ListCM />,
+            },
+          ],
         },
       ];
     }
