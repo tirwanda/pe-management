@@ -24,5 +24,6 @@ yarn-error.log*
 
 package-lock.json
 yarn.lock
+application.log
 
 commit.sh

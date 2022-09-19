@@ -1,89 +1,68 @@
-2022-09-14 12:56:17.283  INFO 20140 --- [restartedMain] com.tirwanda.be.BeApplication            : Starting BeApplication using Java 15 on LAPTOP-M8L9NF3P with PID 20140 (D:\4. Software Development\Web Development\pe-management\be\target\classes started by Edho Dwi Tirwanda in D:\4. Software Development\Web Development\pe-management\be)
-2022-09-14 12:56:17.291  INFO 20140 --- [restartedMain] com.tirwanda.be.BeApplication            : No active profile set, falling back to default profiles: default
-2022-09-14 12:56:17.374  INFO 20140 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2022-09-14 12:56:17.375  INFO 20140 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2022-09-14 12:56:19.122  INFO 20140 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2022-09-14 12:56:19.122  INFO 20140 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2022-09-14 12:56:19.403  INFO 20140 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 271 ms. Found 12 JPA repository interfaces.
-2022-09-14 12:56:20.396  INFO 20140 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2022-09-14 12:56:20.409  INFO 20140 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2022-09-14 12:56:20.409  INFO 20140 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.52]
-2022-09-14 12:56:20.611  INFO 20140 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2022-09-14 12:56:20.611  INFO 20140 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3235 ms
-2022-09-14 12:56:20.671  INFO 20140 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2022-09-14 12:56:21.270  INFO 20140 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2022-09-14 12:56:21.279  INFO 20140 --- [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3309/pe_db'
-2022-09-14 12:56:21.779  INFO 20140 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2022-09-14 12:56:21.851  INFO 20140 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
-2022-09-14 12:56:22.029  INFO 20140 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2022-09-14 12:56:22.181  INFO 20140 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
-2022-09-14 12:56:24.045  INFO 20140 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2022-09-14 12:56:24.061  INFO 20140 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2022-09-14 12:56:25.827  INFO 20140 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1d67bd62, org.springframework.security.web.context.SecurityContextPersistenceFilter@69ea857d, org.springframework.security.web.header.HeaderWriterFilter@243912e4, org.springframework.web.filter.CorsFilter@103dd2cf, org.springframework.security.web.authentication.logout.LogoutFilter@4ea2ce3c, com.tirwanda.be.filter.CustomAuthorizationFilter@5a20e5e, com.tirwanda.be.filter.CustomAuthenticationFilter@428e1bfd, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6a90450f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@22551d61, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@62a23263, org.springframework.security.web.session.SessionManagementFilter@15b27531, org.springframework.security.web.access.ExceptionTranslationFilter@7ea4d509, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3032363a]
-2022-09-14 12:56:26.259  INFO 20140 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2022-09-14 12:56:26.323  INFO 20140 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2022-09-14 12:56:26.336  INFO 20140 --- [restartedMain] com.tirwanda.be.BeApplication            : Started BeApplication in 9.71 seconds (JVM running for 11.041)
-2022-09-14 13:14:17.497  INFO 20140 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2022-09-14 13:14:17.497  INFO 20140 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2022-09-14 13:14:17.500  INFO 20140 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
-2022-09-14 13:14:17.545  INFO 20140 --- [http-nio-8080-exec-1] c.t.b.filter.CustomAuthenticationFilter  : Username is tirwanda
-2022-09-14 13:14:17.545  INFO 20140 --- [http-nio-8080-exec-1] c.t.b.filter.CustomAuthenticationFilter  : Password is password
-2022-09-14 13:14:18.010  INFO 20140 --- [http-nio-8080-exec-1] c.t.b.service.user.PrintUserServiceImpl  : User found in the database: tirwanda
-2022-09-14 13:14:18.368  INFO 20140 --- [http-nio-8080-exec-3] c.t.b.service.user.PrintUserServiceImpl  : Fetching user tirwanda
-2022-09-14 13:14:19.248  INFO 20140 --- [http-nio-8080-exec-4] c.t.b.service.user.PrintUserServiceImpl  : Fetching user tirwanda
-2022-09-14 13:22:47.423  INFO 20140 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2022-09-14 13:22:47.452  INFO 20140 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2022-09-14 13:22:47.488  INFO 20140 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2022-09-14 13:22:52.450  INFO 3076 --- [restartedMain] com.tirwanda.be.BeApplication            : Starting BeApplication using Java 15 on LAPTOP-M8L9NF3P with PID 3076 (D:\4. Software Development\Web Development\pe-management\be\target\classes started by Edho Dwi Tirwanda in D:\4. Software Development\Web Development\pe-management\be)
-2022-09-14 13:22:52.458  INFO 3076 --- [restartedMain] com.tirwanda.be.BeApplication            : No active profile set, falling back to default profiles: default
-2022-09-14 13:22:52.525  INFO 3076 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2022-09-14 13:22:52.526  INFO 3076 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2022-09-14 13:22:53.883  INFO 3076 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2022-09-14 13:22:53.883  INFO 3076 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2022-09-14 13:22:54.129  INFO 3076 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 237 ms. Found 12 JPA repository interfaces.
-2022-09-14 13:22:54.889  INFO 3076 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2022-09-14 13:22:54.899  INFO 3076 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2022-09-14 13:22:54.900  INFO 3076 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.52]
-2022-09-14 13:22:55.082  INFO 3076 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2022-09-14 13:22:55.082  INFO 3076 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2554 ms
-2022-09-14 13:22:55.153  INFO 3076 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2022-09-14 13:22:55.618  INFO 3076 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2022-09-14 13:22:55.626  INFO 3076 --- [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3309/pe_db'
-2022-09-14 13:22:56.017  INFO 3076 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2022-09-14 13:22:56.074  INFO 3076 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
-2022-09-14 13:22:56.191  INFO 3076 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2022-09-14 13:22:56.308  INFO 3076 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
-2022-09-14 13:22:57.929  INFO 3076 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2022-09-14 13:22:57.942  INFO 3076 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2022-09-14 13:22:59.752  INFO 3076 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@fa9cab2, org.springframework.security.web.context.SecurityContextPersistenceFilter@14c78917, org.springframework.security.web.header.HeaderWriterFilter@315f1a2d, org.springframework.web.filter.CorsFilter@5e122456, org.springframework.security.web.authentication.logout.LogoutFilter@2ae376b5, com.tirwanda.be.filter.CustomAuthorizationFilter@3328a1b3, com.tirwanda.be.filter.CustomAuthenticationFilter@73efd7f9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@362b650d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1f3004a1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@32d26f6c, org.springframework.security.web.session.SessionManagementFilter@7cc7edef, org.springframework.security.web.access.ExceptionTranslationFilter@6a3e115f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@30c9e6e3]
-2022-09-14 13:23:00.177  INFO 3076 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2022-09-14 13:23:00.245  INFO 3076 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2022-09-14 13:23:00.264  INFO 3076 --- [restartedMain] com.tirwanda.be.BeApplication            : Started BeApplication in 8.294 seconds (JVM running for 9.599)
-2022-09-14 13:23:54.446  INFO 3076 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2022-09-14 13:23:54.468  INFO 3076 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2022-09-14 13:23:54.495  INFO 3076 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2022-09-14 13:23:59.034  INFO 20408 --- [restartedMain] com.tirwanda.be.BeApplication            : Starting BeApplication using Java 15 on LAPTOP-M8L9NF3P with PID 20408 (D:\4. Software Development\Web Development\pe-management\be\target\classes started by Edho Dwi Tirwanda in D:\4. Software Development\Web Development\pe-management\be)
-2022-09-14 13:23:59.038  INFO 20408 --- [restartedMain] com.tirwanda.be.BeApplication            : No active profile set, falling back to default profiles: default
-2022-09-14 13:23:59.103  INFO 20408 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2022-09-14 13:23:59.103  INFO 20408 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2022-09-14 13:24:00.334  INFO 20408 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2022-09-14 13:24:00.334  INFO 20408 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2022-09-14 13:24:00.563  INFO 20408 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 220 ms. Found 12 JPA repository interfaces.
-2022-09-14 13:24:01.285  INFO 20408 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2022-09-14 13:24:01.292  INFO 20408 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2022-09-14 13:24:01.292  INFO 20408 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.52]
-2022-09-14 13:24:01.480  INFO 20408 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2022-09-14 13:24:01.480  INFO 20408 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2376 ms
-2022-09-14 13:24:01.536  INFO 20408 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2022-09-14 13:24:01.960  INFO 20408 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2022-09-14 13:24:01.968  INFO 20408 --- [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3309/pe_db'
-2022-09-14 13:24:02.329  INFO 20408 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2022-09-14 13:24:02.390  INFO 20408 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
-2022-09-14 13:24:02.508  INFO 20408 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2022-09-14 13:24:02.621  INFO 20408 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
-2022-09-14 13:24:04.361  INFO 20408 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2022-09-14 13:24:04.374  INFO 20408 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2022-09-14 13:24:06.031  INFO 20408 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@aa23e5b, org.springframework.security.web.context.SecurityContextPersistenceFilter@5ea49a0b, org.springframework.security.web.header.HeaderWriterFilter@36307816, org.springframework.web.filter.CorsFilter@103db690, org.springframework.security.web.authentication.logout.LogoutFilter@1614ccc7, com.tirwanda.be.filter.CustomAuthorizationFilter@f89c131, com.tirwanda.be.filter.CustomAuthenticationFilter@3f3fba2b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3d5e8b1b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@19dc693b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@24f40b71, org.springframework.security.web.session.SessionManagementFilter@642dcc61, org.springframework.security.web.access.ExceptionTranslationFilter@32c5c1ba, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7829516c]
-2022-09-14 13:24:06.427  INFO 20408 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2022-09-14 13:24:06.492  INFO 20408 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2022-09-14 13:24:06.510  INFO 20408 --- [restartedMain] com.tirwanda.be.BeApplication            : Started BeApplication in 7.979 seconds (JVM running for 9.207)
+2022-09-19 11:19:09.413  INFO 8704 --- [restartedMain] com.tirwanda.be.BeApplication            : Starting BeApplication using Java 15 on LAPTOP-M8L9NF3P with PID 8704 (D:\4. Software Development\Web Development\pe-management\be\target\classes started by Edho Dwi Tirwanda in D:\4. Software Development\Web Development\pe-management\be)
+2022-09-19 11:19:09.421  INFO 8704 --- [restartedMain] com.tirwanda.be.BeApplication            : No active profile set, falling back to default profiles: default
+2022-09-19 11:19:09.496  INFO 8704 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-09-19 11:19:09.497  INFO 8704 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-09-19 11:19:10.964  INFO 8704 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-09-19 11:19:10.965  INFO 8704 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-09-19 11:19:11.264  INFO 8704 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 290 ms. Found 12 JPA repository interfaces.
+2022-09-19 11:19:12.064  INFO 8704 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-09-19 11:19:12.078  INFO 8704 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-09-19 11:19:12.079  INFO 8704 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.52]
+2022-09-19 11:19:12.261  INFO 8704 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-09-19 11:19:12.261  INFO 8704 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2762 ms
+2022-09-19 11:19:12.305  INFO 8704 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-09-19 11:19:12.849  INFO 8704 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-09-19 11:19:12.855  INFO 8704 --- [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3309/pe_db'
+2022-09-19 11:19:13.297  INFO 8704 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-09-19 11:19:13.373  INFO 8704 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2022-09-19 11:19:13.543  INFO 8704 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-09-19 11:19:13.676  INFO 8704 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2022-09-19 11:19:15.319  INFO 8704 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-09-19 11:19:15.329  INFO 8704 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-09-19 11:19:17.144  INFO 8704 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1d67bd62, org.springframework.security.web.context.SecurityContextPersistenceFilter@69ea857d, org.springframework.security.web.header.HeaderWriterFilter@243912e4, org.springframework.web.filter.CorsFilter@103dd2cf, org.springframework.security.web.authentication.logout.LogoutFilter@4ea2ce3c, com.tirwanda.be.filter.CustomAuthorizationFilter@5a20e5e, com.tirwanda.be.filter.CustomAuthenticationFilter@428e1bfd, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6a90450f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@22551d61, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@62a23263, org.springframework.security.web.session.SessionManagementFilter@15b27531, org.springframework.security.web.access.ExceptionTranslationFilter@7ea4d509, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3032363a]
+2022-09-19 11:19:17.554  INFO 8704 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-09-19 11:19:17.616  INFO 8704 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-09-19 11:19:17.633  INFO 8704 --- [restartedMain] com.tirwanda.be.BeApplication            : Started BeApplication in 8.837 seconds (JVM running for 10.251)
+2022-09-19 12:49:04.101  INFO 8704 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-09-19 12:49:04.101  INFO 8704 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-09-19 12:49:04.138  INFO 8704 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 37 ms
+2022-09-19 12:49:04.228  INFO 8704 --- [http-nio-8080-exec-1] c.t.b.filter.CustomAuthenticationFilter  : Username is tirwanda
+2022-09-19 12:49:04.229  INFO 8704 --- [http-nio-8080-exec-1] c.t.b.filter.CustomAuthenticationFilter  : Password is password
+2022-09-19 12:49:05.331  INFO 8704 --- [http-nio-8080-exec-1] c.t.b.service.user.PrintUserServiceImpl  : User found in the database: tirwanda
+2022-09-19 12:49:05.729  INFO 8704 --- [http-nio-8080-exec-3] c.t.b.service.user.PrintUserServiceImpl  : Fetching user tirwanda
+2022-09-19 12:49:06.544  INFO 8704 --- [http-nio-8080-exec-5] c.t.b.service.user.PrintUserServiceImpl  : Fetching user tirwanda
+2022-09-19 13:07:40.728  INFO 8704 --- [http-nio-8080-exec-8] c.t.b.s.d.CreateDowntimeServiceImpl      : ItemCheck(itemCheckId=null, itemCheck=Periksa All Sensor, status=OK)
+2022-09-19 13:07:41.088 ERROR 8704 --- [http-nio-8080-exec-8] c.t.be.filter.CustomAuthorizationFilter  : Error Login: Request processing failed; nested exception is org.springframework.transaction.TransactionSystemException: Could not commit JPA transaction; nested exception is javax.persistence.RollbackException: Error while committing the transaction
+2022-09-19 13:10:15.537  INFO 8704 --- [http-nio-8080-exec-2] c.t.b.filter.CustomAuthenticationFilter  : Username is tirwanda
+2022-09-19 13:10:15.537  INFO 8704 --- [http-nio-8080-exec-2] c.t.b.filter.CustomAuthenticationFilter  : Password is password
+2022-09-19 13:10:15.629  INFO 8704 --- [http-nio-8080-exec-2] c.t.b.service.user.PrintUserServiceImpl  : User found in the database: tirwanda
+2022-09-19 13:10:15.816  INFO 8704 --- [http-nio-8080-exec-1] c.t.b.service.user.PrintUserServiceImpl  : Fetching user tirwanda
+2022-09-19 13:10:16.404  INFO 8704 --- [http-nio-8080-exec-3] c.t.b.service.user.PrintUserServiceImpl  : Fetching user tirwanda
+2022-09-19 13:11:54.998  INFO 8704 --- [http-nio-8080-exec-9] c.t.b.s.d.CreateDowntimeServiceImpl      : ItemCheck(itemCheckId=null, itemCheck=Periksa All Sensor, status=)
+2022-09-19 13:11:55.074 ERROR 8704 --- [http-nio-8080-exec-9] c.t.be.filter.CustomAuthorizationFilter  : Error Login: Request processing failed; nested exception is org.springframework.transaction.TransactionSystemException: Could not commit JPA transaction; nested exception is javax.persistence.RollbackException: Error while committing the transaction
+2022-09-19 13:13:15.586  INFO 8704 --- [http-nio-8080-exec-1] c.t.b.s.d.CreateDowntimeServiceImpl      : ItemCheck(itemCheckId=null, itemCheck=Periksa All Sensor, status=OK)
+2022-09-19 13:13:15.663 ERROR 8704 --- [http-nio-8080-exec-1] c.t.be.filter.CustomAuthorizationFilter  : Error Login: Request processing failed; nested exception is org.springframework.transaction.TransactionSystemException: Could not commit JPA transaction; nested exception is javax.persistence.RollbackException: Error while committing the transaction
+2022-09-19 13:14:06.063  INFO 8704 --- [http-nio-8080-exec-4] c.t.b.filter.CustomAuthenticationFilter  : Username is tirwanda
+2022-09-19 13:14:06.063  INFO 8704 --- [http-nio-8080-exec-4] c.t.b.filter.CustomAuthenticationFilter  : Password is password
+2022-09-19 13:14:06.145  INFO 8704 --- [http-nio-8080-exec-4] c.t.b.service.user.PrintUserServiceImpl  : User found in the database: tirwanda
+2022-09-19 13:14:22.016  INFO 8704 --- [http-nio-8080-exec-5] c.t.b.s.d.CreateDowntimeServiceImpl      : ItemCheck(itemCheckId=null, itemCheck=Check Tekanan Angin, status=OK)
+2022-09-19 13:14:22.046  INFO 8704 --- [http-nio-8080-exec-5] c.t.b.s.d.CreateDowntimeServiceImpl      : ItemCheck(itemCheckId=null, itemCheck=Check Sensor Reed Switch, status=NG)
+2022-09-19 13:19:38.387  INFO 8704 --- [http-nio-8080-exec-8] c.t.b.s.d.CreateDowntimeServiceImpl      : ItemCheck(itemCheckId=null, itemCheck=Periksa All Sensor, status=OK)
+2022-09-19 13:19:38.464 ERROR 8704 --- [http-nio-8080-exec-8] c.t.be.filter.CustomAuthorizationFilter  : Error Login: Request processing failed; nested exception is org.springframework.transaction.TransactionSystemException: Could not commit JPA transaction; nested exception is javax.persistence.RollbackException: Error while committing the transaction
+2022-09-19 13:24:43.783  INFO 8704 --- [http-nio-8080-exec-6] c.t.b.s.d.CreateDowntimeServiceImpl      : ItemCheck(itemCheckId=null, itemCheck=Periksa All Sensor, status=OK)
+2022-09-19 13:24:43.809  INFO 8704 --- [http-nio-8080-exec-6] c.t.b.s.d.CreateDowntimeServiceImpl      : ItemCheck(itemCheckId=null, itemCheck=Periksa Jig, status=true)
+2022-09-19 13:25:58.273  INFO 8704 --- [http-nio-8080-exec-4] c.t.b.s.d.CreateDowntimeServiceImpl      : ItemCheck(itemCheckId=null, itemCheck=Periksa All Sensor, status=OK)
+2022-09-19 13:25:58.299  INFO 8704 --- [http-nio-8080-exec-4] c.t.b.s.d.CreateDowntimeServiceImpl      : ItemCheck(itemCheckId=null, itemCheck=Periksa Jig, status=NG)
+2022-09-19 13:26:46.861  INFO 8704 --- [http-nio-8080-exec-9] c.t.b.s.d.CreateDowntimeServiceImpl      : ItemCheck(itemCheckId=null, itemCheck=Periksa All Sensor, status=)
+2022-09-19 13:26:46.948 ERROR 8704 --- [http-nio-8080-exec-9] c.t.be.filter.CustomAuthorizationFilter  : Error Login: Request processing failed; nested exception is org.springframework.transaction.TransactionSystemException: Could not commit JPA transaction; nested exception is javax.persistence.RollbackException: Error while committing the transaction
+2022-09-19 13:27:06.898  INFO 8704 --- [http-nio-8080-exec-10] c.t.b.s.d.CreateDowntimeServiceImpl      : ItemCheck(itemCheckId=null, itemCheck=Periksa All Sensor, status=)
+2022-09-19 13:27:06.968 ERROR 8704 --- [http-nio-8080-exec-10] c.t.be.filter.CustomAuthorizationFilter  : Error Login: Request processing failed; nested exception is org.springframework.transaction.TransactionSystemException: Could not commit JPA transaction; nested exception is javax.persistence.RollbackException: Error while committing the transaction
+2022-09-19 13:28:29.956  INFO 8704 --- [http-nio-8080-exec-8] c.t.b.s.d.CreateDowntimeServiceImpl      : ItemCheck(itemCheckId=null, itemCheck=Periksa All Sensor, status=)
+2022-09-19 13:28:30.037 ERROR 8704 --- [http-nio-8080-exec-8] c.t.be.filter.CustomAuthorizationFilter  : Error Login: Request processing failed; nested exception is org.springframework.transaction.TransactionSystemException: Could not commit JPA transaction; nested exception is javax.persistence.RollbackException: Error while committing the transaction
+2022-09-19 13:31:45.120  INFO 8704 --- [http-nio-8080-exec-4] c.t.b.s.d.CreateDowntimeServiceImpl      : ItemCheck(itemCheckId=null, itemCheck=, status=NG)
+2022-09-19 13:31:45.179 ERROR 8704 --- [http-nio-8080-exec-4] c.t.be.filter.CustomAuthorizationFilter  : Error Login: Request processing failed; nested exception is org.springframework.transaction.TransactionSystemException: Could not commit JPA transaction; nested exception is javax.persistence.RollbackException: Error while committing the transaction
+2022-09-19 13:33:00.430  INFO 8704 --- [http-nio-8080-exec-8] c.t.b.s.d.CreateDowntimeServiceImpl      : ItemCheck(itemCheckId=null, itemCheck=, status=NG)
+2022-09-19 13:33:00.478 ERROR 8704 --- [http-nio-8080-exec-8] c.t.be.filter.CustomAuthorizationFilter  : Error Login: Request processing failed; nested exception is org.springframework.transaction.TransactionSystemException: Could not commit JPA transaction; nested exception is javax.persistence.RollbackException: Error while committing the transaction
+2022-09-19 13:34:48.551 ERROR 8704 --- [http-nio-8080-exec-7] c.t.be.filter.CustomAuthorizationFilter  : Error Login: Request processing failed; nested exception is org.springframework.transaction.TransactionSystemException: Could not commit JPA transaction; nested exception is javax.persistence.RollbackException: Error while committing the transaction
+2022-09-19 13:41:22.085  INFO 8704 --- [http-nio-8080-exec-3] c.t.b.s.d.CreateDowntimeServiceImpl      : ItemCheck(itemCheckId=null, itemCheck=Periksa All Sensor, status=OK)
+2022-09-19 13:41:22.110  INFO 8704 --- [http-nio-8080-exec-3] c.t.b.s.d.CreateDowntimeServiceImpl      : ItemCheck(itemCheckId=null, itemCheck=Periksa Mekanik, status=NG)

@@ -29,8 +29,8 @@ import { getAllAPD } from "api/apdAPI";
 import { saveDowntime } from "api/downtime";
 
 function DowntimeInfo() {
-  const [startedDate, setstartedDate] = useState(new Date("2022-08-18T21:10:55").getTime());
-  const [completedDate, setCompletedDate] = useState(new Date("2022-08-18T22:10:55").getTime());
+  const [startedDate, setstartedDate] = useState(new Date().getTime());
+  const [completedDate, setCompletedDate] = useState(new Date().getTime());
   const [itemCheck, setItemCheck] = useState([{ itemCheck: "", status: "" }]);
   const [apd, setApd] = useState([{ apdName: "", apdId: 0 }]);
   const [replacedParts, setReplacedParts] = useState([
@@ -85,7 +85,7 @@ function DowntimeInfo() {
   };
 
   const addFieldsItem = () => {
-    const newFields = { itemCheck: "", status: true };
+    const newFields = { itemCheck: "", status: "NG" };
     setItemCheck((oldArr) => [...oldArr, newFields]);
   };
 
@@ -168,6 +168,8 @@ function DowntimeInfo() {
       downtimeHours,
       downtimeMinute,
       lineName,
+      startedDate,
+      completedDate,
       [e.target.name]: e.target.value,
     });
   };
