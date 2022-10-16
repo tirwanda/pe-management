@@ -10,8 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional
@@ -24,32 +23,33 @@ public class DeleteDowntimeServiceImpl implements DeleteDowntimeService{
     private final DeleteItemCheckServiceImpl deleteItemCheckService;
 
     @Override
-    public Optional<Downtime> deleteDowntime(Long downtimeId) {
-        Downtime downtime = downtimeRepository.findById(downtimeId).orElse(null);
+    public Downtime deleteDowntime(Long downtimeId) throws ResourceNotFoundException {
+        Downtime downtime = downtimeRepository.findById(downtimeId)
+                .orElseThrow(() -> new ResourceNotFoundException("Downtime is doesn't exist"));
+
 
         if (downtime != null) {
+            log.info("Downtime is exist");
             Asset asset = downtime.getAsset();
             asset.removeDowntime(downtime);
-            Set<ReplacedParts> replacedParts = downtime.getReplacedParts();
-            Set<ItemCheck> itemChecks = downtime.getItemChecks();
+            Collection<ReplacedParts> replacedParts = downtime.getReplacedParts();
 
+            downtime.setItemChecks(null);
             downtime.setApdList(null);
 
-            for (ItemCheck itemCheck : itemChecks) {
-                downtime.getItemChecks().remove(itemCheck);
-                deleteItemCheckService.DeleteItemCheck(itemCheck.getItemCheckId());
-            }
-
-            for (ReplacedParts replacedPart : replacedParts) {
-                try {
-                    deleteReplacedPartsService.deleteReplacedParts(replacedPart.getReplacedPartId());
-                } catch (ResourceNotFoundException e) {
-                    e.printStackTrace();
+            if (!replacedParts.isEmpty()) {
+                for (ReplacedParts replacedPart : replacedParts) {
+                    try {
+                        log.info("Deleting Replaced Part {}", replacedPart);
+                        deleteReplacedPartsService.deleteReplacedParts(replacedPart.getReplacedPartId());
+                    } catch (ResourceNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-            downtimeRepository.deleteById(downtimeId);
-        }
 
-        return Optional.ofNullable(downtime);
+            downtimeRepository.delete(downtime);
+        }
+        return downtime;
     }
 }

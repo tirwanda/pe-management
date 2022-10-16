@@ -28,8 +28,8 @@ import routes from "routes";
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
 
 // Images
-import brandWhite from "assets/images/ahm-brand-white.png";
-import brandDark from "assets/images/ahm-brand-dark.png";
+import brandWhite from "assets/images/xyz-brand-white.png";
+import brandDark from "assets/images/xyz-brand-dark.png";
 
 // Layouts Component
 import SignInBasic from "layouts/authentication/sign-in/basic";
@@ -38,8 +38,10 @@ import NewAsset from "layouts/maintain/assets/new-asset";
 import AssetPage from "layouts/maintain/assets/asset-page";
 import EditAsset from "layouts/maintain/assets/edit-asset";
 import DetailAsset from "layouts/maintain/assets/asset-detail";
+import DetailCM from "layouts/applications/detail-cm";
 import CreateCM from "layouts/applications/create-cm";
 import ListCM from "layouts/applications/list-cm";
+import UpdateCM from "layouts/applications/update-cm";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -221,6 +223,8 @@ export default function App() {
         <Route path="/sign-up" element={<RegisterStepper />} />
         <Route path="/asset/edit/:assetNumber" element={<EditAsset />} />
         <Route path="/asset/:assetNumber" element={<DetailAsset />} />
+        <Route path="/cm/list-cm/:downtimeId" element={<DetailCM />} />
+        <Route path="/cm/update-cm/:downtimeId" element={<UpdateCM />} />
         {localStorage.getItem("ACCESS_TOKEN") && getRoutes(customRoutes)}
         {render && <Route path="*" element={<Navigate to="/sign-in" />} />}
       </Routes>

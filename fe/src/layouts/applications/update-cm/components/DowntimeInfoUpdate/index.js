@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 // @material-ui core components
 import Autocomplete from "@mui/material/Autocomplete";
@@ -18,41 +19,29 @@ import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
 
-// Settings page components
-import FormField from "layouts/applications/create-cm/components/FormField";
+// DowntimeInfoUpdate page components
+import FormField from "layouts/applications/update-cm/components/FormField";
 
 // Data
 import { getAllLines } from "api/lineAPI";
 import { getAssetByLineCode } from "api/assetAPI";
 import { getPartListByAssetNumber } from "api/partAPI";
 import { getAllAPD } from "api/apdAPI";
-import { saveDowntime } from "api/downtime";
+import { updateDowntime } from "api/downtime";
 
-function DowntimeInfo() {
-  const [startedDate, setstartedDate] = useState(new Date().getTime());
-  const [completedDate, setCompletedDate] = useState(new Date().getTime());
-  const [itemCheck, setItemCheck] = useState([{ itemCheck: "", status: "NG" }]);
-  const [apd, setApd] = useState([{ apdName: "", apdId: 0 }]);
-  const [replacedParts, setReplacedParts] = useState([
-    { partName: "", partNumber: "", quantity: 1, uom: "PC" },
-  ]);
-  const [downtimeData, setDowntimeData] = useState({
-    workOrder: "",
-    assetName: "",
-    assetNumber: "",
-    department: "PEE",
-    costCenter: "",
-    wotype: "BRKD",
-    sectionCode: "",
-    approval: "Waiting",
-    requestBy: "",
-    status: "On Progress",
-  });
+function DowntimeInfoUpdate({ downtimeInfo }) {
+  const [startedDate, setstartedDate] = useState(new Date(downtimeInfo.startedDate).getTime());
+  const [completedDate, setCompletedDate] = useState(
+    new Date(downtimeInfo.completedDate).getTime()
+  );
+  const [itemChecks, setItemChecks] = useState(downtimeInfo.itemChecks);
+  const [apdList, setApdList] = useState(downtimeInfo.apdList);
+  const [replacedParts, setReplacedParts] = useState(downtimeInfo.replacedParts);
+  const [downtimeData, setDowntimeData] = useState(downtimeInfo);
 
-  const [isSubmited, setIsSubmited] = useState(false);
   const [listLine, setListLine] = useState([]);
   const [listAPD, setListAPD] = useState([]);
-  const [lineName, setLineName] = useState("");
+  const [lineName, setLineName] = useState(downtimeInfo.lineName);
   const [listAsset, setListAsset] = useState([]);
   const [listPart, setListPart] = useState([]);
   const [assetObject, setAssetObject] = useState([{ assetNo: "", assetName: "" }]);
@@ -60,6 +49,7 @@ function DowntimeInfo() {
   const [apdObject, setApdObject] = useState([
     { apdName: "", apdId: 0, createdBy: "", createdDate: "", updatedBy: "", updatedDate: "" },
   ]);
+  const [isUpdated, setIsUpdated] = useState(false);
 
   const Navigate = useNavigate();
 
@@ -87,26 +77,26 @@ function DowntimeInfo() {
 
   const addFieldsItem = () => {
     const newFields = { itemCheck: "", status: "NG" };
-    setItemCheck((oldArr) => [...oldArr, newFields]);
+    setItemChecks((oldArr) => [...oldArr, newFields]);
   };
 
   const deleteFieldsItem = () => {
-    const copyArr = [...itemCheck];
+    const copyArr = [...itemChecks];
     copyArr.splice(-1);
-    setItemCheck(copyArr);
-    setDowntimeData({ ...downtimeData, itemCheck: copyArr });
+    setItemChecks(copyArr);
+    setDowntimeData({ ...downtimeData, itemChecks: copyArr });
   };
 
   const addFieldsApd = () => {
     const newFields = { apdName: "", apdId: 0 };
-    setApd((oldArr) => [...oldArr, newFields]);
+    setApdList((oldArr) => [...oldArr, newFields]);
   };
 
   const deleteFieldsApd = () => {
-    const copyArr = [...apd];
+    const copyArr = [...apdList];
     copyArr.splice(-1);
-    setApd(copyArr);
-    setDowntimeData({ ...downtimeData, apd: copyArr });
+    setApdList(copyArr);
+    setDowntimeData({ ...downtimeData, apdList: copyArr });
   };
 
   const handleReplacedPartsNameChange = (index, value, partNo) => {
@@ -114,43 +104,43 @@ function DowntimeInfo() {
     partListData[index].partName = value;
     partListData[index].partNumber = partNo;
     setReplacedParts(partListData);
-    setDowntimeData({ ...downtimeData, replacedParts });
+    setDowntimeData({ ...downtimeData, replacedParts: partListData });
   };
 
   const handleReplacedPartsChange = (index, event) => {
     const partListData = [...replacedParts];
     partListData[index][event.target.name] = event.target.value;
     setReplacedParts(partListData);
-    setDowntimeData({ ...downtimeData, replacedParts });
+    setDowntimeData({ ...downtimeData, replacedParts: partListData });
   };
 
   const handleUomChange = (index, value) => {
     const partListData = [...replacedParts];
     partListData[index].uom = value;
     setReplacedParts(partListData);
-    setDowntimeData({ ...downtimeData, replacedParts });
+    setDowntimeData({ ...downtimeData, replacedParts: partListData });
   };
 
   const handleItemCheckChange = (index, event) => {
-    const itemChecks = [...itemCheck];
+    const itemCheck = [...itemChecks];
     itemCheck[index][event.target.name] = event.target.value;
-    setItemCheck(itemChecks);
-    setDowntimeData({ ...downtimeData, itemCheck });
+    setItemChecks(itemCheck);
+    setDowntimeData({ ...downtimeData, itemChecks });
   };
 
   const handleItemCheckStatusChange = (index, value) => {
-    const itemChecks = [...itemCheck];
+    const itemCheck = [...itemChecks];
     itemCheck[index].status = value;
-    setItemCheck(itemChecks);
-    setDowntimeData({ ...downtimeData, itemCheck });
+    setItemChecks(itemCheck);
+    setDowntimeData({ ...downtimeData, itemChecks });
   };
 
   const handleApdChange = (index, value, apdNo) => {
-    const apdList = [...apd];
-    apdList[index].apdName = value;
-    apdList[index].apdId = apdNo;
-    setApd(apdList);
-    setDowntimeData({ ...downtimeData, apd });
+    const apd = [...apdList];
+    apd[index].apdName = value;
+    apd[index].apdId = apdNo;
+    setApdList(apd);
+    setDowntimeData({ ...downtimeData, apdList: apd });
   };
 
   const handleAssetNumberChange = (assetNo, assetName) => {
@@ -162,7 +152,7 @@ function DowntimeInfo() {
   };
 
   const handleInputChange = (e) => {
-    setIsSubmited(false);
+    setIsUpdated(false);
     const duration = completedDate - startedDate;
     const downtimeHours = duration / (1000 * 60 * 60);
     const downtimeMinute = duration / (1000 * 60);
@@ -177,13 +167,14 @@ function DowntimeInfo() {
     });
   };
 
-  const handleSubmitForm = async (data) => {
-    setIsSubmited(true);
-    await saveDowntime(data)
+  const handleUpdateForm = async (data) => {
+    setIsUpdated(true);
+    await updateDowntime(data)
       .then(() => {
         Navigate("/cm/list-cm");
       })
       .catch(() => {
+        localStorage.clear();
         Navigate("/sign-in");
       });
   };
@@ -260,7 +251,10 @@ function DowntimeInfo() {
 
   useEffect(() => {
     getLinesName();
+    setDowntimeData(downtimeInfo);
+    getAssetsName(downtimeInfo.lineName);
     getListApdName();
+    getPartName(Number(downtimeInfo.assetNumber));
   }, []);
 
   return (
@@ -289,6 +283,7 @@ function DowntimeInfo() {
                   setDowntimeData({ ...downtimeData, lineName: value });
                   getAssetsName(value);
                 }}
+                defaultValue={downtimeInfo.lineName}
                 options={listLine}
                 renderInput={(params) => <MDInput {...params} variant="standard" />}
               />
@@ -316,8 +311,10 @@ function DowntimeInfo() {
                     }
                   })
                 }
-                disabled={!lineName}
+                defaultValue={downtimeInfo.assetName}
                 options={listAsset}
+                getOptionLabel={(option) => option}
+                isOptionEqualToValue={(option, value) => option === value}
                 renderInput={(params) => <MDInput {...params} variant="standard" />}
               />
             </MDBox>
@@ -347,6 +344,7 @@ function DowntimeInfo() {
               name="workOrder"
               label="Work Order"
               placeholder="ex: MC Tidak Bisa Auto"
+              value={downtimeData.workOrder}
               onChange={handleInputChange}
             />
           </Grid>
@@ -372,7 +370,7 @@ function DowntimeInfo() {
               </MDBox>
               <Autocomplete
                 onChange={(event, value) => handleStatusChange(value)}
-                defaultValue="On Progress"
+                value={downtimeData.status}
                 options={["Done", "On Progress"]}
                 renderInput={(params) => <MDInput {...params} variant="standard" />}
               />
@@ -400,7 +398,7 @@ function DowntimeInfo() {
               </MDBox>
               <Autocomplete
                 onChange={(event, value) => setDowntimeData({ ...downtimeData, department: value })}
-                defaultValue="PEE"
+                value={downtimeData.department}
                 options={["PEA", "PEB", "PEC", "PED", "PEE"]}
                 renderInput={(params) => <MDInput {...params} variant="standard" />}
               />
@@ -410,6 +408,7 @@ function DowntimeInfo() {
             <FormField
               name="costCenter"
               label="Cost Center"
+              value={downtimeData.costCenter}
               placeholder="ex: P8AEA0"
               onChange={handleInputChange}
             />
@@ -419,6 +418,7 @@ function DowntimeInfo() {
               name="sectionCode"
               label="Section Code"
               placeholder="ex: PEAE50"
+              value={downtimeData.sectionCode}
               onChange={handleInputChange}
             />
           </Grid>
@@ -428,6 +428,7 @@ function DowntimeInfo() {
               label="Request By (NRP)"
               type="number"
               placeholder="ex: 94079"
+              value={downtimeData.requestBy}
               onChange={handleInputChange}
             />
           </Grid>
@@ -491,8 +492,8 @@ function DowntimeInfo() {
                       }
                     })
                   }
-                  disabled={!downtimeData.assetNumber}
                   options={listPart}
+                  value={replacedPart.partName}
                   renderInput={(params) => <MDInput {...params} variant="standard" />}
                 />
               </MDBox>
@@ -503,7 +504,7 @@ function DowntimeInfo() {
                 label="Part Number"
                 placeholder="ex: 20192334"
                 disabled
-                value={replacedParts[index].partNumber}
+                value={replacedPart.partNumber}
               />
             </Grid>
             <Grid item xs={12} sm={2}>
@@ -538,7 +539,7 @@ function DowntimeInfo() {
                 </MDBox>
                 <Autocomplete
                   onChange={(event, value) => handleUomChange(index, value)}
-                  defaultValue="PC"
+                  value={replacedPart.uom}
                   options={["PC", "Unit", "Liter"]}
                   renderInput={(params) => <MDInput {...params} variant="standard" />}
                 />
@@ -575,7 +576,7 @@ function DowntimeInfo() {
           </Grid>
         </Grid>
 
-        {itemCheck.map((item, index) => (
+        {itemChecks.map((item, index) => (
           <Grid container spacing={3} key={index} mb={2}>
             <Grid item xs={8} sm={8}>
               <FormField
@@ -608,7 +609,7 @@ function DowntimeInfo() {
                 </MDBox>
                 <Autocomplete
                   onChange={(event, value) => handleItemCheckStatusChange(index, value)}
-                  defaultValue="NG"
+                  value={item.status}
                   options={["OK", "NG"]}
                   renderInput={(params) => <MDInput {...params} variant="standard" />}
                 />
@@ -641,7 +642,7 @@ function DowntimeInfo() {
         </Grid>
 
         <Grid container spacing={3} mb={2}>
-          {apd.map((itemApd, index) => (
+          {apdList.map((itemApd, index) => (
             <Grid item xs={12} sm={3} key={index}>
               <MDBox mb={3}>
                 <MDBox display="inline-block">
@@ -663,7 +664,10 @@ function DowntimeInfo() {
                       }
                     })
                   }
+                  value={itemApd.apdName}
                   options={listAPD}
+                  getOptionLabel={(option) => option}
+                  isOptionEqualToValue={(option, value) => option === value}
                   renderInput={(params) => <MDInput {...params} variant="standard" />}
                 />
               </MDBox>
@@ -676,17 +680,17 @@ function DowntimeInfo() {
             <MDButton
               variant="gradient"
               color="dark"
-              onClick={() => handleSubmitForm(downtimeData)}
+              onClick={() => handleUpdateForm(downtimeData)}
               disabled={
                 !(
                   downtimeData.assetNumber &&
                   downtimeData.lineName &&
                   downtimeData.workOrder &&
                   downtimeData.requestBy
-                ) || isSubmited
+                ) || isUpdated
               }
             >
-              Submit
+              Update
             </MDButton>
           </MDBox>
         </Grid>
@@ -695,4 +699,44 @@ function DowntimeInfo() {
   );
 }
 
-export default DowntimeInfo;
+DowntimeInfoUpdate.defaultProps = {
+  downtimeInfo: {
+    workOrder: "",
+    assetName: "",
+    assetNumber: "",
+    department: "PEE",
+    costCenter: "",
+    wotype: "BRKD",
+    startedDate: new Date().getTime(),
+    completedDate: new Date().getTime(),
+    sectionCode: "",
+    approval: "Waiting",
+    requestBy: "",
+    status: "On Progress",
+    lineName: "",
+  },
+};
+
+DowntimeInfoUpdate.propTypes = {
+  downtimeInfo: PropTypes.shape({
+    downtimeId: PropTypes.number.isRequired,
+    workOrder: PropTypes.string,
+    assetName: PropTypes.string,
+    assetNumber: PropTypes.string,
+    department: PropTypes.string,
+    costCenter: PropTypes.string,
+    wotype: PropTypes.string,
+    startedDate: PropTypes.number,
+    completedDate: PropTypes.number,
+    sectionCode: PropTypes.string,
+    approval: PropTypes.string,
+    requestBy: PropTypes.string,
+    status: PropTypes.string,
+    lineName: PropTypes.string,
+    apdList: PropTypes.arrayOf(PropTypes.shape),
+    itemChecks: PropTypes.arrayOf(PropTypes.shape),
+    replacedParts: PropTypes.arrayOf(PropTypes.shape),
+  }),
+};
+
+export default DowntimeInfoUpdate;

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { Link, useNavigate } from "react-router-dom";
 
 // @mui material components
@@ -18,10 +17,9 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
-import dataTableData from "./data/dataTableData";
-import { getLineData, deleteAsset } from "api/assetAPI";
-import { getAllDowntime } from "api/downtime";
+import { getAllDowntime, deleteDowntime } from "api/downtime";
 import MDSnackbar from "components/MDSnackbar";
+import dataTableData from "./data/dataTableData";
 
 function ListCM() {
   const [listDowntime, setListDowntime] = useState(dataTableData);
@@ -42,11 +40,11 @@ function ListCM() {
   };
   const closeErrorSB = () => setErrorSB(false);
 
-  const handleDeleteAsset = async (assetId) => {
-    await deleteAsset(assetId)
+  const handleDeleteDowntime = async (downtimeId) => {
+    await deleteDowntime(downtimeId)
       .then((res) => {
         setLastDelete(res.data.payload);
-        openSuccessSB(res.data.payload.assetName);
+        openSuccessSB(res.data.payload.downtimeId);
       })
       .catch((error) => {
         if (error.response) {
@@ -60,13 +58,11 @@ function ListCM() {
   const getListDowntime = () => {
     getAllDowntime()
       .then((res) => {
-        console.log(res.data.payload);
         setListDowntime({
           ...listDowntime,
           rows: res.data.payload.map((downtime) => ({
             ...downtime,
             startedDate: new Date(downtime.startedDate).toLocaleString(),
-            completedDate: new Date(downtime.completedDate).toLocaleString(),
             actions: (
               <MDBox
                 display="flex"
@@ -78,15 +74,25 @@ function ListCM() {
                 <MDButton
                   variant="text"
                   color="error"
-                  // onClick={() => handleDeleteAsset(item.assetId)}
+                  onClick={() => handleDeleteDowntime(downtime.downtimeId)}
                 >
-                  <Icon>delete</Icon>&nbsp;delete
+                  <Icon>delete</Icon>
                 </MDButton>
-                <MDButton component={Link} to={`/sign-in`} variant="text" color="dark">
-                  <Icon>edit</Icon>&nbsp;edit
+                <MDButton
+                  component={Link}
+                  variant="text"
+                  color="dark"
+                  to={`/cm/update-cm/${downtime.downtimeId}`}
+                >
+                  <Icon>edit</Icon>
                 </MDButton>
-                <MDButton variant="text" color="dark" component={Link} to={`/sign-in`}>
-                  <Icon>preview</Icon>&nbsp;view
+                <MDButton
+                  variant="text"
+                  color="dark"
+                  component={Link}
+                  to={`/cm/list-cm/${downtime.downtimeId}`}
+                >
+                  <Icon>preview</Icon>
                 </MDButton>
               </MDBox>
             ),
@@ -103,12 +109,16 @@ function ListCM() {
     getListDowntime();
   }, []);
 
+  useEffect(() => {
+    getListDowntime();
+  }, [lastDelete]);
+
   const renderSuccessSB = (
     <MDSnackbar
       color="success"
       icon="check"
       title="Success"
-      content={`Successfully deleting asset ${message}`}
+      content={`Successfully deleting Downtime Id ${message}`}
       dateTime="A few seconds ago"
       open={successSB}
       onClose={closeSuccessSB}
@@ -121,7 +131,7 @@ function ListCM() {
     <MDSnackbar
       color="error"
       icon="warning"
-      title="Failed to create line"
+      title="Failed Deleting Downtime"
       content={message}
       dateTime="A few secons ago"
       open={errorSB}

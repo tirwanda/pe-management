@@ -1,10 +1,8 @@
 package com.tirwanda.be.service.downtime;
 
-import com.tirwanda.be.dto.request.ApdDTO;
 import com.tirwanda.be.dto.request.CreateDowntimeDTO;
 import com.tirwanda.be.entity.*;
 import com.tirwanda.be.exception.ResourceNotFoundException;
-import com.tirwanda.be.repository.ApdRepository;
 import com.tirwanda.be.repository.AssetRepository;
 import com.tirwanda.be.repository.DowntimeRepository;
 import com.tirwanda.be.service.itemCheck.CreateItemCheckServiceImpl;
@@ -24,7 +22,6 @@ public class CreateDowntimeServiceImpl implements CreateDowntimeService{
 
     private final DowntimeRepository downtimeRepository;
     private final AssetRepository assetRepository;
-    private final ApdRepository apdRepository;
     
     private final CreateReplacedPartsServiceImpl createReplacedPartsService;
     private final CreateItemCheckServiceImpl createItemCheckService;
@@ -33,7 +30,6 @@ public class CreateDowntimeServiceImpl implements CreateDowntimeService{
     @Override
     public Downtime saveDowntime(CreateDowntimeDTO downtimeDTO) throws ResourceNotFoundException {
         Asset asset = assetRepository.findAssetByAssetNumber(downtimeDTO.getAssetNumber());
-        Collection<Apd> apdList = new ArrayList<>();
         Set<ReplacedParts> replacedParts = new HashSet<>();
         Set<ItemCheck> itemCheck = new HashSet<>();
 
@@ -47,6 +43,7 @@ public class CreateDowntimeServiceImpl implements CreateDowntimeService{
                 .department(downtimeDTO.getDepartment())
                 .costCenter(downtimeDTO.getCostCenter())
                 .WOType(downtimeDTO.getWOType())
+                .assetNumber(downtimeDTO.getAssetNumber())
                 .sectionCode(downtimeDTO.getSectionCode())
                 .approval(downtimeDTO.getApproval())
                 .requestBy(downtimeDTO.getRequestBy())
@@ -59,23 +56,23 @@ public class CreateDowntimeServiceImpl implements CreateDowntimeService{
                 .build();
 
         if (downtimeDTO.getApd() != null) {
-            for (ApdDTO apd : downtimeDTO.getApd()) {
-                apdList.add(apdRepository.findById(apd.getApdId())
-                        .orElseThrow(() -> new ResourceNotFoundException("Apd doesn't exist")));
-            }
-            downtime.setApdList(apdList);
+            log.info("Apd is not empty");
+            downtime.setApdList(downtimeDTO.getApd());
         }
 
         if (downtimeDTO.getItemCheck() != null) {
+            log.info("Item check is not empty");
             for (ItemCheck check : downtimeDTO.getItemCheck()) {
-                log.info(check.toString());
+                log.info("Adding item check : {}", check);
                 itemCheck.add(createItemCheckService.saveItemCheck(check));
             }
             downtime.setItemChecks(itemCheck);
         }
 
         if (downtimeDTO.getReplacedParts() != null) {
+            log.info("Replaced part is not empty");
             for (ReplacedParts parts : downtimeDTO.getReplacedParts()) {
+                log.info("Adding replaced part : {}", parts);
                 replacedParts.add(createReplacedPartsService.saveReplacedParts(parts));
             }
             downtime.setReplacedParts(replacedParts);

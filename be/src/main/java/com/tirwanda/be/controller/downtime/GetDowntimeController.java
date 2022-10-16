@@ -5,6 +5,7 @@ import com.tirwanda.be.entity.Downtime;
 import com.tirwanda.be.exception.ResourceNotFoundException;
 import com.tirwanda.be.service.downtime.PrintDowntimeServiceImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,8 @@ public class GetDowntimeController {
         ResponseData<Downtime> responseData = new ResponseData<>();
 
         try {
-            responseData.setPayload(downtimeService.getDowntimeById(downtimeId));
+            Downtime downtime = downtimeService.getDowntimeById(downtimeId);
+            responseData.setPayload(downtime);
             responseData.setStatus(true);
         } catch (ResourceNotFoundException exception) {
             responseData.setStatus(false);
