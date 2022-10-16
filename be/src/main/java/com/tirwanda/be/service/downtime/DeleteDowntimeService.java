@@ -1,9 +1,9 @@
 package com.tirwanda.be.service.downtime;
 
 import com.tirwanda.be.entity.Downtime;
+import com.tirwanda.be.exception.ResourceNotFoundException;
 
-import java.util.Optional;
 
 public interface DeleteDowntimeService {
-    Optional<Downtime> deleteDowntime(Long downtimeId);
+    Downtime deleteDowntime(Long downtimeId) throws ResourceNotFoundException;
 }

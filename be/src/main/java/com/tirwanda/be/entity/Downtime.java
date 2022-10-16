@@ -32,6 +32,8 @@ public class Downtime extends BaseEntity<String> implements Serializable {
     @JsonIgnore
     private Asset asset;
 
+    private String assetNumber;
+
     @NotEmpty(message = "Asset name is required")
     @Column(nullable = false)
     private String assetName;
@@ -81,7 +83,7 @@ public class Downtime extends BaseEntity<String> implements Serializable {
     private Set<ItemCheck> itemChecks = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private Collection<Apd> apdList = new ArrayList<>();
+    private Set<Apd> apdList = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

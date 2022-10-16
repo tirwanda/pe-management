@@ -1,15 +1,18 @@
 package com.tirwanda.be.dto.request;
 
+import com.tirwanda.be.entity.Apd;
 import com.tirwanda.be.entity.ItemCheck;
 import com.tirwanda.be.entity.ReplacedParts;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
-import java.util.List;
 import java.util.Set;
 
 @Data
 public class CreateDowntimeDTO {
+
+    private Long downtimeId;
+
     @NotEmpty(message = "Asset number is required")
     private String assetNumber;
 
@@ -50,5 +53,5 @@ public class CreateDowntimeDTO {
 
     private Set<ItemCheck> itemCheck;
 
-    private List<ApdDTO> apd;
+    private Set<Apd> apd;
 }
