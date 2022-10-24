@@ -1,5 +1,6 @@
 package com.tirwanda.be.repository;
 
+import com.tirwanda.be.entity.Line;
 import com.tirwanda.be.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -8,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
     User findBySection(String section);
+    User findUserByLinesContaining(Line line);
 }
