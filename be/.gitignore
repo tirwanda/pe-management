@@ -19,6 +19,7 @@ target/
 *.iml
 *.ipr
 application.log
+be/application.log
 *.gz
 *.log
 
