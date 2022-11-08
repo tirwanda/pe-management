@@ -45,6 +45,18 @@ export const updateDowntime = (downtimeData) =>
     }
   );
 
+export const approvalDowntime = (downtimeData) =>
+  axiosJWT.put(
+    `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/downtime/approval`,
+    downtimeData,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+    }
+  );
+
 export const deleteDowntime = (downtimeId) =>
   axiosJWT({
     method: "delete",

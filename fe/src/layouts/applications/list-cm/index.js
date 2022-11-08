@@ -72,13 +72,6 @@ function ListCM() {
                 mr={{ xs: -1.5, sm: 0 }}
               >
                 <MDButton
-                  variant="text"
-                  color="error"
-                  onClick={() => handleDeleteDowntime(downtime.downtimeId)}
-                >
-                  <Icon>delete</Icon>
-                </MDButton>
-                <MDButton
                   component={Link}
                   variant="text"
                   color="dark"
@@ -94,6 +87,15 @@ function ListCM() {
                 >
                   <Icon>preview</Icon>
                 </MDButton>
+                {(downtime.approval === "Waiting" || downtime.approval === "Rejected") && (
+                  <MDButton
+                    variant="text"
+                    color="error"
+                    onClick={() => handleDeleteDowntime(downtime.downtimeId)}
+                  >
+                    <Icon>delete</Icon>
+                  </MDButton>
+                )}
               </MDBox>
             ),
           })),

@@ -79,9 +79,16 @@ const routes = [
   },
   {
     type: "collapse",
+    name: "Report",
+    key: "report",
+    icon: <Icon fontSize="medium">summarize</Icon>,
+    collapse: [],
+  },
+  {
+    type: "collapse",
     name: "Assets",
     key: "assets",
-    icon: <Icon fontSize="medium">shopping_basket</Icon>,
+    icon: <Icon fontSize="medium">precision_manufacturing</Icon>,
     collapse: [],
   },
 ];

@@ -25,7 +25,7 @@ import logoXYZDark from "assets/images/xyz-brand-dark.png";
 import { useMaterialUIController } from "context";
 
 // Data
-import { getDowntimeById, updateDowntime } from "api/downtime";
+import { getDowntimeById, approvalDowntime } from "api/downtime";
 import MDSnackbar from "components/MDSnackbar";
 import dataTablePartList from "./data/dataTablePartList";
 import dataTableItemCheck from "./data/dataTableItemCheck";
@@ -58,7 +58,7 @@ function DetailCM() {
   const handleApproval = async (status) => {
     const data = { ...downtimeData, approval: status };
 
-    await updateDowntime(data)
+    await approvalDowntime(data)
       .then((res) => {
         openSuccessSB(res.data.payload.approval);
       })

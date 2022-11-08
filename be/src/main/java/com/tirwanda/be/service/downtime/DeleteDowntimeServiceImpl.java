@@ -3,7 +3,6 @@ package com.tirwanda.be.service.downtime;
 import com.tirwanda.be.entity.*;
 import com.tirwanda.be.exception.ResourceNotFoundException;
 import com.tirwanda.be.repository.DowntimeRepository;
-import com.tirwanda.be.service.itemCheck.DeleteItemCheckServiceImpl;
 import com.tirwanda.be.service.replacedParts.DeleteReplacedPartsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +19,6 @@ public class DeleteDowntimeServiceImpl implements DeleteDowntimeService{
 
     private final DowntimeRepository downtimeRepository;
     private final DeleteReplacedPartsServiceImpl deleteReplacedPartsService;
-    private final DeleteItemCheckServiceImpl deleteItemCheckService;
 
     @Override
     public Downtime deleteDowntime(Long downtimeId) throws ResourceNotFoundException {

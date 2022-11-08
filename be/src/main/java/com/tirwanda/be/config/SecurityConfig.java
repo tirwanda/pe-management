@@ -41,21 +41,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers( "/api/login", "/api/user/save", "/api/token/refresh/**").permitAll();
+        http.authorizeRequests().antMatchers( "/api/login", "/api/role/save", "/api/user/save", "/api/token/refresh/**").permitAll();
         http.authorizeRequests().antMatchers("/swagger-ui/**").permitAll();
         http.authorizeRequests().antMatchers("/v2/api-docs").permitAll();
 
-        http.authorizeRequests().antMatchers(GET, "/api/user/**", "/api/users/**", "/api/role/**", "/api/roles/**")
+        http.authorizeRequests().antMatchers(GET,
+                        "/api/user/**",
+                        "/api/users/**",
+                        "/api/role/**",
+                        "/api/roles/**")
                 .hasAnyAuthority("ROLE_ADMIN");
         http.authorizeRequests().antMatchers(GET, "/api/line/**",
                         "/api/lines",
                         "/api/part/**",
                         "/api/dashboard/**",
                         "/api/downtime/**",
-                        "/api/apd/**")
+                        "/api/apd/**",
+                        "/api/report-downtime/**",
+                        "/api/report-downtime")
                 .hasAnyAuthority("ROLE_ADMIN");
         http.authorizeRequests().antMatchers(POST, "/api/user/**",
-                        "/api/role/**",
                         "/api/part/**",
                         "/api/apd/**")
                 .hasAnyAuthority("ROLE_ADMIN");

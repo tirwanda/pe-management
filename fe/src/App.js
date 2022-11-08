@@ -40,6 +40,7 @@ import EditAsset from "layouts/maintain/assets/edit-asset";
 import DetailAsset from "layouts/maintain/assets/asset-detail";
 import DetailCM from "layouts/applications/detail-cm";
 import CreateCM from "layouts/applications/create-cm";
+import Report from "layouts/report/mttr-mtbf";
 import ListCM from "layouts/applications/list-cm";
 import UpdateCM from "layouts/applications/update-cm";
 
@@ -106,7 +107,7 @@ export default function App() {
 
   function getApplicationsRoutes() {
     const role = localStorage.getItem("ROLE");
-    if (role === "ROLE_PRODUCTION" || role === "ROLE_ADMIN") {
+    if (role === "ROLE_PRODUCTION" || role === "ROLE_ADMIN" || role === "ROLE_ENGINEERING") {
       return [
         {
           type: "collapse",
@@ -133,12 +134,29 @@ export default function App() {
     return null;
   }
 
+  function getReportRoutes() {
+    const role = localStorage.getItem("ROLE");
+    if (role === "ROLE_MANAGER" || role === "ROLE_ADMIN" || role === "ROLE_ENGINEERING") {
+      return [
+        {
+          name: "MTTR-MTBF",
+          key: "mttr-mtbf",
+          route: "/report/mttr-mtbf",
+          component: <Report />,
+        },
+      ];
+    }
+    return null;
+  }
+
   const handleRoutes = () => {
     const newRoutes = [...customRoutes];
     const pos = newRoutes.findIndex((route) => route.key === "assets");
     const posApplicationsSideNav = newRoutes.findIndex((route) => route.key === "applications");
+    const posReportSideNav = newRoutes.findIndex((route) => route.key === "report");
     newRoutes[pos].collapse = getRoutesCustom();
     newRoutes[posApplicationsSideNav].collapse = getApplicationsRoutes();
+    newRoutes[posReportSideNav].collapse = getReportRoutes();
 
     setCustomRoutes(newRoutes);
   };
