@@ -423,7 +423,7 @@ function ProductPage() {
                     size="small"
                     onClick={handleClose}
                   >
-                    Cancle
+                    Cancel
                   </MDButton>
                 </MDBox>
               </Grid>
@@ -536,7 +536,7 @@ function ProductPage() {
                     size="small"
                     onClick={handleCloseCreatePart}
                   >
-                    Cancle
+                    Cancel
                   </MDButton>
                 </MDBox>
               </Grid>
@@ -585,7 +585,7 @@ function ProductPage() {
                     size="small"
                     onClick={handleCloseAddPart}
                   >
-                    Cancle
+                    Cancel
                   </MDButton>
                 </MDBox>
               </Grid>
