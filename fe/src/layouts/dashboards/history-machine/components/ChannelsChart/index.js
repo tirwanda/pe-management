@@ -19,7 +19,7 @@ import { useMaterialUIController } from "context";
 function ChannelsChart({ data }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
-  const { labels } = data;
+  const { labels, datasets } = data;
 
   return (
     <Card sx={{ height: "100%" }}>
@@ -63,11 +63,11 @@ function ChannelsChart({ data }) {
         <MDBox width={{ xs: "100%", sm: "60%" }} lineHeight={1}>
           <MDTypography variant="button" color="text" fontWeight="light">
             {labels &&
-              data.labels.map((label, index) => (
-                <p>
-                  <strong>{data.datasets.data[index]}</strong> Machine di {label}.
+              labels.map((label, index) => (
+                <p key={label}>
+                  <strong>{datasets.data[index] || ""}</strong> Machine di {label || ""}.
                 </p>
-              ))}
+              ))}{" "}
           </MDTypography>
         </MDBox>
         <MDBox width={{ xs: "100%", sm: "40%" }} textAlign="right" mt={{ xs: 2, sm: "auto" }}>
@@ -78,6 +78,17 @@ function ChannelsChart({ data }) {
   );
 }
 
+ChannelsChart.defaultProps = {
+  data: {
+    labels: ["lineName"],
+    datasets: {
+      label: "Assets",
+      backgroundColors: ["info"],
+      data: [0],
+    },
+  },
+};
+
 ChannelsChart.propTypes = {
   data: PropTypes.shape({
     labels: PropTypes.arrayOf(PropTypes.string),
@@ -86,7 +97,7 @@ ChannelsChart.propTypes = {
       backgroundColors: PropTypes.arrayOf(PropTypes.string),
       data: PropTypes.arrayOf(PropTypes.number),
     }),
-  }).isRequired,
+  }),
 };
 
 export default ChannelsChart;
