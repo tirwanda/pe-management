@@ -23,6 +23,17 @@ export const getUserData = () =>
     },
   });
 
+export const getUserDetail = () =>
+  axiosJWT({
+    method: "GET",
+    url: `${
+      process.env.REACT_APP_HOST_URL || "http://localhost:8080"
+    }/api/user-detail/${getUsername()}`,
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+
 export const getProfileData = () =>
   axiosJWT({
     method: "GET",

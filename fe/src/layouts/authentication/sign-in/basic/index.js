@@ -22,11 +22,12 @@ import { userLogin } from "api/authAPI";
 
 import qs from "query-string";
 import MDSnackbar from "components/MDSnackbar";
-import { getUserData } from "api/userAPI";
 import jwtDecode from "jwt-decode";
 
 // Context
 import { useMaterialUIController, setUser } from "context";
+import { getAllLinesDetail } from "api/lineAPI";
+import { getUserDetail } from "api/userAPI";
 
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
@@ -57,11 +58,12 @@ function Basic() {
 
   const getUser = async () => {
     try {
-      const response = await getUserData();
-      setUser(dispatch, response.data.payload);
-      localStorage.setItem("LINES", JSON.stringify(response.data.payload.lines));
-      localStorage.setItem("NAME", response.data.payload.name);
-      localStorage.setItem("LOCATION", response.data.payload.location);
+      const user = await getUserDetail();
+      const line = await getAllLinesDetail();
+      setUser(dispatch, user.data.payload);
+      localStorage.setItem("LINES", JSON.stringify(line.data.payload));
+      localStorage.setItem("NAME", user.data.payload.name);
+      localStorage.setItem("LOCATION", user.data.payload.location);
       navigate("/dashboards/history-machine");
     } catch (error) {
       if (error.response) {

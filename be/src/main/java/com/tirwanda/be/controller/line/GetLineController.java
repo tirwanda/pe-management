@@ -1,6 +1,7 @@
 package com.tirwanda.be.controller.line;
 
 import com.tirwanda.be.dto.ResponseData;
+import com.tirwanda.be.dto.projection.CustomLineDetail;
 import com.tirwanda.be.entity.Line;
 import com.tirwanda.be.exception.ResourceNotFoundException;
 import com.tirwanda.be.service.line.PrintLineServiceImpl;
@@ -38,6 +39,15 @@ public class GetLineController {
         ResponseData<List<Line>> responseData = new ResponseData<>();
         responseData.setStatus(true);
         responseData.setPayload(printLineService.getLines());
+
+        return ResponseEntity.ok().body(responseData);
+    }
+
+    @GetMapping("/lines-detail")
+    public ResponseEntity<ResponseData<List<CustomLineDetail>>> getCustomLines() {
+        ResponseData<List<CustomLineDetail>> responseData = new ResponseData<>();
+        responseData.setStatus(true);
+        responseData.setPayload(printLineService.getCustomLineDetail());
 
         return ResponseEntity.ok().body(responseData);
     }

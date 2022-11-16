@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tirwanda.be.dto.projection.CustomUserDetail;
 import com.tirwanda.be.dto.request.ProfileDTO;
 import com.tirwanda.be.dto.ResponseData;
 import com.tirwanda.be.entity.Role;
@@ -45,6 +46,14 @@ public class GetUserController {
         responseData.setStatus(true);
         responseData.setPayload(printUserService.getUser(username));
 
+        return ResponseEntity.ok().body(responseData);
+    }
+
+    @GetMapping("/user-detail/{username}")
+    public ResponseEntity<ResponseData<CustomUserDetail>> getCustomUserDetail(@PathVariable("username") String username) {
+        ResponseData<CustomUserDetail> responseData = new ResponseData<>();
+        responseData.setStatus(true);
+        responseData.setPayload(printUserService.getCustomUserDetail(username));
         return ResponseEntity.ok().body(responseData);
     }
 

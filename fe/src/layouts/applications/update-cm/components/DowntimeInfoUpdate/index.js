@@ -23,11 +23,11 @@ import MDInput from "components/MDInput";
 import FormField from "layouts/applications/update-cm/components/FormField";
 
 // Data
-import { getAllLines } from "api/lineAPI";
 import { getAssetByLineCode } from "api/assetAPI";
 import { getPartListByAssetNumber } from "api/partAPI";
 import { getAllAPD } from "api/apdAPI";
 import { updateDowntime } from "api/downtime";
+import { getAllLinesDetail } from "api/lineAPI";
 
 function DowntimeInfoUpdate({ downtimeInfo }) {
   const [startedDate, setstartedDate] = useState(new Date(downtimeInfo.startedDate).getTime());
@@ -182,7 +182,7 @@ function DowntimeInfoUpdate({ downtimeInfo }) {
   const getLinesName = async () => {
     setListLine([]);
     try {
-      await getAllLines().then((res) =>
+      await getAllLinesDetail().then((res) =>
         res.data.payload.forEach((data) => {
           setListLine((oldArr) => [...oldArr, data.lineCode]);
         })

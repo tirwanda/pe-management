@@ -1,5 +1,6 @@
 package com.tirwanda.be.service.user;
 
+import com.tirwanda.be.dto.projection.CustomUserDetail;
 import com.tirwanda.be.entity.User;
 import com.tirwanda.be.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -49,5 +50,10 @@ public class PrintUserServiceImpl implements PrintUserService, UserDetailsServic
     public List<User> getUsers() {
         log.info("Fetching all users");
         return userRepository.findAll();
+    }
+
+    @Override
+    public CustomUserDetail getCustomUserDetail(String username) {
+        return userRepository.findCustomUserDetail(username);
     }
 }

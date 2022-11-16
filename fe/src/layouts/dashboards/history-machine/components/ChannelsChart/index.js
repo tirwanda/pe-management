@@ -53,7 +53,7 @@ function ChannelsChart({ data }) {
         </Grid>
       </MDBox>
       <MDBox
-        pt={4}
+        pt={2}
         pb={2}
         px={2}
         display="flex"
@@ -62,8 +62,12 @@ function ChannelsChart({ data }) {
       >
         <MDBox width={{ xs: "100%", sm: "60%" }} lineHeight={1}>
           <MDTypography variant="button" color="text" fontWeight="light">
-            Terdapat <strong>37</strong> Machine di Line A, <strong>43</strong> Machine di MM3, dan{" "}
-            <strong>14</strong> Machine di Mini Line
+            {labels &&
+              data.labels.map((label, index) => (
+                <p>
+                  <strong>{data.datasets.data[index]}</strong> Machine di {label}.
+                </p>
+              ))}
           </MDTypography>
         </MDBox>
         <MDBox width={{ xs: "100%", sm: "40%" }} textAlign="right" mt={{ xs: 2, sm: "auto" }}>

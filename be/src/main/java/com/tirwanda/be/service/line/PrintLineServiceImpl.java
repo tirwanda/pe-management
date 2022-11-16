@@ -1,5 +1,6 @@
 package com.tirwanda.be.service.line;
 
+import com.tirwanda.be.dto.projection.CustomLineDetail;
 import com.tirwanda.be.entity.Line;
 import com.tirwanda.be.repository.LineRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,5 +26,10 @@ public class PrintLineServiceImpl implements PrintLineService{
     @Override
     public List<Line> getLines() {
         return lineRepository.findAll();
+    }
+
+    @Override
+    public List<CustomLineDetail> getCustomLineDetail() {
+        return lineRepository.findCustomLineDetail();
     }
 }

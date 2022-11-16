@@ -17,7 +17,6 @@ import MDTypography from "components/MDTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import DefaultStatisticsCard from "examples/Cards/StatisticsCards/DefaultStatisticsCard";
 import DefaultLineChart from "examples/Charts/LineCharts/DefaultLineChart";
 import DataTable from "examples/Tables/DataTable";
 
@@ -28,7 +27,7 @@ import ChannelsChart from "layouts/dashboards/history-machine/components/Channel
 import defaultLineChartData from "layouts/dashboards/history-machine/data/defaultLineChartData";
 import dataTableData from "layouts/dashboards/history-machine/data/dataTableData";
 import jwtDecode from "jwt-decode";
-import { getUserData } from "api/userAPI";
+import { getUserDetail } from "api/userAPI";
 
 // Context
 import { useMaterialUIController, setUser } from "context";
@@ -36,8 +35,6 @@ import { getPieChartAssetData } from "api/dashboardAPI";
 
 function HistoryMachine() {
   const [, dispatch] = useMaterialUIController();
-  const [lines, setLines] = useState(0);
-  const [assets, setAssets] = useState(0);
   const [labels, setLabels] = useState([]);
   const [backgroundColors, setBackgroundColors] = useState([]);
   const [pieChartData, setPieChartData] = useState({});
@@ -55,11 +52,9 @@ function HistoryMachine() {
   };
 
   const getUser = async () => {
-    await getUserData()
+    await getUserDetail()
       .then((response) => {
         setUser(dispatch, response.data.payload);
-        setLines(response.data.payload.lines.length);
-        response.data.payload.lines.map((line) => setAssets(assets + line.assets.length));
       })
       .catch((error) => {
         if (error.response) {
@@ -94,19 +89,6 @@ function HistoryMachine() {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox py={3}>
-        <MDBox mb={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={4}>
-              <DefaultStatisticsCard title="Total Line" count={lines} />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <DefaultStatisticsCard title="Total Assets" count={assets} />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <DefaultStatisticsCard title="Model" count="7" />
-            </Grid>
-          </Grid>
-        </MDBox>
         <MDBox mb={3}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} lg={4}>
