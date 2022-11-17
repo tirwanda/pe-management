@@ -24,20 +24,26 @@ import DataTable from "examples/Tables/DataTable";
 import ChannelsChart from "layouts/dashboards/history-machine/components/ChannelsChart";
 
 // Data
-import defaultLineChartData from "layouts/dashboards/history-machine/data/defaultLineChartData";
 import dataTableData from "layouts/dashboards/history-machine/data/dataTableData";
 import jwtDecode from "jwt-decode";
 import { getUserDetail } from "api/userAPI";
 
+// Images
+import mcLogo from "assets/images/products/mc-logo.jpg";
+
 // Context
 import { useMaterialUIController, setUser } from "context";
-import { getPieChartAssetData } from "api/dashboardAPI";
+import { getPieChartAssetData, getLineChartDowntime, getTopDowntimeData } from "api/dashboardAPI";
+import ProductCell from "./components/ProductCell";
+import DefaultCell from "./components/DefaultCell";
 
 function HistoryMachine() {
   const [, dispatch] = useMaterialUIController();
   const [labels, setLabels] = useState([]);
   const [backgroundColors, setBackgroundColors] = useState([]);
   const [pieChartData, setPieChartData] = useState({});
+  const [lineChartData, setLineChartData] = useState({});
+  const [topDowntimeData, setTopDowntimeData] = useState(dataTableData);
   const navigate = useNavigate();
 
   const getToken = async () => {
@@ -79,10 +85,47 @@ function HistoryMachine() {
       });
   };
 
+  const getLineChartData = async () => {
+    await getLineChartDowntime()
+      .then((response) => {
+        setLineChartData(response.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          localStorage.clear();
+          navigate("/sign-in");
+        }
+      });
+  };
+
+  const getDataTableDowntime = async () => {
+    await getTopDowntimeData()
+      .then((response) => {
+        setTopDowntimeData({
+          ...topDowntimeData,
+          rows: response.data.map((data) => ({
+            machine: <ProductCell image={mcLogo} name="MC Modul L" />,
+            noAsset: <DefaultCell>{data.assetNumber}</DefaultCell>,
+            time: <DefaultCell>{data.downtimeMinute.toString()}</DefaultCell>,
+            date: <DefaultCell>{data.date}</DefaultCell>,
+            line: <DefaultCell>{data.lineName}</DefaultCell>,
+          })),
+        });
+      })
+      .catch((error) => {
+        if (error.response) {
+          localStorage.clear();
+          navigate("/sign-in");
+        }
+      });
+  };
+
   useEffect(() => {
     getToken();
     getUser();
     getPieChartData();
+    getLineChartData();
+    getDataTableDowntime();
   }, []);
 
   return (
@@ -124,7 +167,7 @@ function HistoryMachine() {
                     </MDBox>
                   </MDBox>
                 }
-                chart={defaultLineChartData}
+                chart={lineChartData}
               />
             </Grid>
           </Grid>
@@ -139,7 +182,7 @@ function HistoryMachine() {
               </MDBox>
               <MDBox py={1}>
                 <DataTable
-                  table={dataTableData}
+                  table={topDowntimeData}
                   entriesPerPage={false}
                   showTotalEntries={false}
                   isSorted={false}

@@ -14,4 +14,22 @@ export const getPieChartAssetData = () =>
     },
   });
 
-export const getDowntimeChartData = () => {};
+export const getLineChartDowntime = () =>
+  axiosJWT({
+    method: "GET",
+    url: `${
+      process.env.REACT_APP_HOST_URL || "http://localhost:8080"
+    }/api/dashboard/line-chart-downtime`,
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+
+export const getTopDowntimeData = () =>
+  axiosJWT({
+    method: "GET",
+    url: `${process.env.REACT_APP_HOST_URL || "http://localhost:8080"}/api/dashboard/top-downtime`,
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });

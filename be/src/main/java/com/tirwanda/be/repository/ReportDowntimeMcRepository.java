@@ -11,5 +11,6 @@ public interface ReportDowntimeMcRepository extends JpaRepository<ReportDowntime
     ReportDowntimeMc findReportDowntimeMcByAssetNumberAndDate(String assetNumber, String date);
     List<ReportDowntimeMc> findReportDowntimeMcByDate(String date);
     List<ReportDowntimeMc> findReportDowntimeMcByLineName(String lineName);
-    List<ReportDowntimeMc> findReportDowntimeMcByDateAndLineName(String date, String lineName);
+    List<ReportDowntimeMc> findReportDowntimeMcByDateAndLineName(String date, String lineCode);
+    List<ReportDowntimeMc> findReportDowntimeMcByDateContainingOrderByDowntimeMinuteDesc(String year);
 }
