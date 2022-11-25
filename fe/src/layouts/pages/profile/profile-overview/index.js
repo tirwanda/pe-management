@@ -59,7 +59,7 @@ function Overview() {
               <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} />
               <ProfileInfoCard
                 title="profile information"
-                description={profile.description}
+                description={profile.description || ""}
                 info={{
                   fullName: `${profile.name}`,
                   extension: `${profile.extension}`,

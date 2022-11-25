@@ -1,10 +1,7 @@
 // Material Dashboard 2 PRO React layouts
-import Analytics from "layouts/dashboards/analytics";
-import HistoryMachine from "layouts/dashboards/history-machine";
 import ProfileOverview from "layouts/pages/profile/profile-overview";
 import Settings from "layouts/pages/account/settings";
 import SignInBasic from "layouts/authentication/sign-in/basic";
-import NewLine from "layouts/dashboards/create-new-line";
 
 // Material Dashboard 2 PRO React components
 import MDAvatar from "components/MDAvatar";
@@ -48,26 +45,7 @@ const routes = [
     name: "Dashboards",
     key: "dashboards",
     icon: <Icon fontSize="medium">dashboard</Icon>,
-    collapse: [
-      {
-        name: "Analytics",
-        key: "analytics",
-        route: "/dashboards/analytics",
-        component: <Analytics />,
-      },
-      {
-        name: "History Machine",
-        key: "History Machine",
-        route: "/dashboards/history-machine",
-        component: <HistoryMachine />,
-      },
-      {
-        name: "Create New Line",
-        key: "create-new-line",
-        route: `/assets/create-new-line`,
-        component: <NewLine />,
-      },
-    ],
+    collapse: [],
   },
   { type: "title", title: "Pages", key: "title-pages" },
   {

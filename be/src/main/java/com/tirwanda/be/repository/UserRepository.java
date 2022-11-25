@@ -13,6 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findBySection(String section);
     User findUserByLinesContaining(Line line);
 
-    @Query("SELECT new com.tirwanda.be.dto.projection.CustomUserDetail(u.userId, u.email, u.name, u.nrp, u.section, u.username, u.description, u.extension, u.location) FROM User u WHERE u.username = ?1")
+    @Query("SELECT new com.tirwanda.be.dto.projection.CustomUserDetail(u.userId, u.username, u.email, u.nrp, u.name, u.description, u.section, u.extension, u.location) FROM User u WHERE u.username = ?1")
     CustomUserDetail findCustomUserDetail(String username);
 }

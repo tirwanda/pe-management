@@ -59,7 +59,7 @@ function Header({ name, title }) {
 }
 
 Header.defaultProps = {
-  name: "Tirwanda",
+  name: "Team Thesis",
   title: "Backend Developer",
 };
 

@@ -36,7 +36,7 @@ public class PrintDashboardServiceImpl implements PrintDashboardService{
         datasets.setLabel("Assets");
         datasets.setBackgroundColors(Arrays.asList("info", "primary", "dark", "secondary"));
 
-        List<Line> lineList = lineRepository.findLinesByCreatedBy(username);
+        List<Line> lineList = lineRepository.findAll();
 
         for (Line line : lineList) {
             pieChartAssetDTO.getLabels().add(line.getLineCode());

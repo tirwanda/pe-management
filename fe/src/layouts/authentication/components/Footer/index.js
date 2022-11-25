@@ -42,9 +42,9 @@ function Footer({ light }) {
               </Icon>
             </MDBox>
             by
-            <Link href="https://tirwanda.com/" target="_blank">
+            <Link href="https://binus.ac.id/" target="_blank">
               <MDTypography variant="button" fontWeight="medium" color={light ? "white" : "dark"}>
-                &nbsp;Tirwanda&nbsp;
+                &nbsp;Binus&nbsp;
               </MDTypography>
             </Link>
             for a better web.
@@ -67,7 +67,7 @@ function Footer({ light }) {
             })}
           >
             <MDBox component="li" pr={2} lineHeight={1}>
-              <Link href="https://tirwanda.com/" target="_blank">
+              <Link href="https://binus.ac.id/" target="_blank">
                 <MDTypography
                   variant="button"
                   fontWeight="regular"
@@ -78,7 +78,7 @@ function Footer({ light }) {
               </Link>
             </MDBox>
             <MDBox component="li" px={2} lineHeight={1}>
-              <Link href="https://tirwanda.com/resume" target="_blank">
+              <Link href="https://binus.ac.id/" target="_blank">
                 <MDTypography
                   variant="button"
                   fontWeight="regular"
@@ -89,7 +89,7 @@ function Footer({ light }) {
               </Link>
             </MDBox>
             <MDBox component="li" px={2} lineHeight={1}>
-              <Link href="https://tirwanda.com/resume" target="_blank">
+              <Link href="https://binus.ac.id/" target="_blank">
                 <MDTypography
                   variant="button"
                   fontWeight="regular"

@@ -57,52 +57,90 @@ function AssetPage({ title, lineCode }) {
   };
 
   const getAsset = (data) => {
-    getLineData(data)
-      .then((res) => {
-        setAsset({
-          ...asset,
-          rows: res.data.payload.assets.map((item) => ({
-            ...item,
-            actions: (
-              <MDBox
-                display="flex"
-                justifyContent="space-between"
-                alignItems="flex-start"
-                mt={{ xs: 2, sm: 0 }}
-                mr={{ xs: -1.5, sm: 0 }}
-              >
-                <MDButton
-                  variant="text"
-                  color="error"
-                  onClick={() => handleDeleteAsset(item.assetId)}
+    const role = localStorage.getItem("ROLE");
+
+    if (role === "ROLE_MANAGER" || role === "ROLE_ADMIN" || role === "ROLE_ENGINEER") {
+      getLineData(data)
+        .then((res) => {
+          setAsset({
+            ...asset,
+            rows: res.data.payload.assets.map((item) => ({
+              ...item,
+              actions: (
+                <MDBox
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="flex-start"
+                  mt={{ xs: 2, sm: 0 }}
+                  mr={{ xs: -1.5, sm: 0 }}
                 >
-                  <Icon>delete</Icon>&nbsp;delete
-                </MDButton>
-                <MDButton
-                  component={Link}
-                  to={`/asset/edit/${item.assetNumber}`}
-                  variant="text"
-                  color="dark"
-                >
-                  <Icon>edit</Icon>&nbsp;edit
-                </MDButton>
-                <MDButton
-                  variant="text"
-                  color="dark"
-                  component={Link}
-                  to={`/asset/${item.assetNumber}`}
-                >
-                  <Icon>preview</Icon>&nbsp;view
-                </MDButton>
-              </MDBox>
-            ),
-          })),
+                  <MDButton
+                    variant="text"
+                    color="error"
+                    onClick={() => handleDeleteAsset(item.assetId)}
+                  >
+                    <Icon>delete</Icon>&nbsp;delete
+                  </MDButton>
+                  <MDButton
+                    component={Link}
+                    to={`/asset/edit/${item.assetNumber}`}
+                    variant="text"
+                    color="dark"
+                  >
+                    <Icon>edit</Icon>&nbsp;edit
+                  </MDButton>
+                  <MDButton
+                    variant="text"
+                    color="dark"
+                    component={Link}
+                    to={`/asset/${item.assetNumber}`}
+                  >
+                    <Icon>preview</Icon>&nbsp;view
+                  </MDButton>
+                </MDBox>
+              ),
+            })),
+          });
+        })
+        .catch(() => {
+          localStorage.clear();
+          navigate("/sign-in");
         });
-      })
-      .catch(() => {
-        localStorage.clear();
-        navigate("/sign-in");
-      });
+    }
+
+    if (role === "ROLE_PRODUCTION") {
+      getLineData(data)
+        .then((res) => {
+          setAsset({
+            ...asset,
+            rows: res.data.payload.assets.map((item) => ({
+              ...item,
+              actions: (
+                <MDBox
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="flex-start"
+                  mt={{ xs: 2, sm: 0 }}
+                  mr={{ xs: -1.5, sm: 0 }}
+                >
+                  <MDButton
+                    variant="text"
+                    color="dark"
+                    component={Link}
+                    to={`/asset/${item.assetNumber}`}
+                  >
+                    <Icon>preview</Icon>&nbsp;view
+                  </MDButton>
+                </MDBox>
+              ),
+            })),
+          });
+        })
+        .catch(() => {
+          localStorage.clear();
+          navigate("/sign-in");
+        });
+    }
   };
 
   useEffect(() => {

@@ -51,7 +51,7 @@ function Settings() {
             <MDBox mb={3}>
               <Grid container spacing={3}>
                 <Grid item xs={12}>
-                  <Header name={profile.name} title={profile.location} />
+                  <Header name={profile.name} title={profile.location || ""} />
                 </Grid>
                 <Grid item xs={12}>
                   <BasicInfo profile={profile} />

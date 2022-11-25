@@ -49,6 +49,8 @@ function ProductPage() {
   const [openCreatePart, setOpenCreatePart] = useState(false);
   const [openAddPart, setOpenAddPart] = useState(false);
 
+  const [role, setRole] = useState("");
+
   const { assetNumber } = useParams();
   const navigate = useNavigate();
 
@@ -117,6 +119,7 @@ function ProductPage() {
       const response = await savePartAddToAsset(partDetail);
       setPartDetail(response.data.payload);
       setOpenCreatePart(false);
+      openSuccessSB(`Success created ${response.data.payload.partName}`);
     } catch (error) {
       openErrorSB(error.response.data.message);
     }
@@ -138,6 +141,7 @@ function ProductPage() {
     await addPartToAsset(partData).then((res) => {
       setPartDetail(res.data.payload);
       setOpenAddPart(false);
+      openSuccessSB(`Success Added Part to Asset`);
     });
   };
 
@@ -179,35 +183,59 @@ function ProductPage() {
   };
 
   const getDetailAsset = (data) => {
+    const roleName = localStorage.getItem("ROLE");
+    setRole(roleName);
+
     getAssetByAssetNumber(data)
       .then((res) => {
         setDetailAsset(res.data.payload);
-        setPartList({
-          ...partList,
-          rows: res.data.payload.partList.map((item) => ({
-            ...item,
-            actions: (
-              <MDBox
-                display="flex"
-                justifyContent="space-between"
-                alignItems="flex-start"
-                mt={{ xs: 2, sm: 0 }}
-                mr={{ xs: -1.5, sm: 0 }}
-              >
-                <MDButton
-                  variant="text"
-                  color="error"
-                  onClick={() => handleDelete(assetNumber, item.partNumber)}
+        if (
+          roleName === "ROLE_MANAGER" ||
+          roleName === "ROLE_ADMIN" ||
+          roleName === "ROLE_ENGINEER"
+        ) {
+          setPartList({
+            ...partList,
+            rows: res.data.payload.partList.map((item) => ({
+              ...item,
+              actions: (
+                <MDBox
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="flex-start"
+                  mt={{ xs: 2, sm: 0 }}
+                  mr={{ xs: -1.5, sm: 0 }}
                 >
-                  <Icon>delete</Icon>&nbsp;delete
-                </MDButton>
-                <MDButton onClick={() => handleOpen(item)} variant="text" color="dark">
-                  <Icon>edit</Icon>&nbsp;edit
-                </MDButton>
-              </MDBox>
-            ),
-          })),
-        });
+                  <MDButton
+                    variant="text"
+                    color="error"
+                    onClick={() => handleDelete(assetNumber, item.partNumber)}
+                  >
+                    <Icon>delete</Icon>&nbsp;delete
+                  </MDButton>
+                  <MDButton onClick={() => handleOpen(item)} variant="text" color="dark">
+                    <Icon>edit</Icon>&nbsp;edit
+                  </MDButton>
+                </MDBox>
+              ),
+            })),
+          });
+        }
+
+        if (roleName === "ROLE_PRODUCTION") {
+          setPartList({
+            columns: [
+              { Header: "id", accessor: "partId", align: "center", width: "10%" },
+              { Header: "Part Name", accessor: "partName", align: "center", width: "20%" },
+              { Header: "Part Number", accessor: "partNumber", align: "center", width: "20%" },
+              { Header: "Stock", accessor: "stock", align: "center", width: "10%" },
+              { Header: "UOM", accessor: "uom", align: "center", width: "15%" },
+            ],
+            rows: res.data.payload.partList.map((item) => ({
+              ...item,
+            })),
+          });
+        }
       })
       .catch(() => {
         localStorage.clear();
@@ -289,28 +317,32 @@ function ProductPage() {
                       List Parts
                     </MDTypography>
                   </Grid>
-                  <MDBox ml="auto" mt={3} display="flex">
-                    <MDBox mr={2}>
-                      <MDButton
-                        variant="gradient"
-                        color="dark"
-                        size="small"
-                        onClick={() => handleAddPart()}
-                      >
-                        Add Part
-                      </MDButton>
+                  {(role === "ROLE_MANAGER" ||
+                    role === "ROLE_ADMIN" ||
+                    role === "ROLE_ENGINEER") && (
+                    <MDBox ml="auto" mt={3} display="flex">
+                      <MDBox mr={2}>
+                        <MDButton
+                          variant="gradient"
+                          color="dark"
+                          size="small"
+                          onClick={() => handleAddPart()}
+                        >
+                          Add Part
+                        </MDButton>
+                      </MDBox>
+                      <MDBox>
+                        <MDButton
+                          variant="gradient"
+                          color="dark"
+                          size="small"
+                          onClick={() => handleCreatePart()}
+                        >
+                          Create Part
+                        </MDButton>
+                      </MDBox>
                     </MDBox>
-                    <MDBox>
-                      <MDButton
-                        variant="gradient"
-                        color="dark"
-                        size="small"
-                        onClick={() => handleCreatePart()}
-                      >
-                        Create Part
-                      </MDButton>
-                    </MDBox>
-                  </MDBox>
+                  )}
                 </Grid>
               </MDBox>
               <DataTable table={partList} canSearch />

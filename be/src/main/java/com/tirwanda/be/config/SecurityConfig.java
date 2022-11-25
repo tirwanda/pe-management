@@ -45,40 +45,74 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/swagger-ui/**").permitAll();
         http.authorizeRequests().antMatchers("/v2/api-docs").permitAll();
 
-        http.authorizeRequests().antMatchers(GET,
-                        "/api/user/**",
-                        "/api/users/**",
+        // GET Mapping Authorization
+        http.authorizeRequests().antMatchers(GET, "/api/users/**",
                         "/api/role/**",
                         "/api/roles/**")
                 .hasAnyAuthority("ROLE_ADMIN");
-        http.authorizeRequests().antMatchers(GET, "/api/line/**",
-                        "/api/lines",
-                        "/api/part/**",
+
+        http.authorizeRequests().antMatchers(GET, "/api/report-downtime/**")
+                .hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_ENGINEER");
+
+        http.authorizeRequests().antMatchers(GET, "/api/user/**",
+                        "/api/line/**",
+                        "/api/lines/**",
+                        "/api/asset/**",
                         "/api/dashboard/**",
-                        "/api/downtime/**",
                         "/api/apd/**",
-                        "/api/report-downtime/**",
-                        "/api/report-downtime")
-                .hasAnyAuthority("ROLE_ADMIN");
-        http.authorizeRequests().antMatchers(POST, "/api/user/**",
                         "/api/part/**",
-                        "/api/apd/**")
+                        "/api/downtime/**")
+                .hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_ENGINEER", "ROLE_PRODUCTION");
+
+        // POST Mapping Authorization
+        http.authorizeRequests().antMatchers(POST, "/api/user/**",
+                        "/api/role/**")
                 .hasAnyAuthority("ROLE_ADMIN");
-        http.authorizeRequests().antMatchers(POST, "/api/line/**", "/api/asset/**", "/api/downtime/**", "/api/form-downtime/**")
+
+        http.authorizeRequests().antMatchers(POST, "/api/line/**",
+                        "/api/apd/**",
+                        "/api/part/**",
+                        "/api/asset/**",
+                        "/api/report-downtime")
+                .hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_ENGINEER");
+
+        http.authorizeRequests().antMatchers(POST, "/api/downtime/**",
+                        "/api/form-downtime/**")
+                .hasAnyAuthority("ROLE_ADMIN", "ROLE_ENGINEER", "ROLE_PRODUCTION");
+
+        // PUT Mapping Authorization
+        http.authorizeRequests().antMatchers(PUT, "/api/role/**")
                 .hasAnyAuthority("ROLE_ADMIN");
-        http.authorizeRequests().antMatchers(PUT, "/api/user/**",
-                        "/api/role/**",
+
+        http.authorizeRequests().antMatchers(PUT, "/api/downtime/approval")
+                .hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER");
+
+        http.authorizeRequests().antMatchers(PUT, "/api/line/**",
                         "/api/asset/**",
                         "/api/part/**",
-                        "/api/apd/**",
-                        "/api/downtime/**")
+                        "/api/apd/**")
+                .hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_ENGINEER");
+
+        http.authorizeRequests().antMatchers(PUT, "/api/user/**",
+                        "/api/downtime/update")
+                .hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_ENGINEER", "ROLE_PRODUCTION");
+
+        // DELETE Mapping Authorization
+        http.authorizeRequests().antMatchers(DELETE, "/api/user/**",
+                        "/api/role/**")
                 .hasAnyAuthority("ROLE_ADMIN");
+
+        http.authorizeRequests().antMatchers(DELETE, "/api/line/**")
+                .hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER");
+
         http.authorizeRequests().antMatchers(DELETE, "/api/asset/**",
                         "/api/part/**",
                         "/api/asset/**",
-                        "/api/apd/**",
-                        "/api/downtime/**")
-                .hasAnyAuthority("ROLE_ADMIN");
+                        "/api/apd/**")
+                .hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_ENGINEER");
+
+        http.authorizeRequests().antMatchers(DELETE, "/api/downtime/**")
+                .hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_ENGINEER", "ROLE_PRODUCTION");
 
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);

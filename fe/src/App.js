@@ -43,6 +43,8 @@ import CreateCM from "layouts/applications/create-cm";
 import Report from "layouts/report/mttr-mtbf";
 import ListCM from "layouts/applications/list-cm";
 import UpdateCM from "layouts/applications/update-cm";
+import HistoryMachine from "layouts/dashboards/history-machine";
+import NewLine from "layouts/dashboards/create-new-line";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -82,32 +84,86 @@ export default function App() {
 
   function getRoutesCustom() {
     const lineData = JSON.parse(localStorage.getItem("LINES"));
-    if (lineData) {
-      return lineData?.map((line) => ({
-        name: line.lineName,
-        key: line.lineId,
-        collapse: [
-          {
-            name: "New Asset",
-            key: "new-asset",
-            route: `/assets/${line.lineCode}/new-asset`,
-            component: <NewAsset lineCode={line.lineCode} />,
-          },
-          {
-            name: "Assets Page",
-            key: "assets-page",
-            route: `/assets/${line.lineCode}/assets-page`,
-            component: <AssetPage title={line.lineName} lineCode={line.lineCode} />,
-          },
-        ],
-      }));
+    const role = localStorage.getItem("ROLE");
+
+    if (role === "ROLE_MANAGER" || role === "ROLE_ADMIN" || role === "ROLE_ENGINEER") {
+      if (lineData) {
+        return lineData?.map((line) => ({
+          name: line.lineName,
+          key: line.lineId,
+          collapse: [
+            {
+              name: "New Asset",
+              key: "new-asset",
+              route: `/assets/${line.lineCode}/new-asset`,
+              component: <NewAsset lineCode={line.lineCode} />,
+            },
+            {
+              name: "Assets Page",
+              key: "assets-page",
+              route: `/assets/${line.lineCode}/assets-page`,
+              component: <AssetPage title={line.lineName} lineCode={line.lineCode} />,
+            },
+          ],
+        }));
+      }
+    }
+
+    if (role === "ROLE_PRODUCTION") {
+      if (lineData) {
+        return lineData?.map((line) => ({
+          name: line.lineName,
+          key: line.lineId,
+          collapse: [
+            {
+              name: "Assets Page",
+              key: "assets-page",
+              route: `/assets/${line.lineCode}/assets-page`,
+              component: <AssetPage title={line.lineName} lineCode={line.lineCode} />,
+            },
+          ],
+        }));
+      }
+    }
+    return null;
+  }
+
+  function getDashboardRoutes() {
+    const role = localStorage.getItem("ROLE");
+
+    if (role === "ROLE_MANAGER" || role === "ROLE_ADMIN" || role === "ROLE_ENGINEER") {
+      return [
+        {
+          name: "History Machine",
+          key: "History Machine",
+          route: "/dashboards/history-machine",
+          component: <HistoryMachine />,
+        },
+        {
+          name: "Create New Line",
+          key: "create-new-line",
+          route: `/assets/create-new-line`,
+          component: <NewLine />,
+        },
+      ];
+    }
+
+    if (role === "ROLE_PRODUCTION") {
+      return [
+        {
+          name: "History Machine",
+          key: "History Machine",
+          route: "/dashboards/history-machine",
+          component: <HistoryMachine />,
+        },
+      ];
     }
     return null;
   }
 
   function getApplicationsRoutes() {
     const role = localStorage.getItem("ROLE");
-    if (role === "ROLE_PRODUCTION" || role === "ROLE_ADMIN" || role === "ROLE_ENGINEERING") {
+    if (role === "ROLE_PRODUCTION" || role === "ROLE_ADMIN" || role === "ROLE_ENGINEER") {
       return [
         {
           type: "collapse",
@@ -131,12 +187,31 @@ export default function App() {
         },
       ];
     }
+
+    if (role === "ROLE_MANAGER") {
+      return [
+        {
+          type: "collapse",
+          name: "Corrective MTC",
+          key: "corrective",
+          icon: <Icon fontSize="medium">receipt_long</Icon>,
+          collapse: [
+            {
+              name: "List CM",
+              key: "list-cm",
+              route: "/cm/list-cm",
+              component: <ListCM />,
+            },
+          ],
+        },
+      ];
+    }
     return null;
   }
 
   function getReportRoutes() {
     const role = localStorage.getItem("ROLE");
-    if (role === "ROLE_MANAGER" || role === "ROLE_ADMIN" || role === "ROLE_ENGINEERING") {
+    if (role === "ROLE_MANAGER" || role === "ROLE_ADMIN" || role === "ROLE_ENGINEER") {
       return [
         {
           name: "MTTR-MTBF",
@@ -151,9 +226,12 @@ export default function App() {
 
   const handleRoutes = () => {
     const newRoutes = [...customRoutes];
+    const posDashboardSideNav = newRoutes.findIndex((route) => route.key === "dashboards");
     const pos = newRoutes.findIndex((route) => route.key === "assets");
     const posApplicationsSideNav = newRoutes.findIndex((route) => route.key === "applications");
     const posReportSideNav = newRoutes.findIndex((route) => route.key === "report");
+
+    newRoutes[posDashboardSideNav].collapse = getDashboardRoutes();
     newRoutes[pos].collapse = getRoutesCustom();
     newRoutes[posApplicationsSideNav].collapse = getApplicationsRoutes();
     newRoutes[posReportSideNav].collapse = getReportRoutes();
@@ -239,6 +317,7 @@ export default function App() {
       <Routes>
         <Route path="/sign-in" element={<SignInBasic />} />
         <Route path="/sign-up" element={<RegisterStepper />} />
+        <Route path="/dashboards/history-machine" element={<HistoryMachine />} />
         <Route path="/asset/edit/:assetNumber" element={<EditAsset />} />
         <Route path="/asset/:assetNumber" element={<DetailAsset />} />
         <Route path="/cm/list-cm/:downtimeId" element={<DetailCM />} />

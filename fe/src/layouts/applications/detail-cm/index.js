@@ -533,7 +533,7 @@ function DetailCM() {
                     >
                       email:{" "}
                       <MDTypography component="span" variant="h6" fontWeight="regular">
-                        edhodwitirwanda@gmail.com
+                        pemanagement@gmail.com
                       </MDTypography>
                     </MDTypography>
                   </Grid>

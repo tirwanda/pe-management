@@ -83,11 +83,11 @@ function Footer({ company, links }) {
 
 // Setting default values for the props of Footer
 Footer.defaultProps = {
-  company: { href: "https://tirwanda.com/", name: "Tirwanda" },
+  company: { href: "https://binus.ac.id/", name: "Binus University" },
   links: [
-    { href: "https://tirwanda.com/", name: "My Profile" },
-    { href: "https://tirwanda.com/resume", name: "About Me" },
-    { href: "https://tirwanda.com/resume", name: "Blog" },
+    { href: "https://binus.ac.id/", name: "My Profile" },
+    { href: "https://binus.ac.id/", name: "About Me" },
+    { href: "https://binus.ac.id/", name: "Blog" },
   ],
 };
 

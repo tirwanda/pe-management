@@ -72,7 +72,7 @@ function ProductInfo({ assetInfo }) {
     <MDSnackbar
       color="success"
       icon="check"
-      title="Successfully updated profile"
+      title="Successfully updated asset"
       content={`Congratulations, you have successfully updated asset with the asset name ${message}`}
       dateTime="2 seconds ago"
       open={successSB}
@@ -189,7 +189,24 @@ function ProductInfo({ assetInfo }) {
           </Grid>
         </MDBox>
         <MDBox ml="auto" mt={3}>
-          <MDButton variant="gradient" color="dark" size="small" onClick={handleUpdate}>
+          <MDButton
+            disabled={
+              !(
+                data.assetName &&
+                data.assetNumber &&
+                data.assetLocation &&
+                data.assetFunction &&
+                data.process &&
+                data.output &&
+                data.status &&
+                data.lastPoPrice
+              )
+            }
+            variant="gradient"
+            color="dark"
+            size="small"
+            onClick={handleUpdate}
+          >
             Update Asset
           </MDButton>
         </MDBox>
