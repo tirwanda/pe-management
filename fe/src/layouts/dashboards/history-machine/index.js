@@ -104,7 +104,7 @@ function HistoryMachine() {
         setTopDowntimeData({
           ...topDowntimeData,
           rows: response.data.map((data) => ({
-            machine: <ProductCell image={mcLogo} name="MC Modul L" />,
+            machine: <ProductCell image={mcLogo} name={data.assetName} />,
             noAsset: <DefaultCell>{data.assetNumber}</DefaultCell>,
             time: <DefaultCell>{data.downtimeMinute.toString()}</DefaultCell>,
             date: <DefaultCell>{data.date}</DefaultCell>,
