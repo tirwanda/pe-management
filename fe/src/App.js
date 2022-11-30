@@ -224,6 +224,14 @@ export default function App() {
     return null;
   }
 
+  function getUserRoute() {
+    const user = localStorage.getItem("USERNAME");
+    if (user) {
+      return user.toUpperCase();
+    }
+    return "";
+  }
+
   const handleRoutes = () => {
     const newRoutes = [...customRoutes];
     const posDashboardSideNav = newRoutes.findIndex((route) => route.key === "dashboards");
@@ -231,6 +239,7 @@ export default function App() {
     const posApplicationsSideNav = newRoutes.findIndex((route) => route.key === "applications");
     const posReportSideNav = newRoutes.findIndex((route) => route.key === "report");
 
+    newRoutes[0] = { ...newRoutes[0], name: getUserRoute() };
     newRoutes[posDashboardSideNav].collapse = getDashboardRoutes();
     newRoutes[pos].collapse = getRoutesCustom();
     newRoutes[posApplicationsSideNav].collapse = getApplicationsRoutes();

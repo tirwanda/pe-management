@@ -101,16 +101,30 @@ function HistoryMachine() {
   const getDataTableDowntime = async () => {
     await getTopDowntimeData()
       .then((response) => {
-        setTopDowntimeData({
-          ...topDowntimeData,
-          rows: response.data.map((data) => ({
-            machine: <ProductCell image={mcLogo} name={data.assetName} />,
-            noAsset: <DefaultCell>{data.assetNumber}</DefaultCell>,
-            time: <DefaultCell>{data.downtimeMinute.toString()}</DefaultCell>,
-            date: <DefaultCell>{data.date}</DefaultCell>,
-            line: <DefaultCell>{data.lineName}</DefaultCell>,
-          })),
-        });
+        if (response.data !== "") {
+          setTopDowntimeData({
+            ...topDowntimeData,
+            rows: response.data.map((data) => ({
+              machine: <ProductCell image={mcLogo} name={data.assetName} />,
+              noAsset: <DefaultCell>{data.assetNumber}</DefaultCell>,
+              time: <DefaultCell>{data.downtimeMinute.toString()}</DefaultCell>,
+              date: <DefaultCell>{data.date}</DefaultCell>,
+              line: <DefaultCell>{data.lineName}</DefaultCell>,
+            })),
+          });
+        }
+        if (response.data === "") {
+          setTopDowntimeData({
+            ...topDowntimeData,
+            rows: {
+              machine: <ProductCell name="-" />,
+              noAsset: <DefaultCell>-</DefaultCell>,
+              time: <DefaultCell>-</DefaultCell>,
+              date: <DefaultCell>-</DefaultCell>,
+              line: <DefaultCell>-</DefaultCell>,
+            },
+          });
+        }
       })
       .catch((error) => {
         if (error.response) {

@@ -87,7 +87,9 @@ function ListCM() {
                 >
                   <Icon>preview</Icon>
                 </MDButton>
-                {(downtime.approval === "Waiting" || downtime.approval === "Rejected") && (
+                {(downtime.approval === "Waiting" ||
+                  downtime.approval === "Rejected" ||
+                  localStorage.getItem("ROLE") === "ROLE_ADMIN") && (
                   <MDButton
                     variant="text"
                     color="error"

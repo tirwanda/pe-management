@@ -96,13 +96,23 @@ public class PrintDashboardServiceImpl implements PrintDashboardService{
 
         Calendar now = Calendar.getInstance();
         int year = now.get(Calendar.YEAR);
+        int index = 0;
         String yearInString = String.valueOf(year);
         List<ReportDowntimeMc> allReportDowntimeMcList = reportDowntimeMcRepository
                 .findReportDowntimeMcByDateContainingOrderByDowntimeMinuteDesc(yearInString);
 
-        for (int i = 0; i < 5; i++) {
-            reportDowntimeMcList.add(allReportDowntimeMcList.get(i));
+        if (allReportDowntimeMcList.isEmpty()) {
+            return null;
         }
+
+        for (ReportDowntimeMc reportDowntimeMc : allReportDowntimeMcList) {
+            reportDowntimeMcList.add(reportDowntimeMc);
+            index++;
+            if (index == 5) {
+                break;
+            }
+        }
+
         return reportDowntimeMcList;
     }
 }
