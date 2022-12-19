@@ -75,7 +75,7 @@ function ListCM() {
                   component={Link}
                   variant="text"
                   color="dark"
-                  to={`/cm/update-cm/${downtime.downtimeId}`}
+                  to={`/applications/update-cm/${downtime.downtimeId}`}
                 >
                   <Icon>edit</Icon>
                 </MDButton>
@@ -152,7 +152,7 @@ function ListCM() {
         <Card>
           <MDBox p={3} lineHeight={1}>
             <MDTypography variant="h5" fontWeight="medium">
-              Data Corrective Maintenance
+              Corrective Maintenance
             </MDTypography>
             <MDTypography variant="button" color="text">
               List of Corrective Maintenance

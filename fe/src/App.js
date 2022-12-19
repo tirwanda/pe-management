@@ -142,7 +142,7 @@ export default function App() {
         {
           name: "Create New Line",
           key: "create-new-line",
-          route: `/assets/create-new-line`,
+          route: `/dashboards/create-new-line`,
           component: <NewLine />,
         },
       ];
@@ -174,13 +174,13 @@ export default function App() {
             {
               name: "Create CM",
               key: "create-cm",
-              route: "/cm/form-cm",
+              route: "/applications/form-cm",
               component: <CreateCM />,
             },
             {
               name: "List CM",
               key: "list-cm",
-              route: "/cm/list-cm",
+              route: "/applications/list-cm",
               component: <ListCM />,
             },
           ],
@@ -199,7 +199,7 @@ export default function App() {
             {
               name: "List CM",
               key: "list-cm",
-              route: "/cm/list-cm",
+              route: "/applications/list-cm",
               component: <ListCM />,
             },
           ],
@@ -330,7 +330,7 @@ export default function App() {
         <Route path="/asset/edit/:assetNumber" element={<EditAsset />} />
         <Route path="/asset/:assetNumber" element={<DetailAsset />} />
         <Route path="/cm/list-cm/:downtimeId" element={<DetailCM />} />
-        <Route path="/cm/update-cm/:downtimeId" element={<UpdateCM />} />
+        <Route path="/applications/update-cm/:downtimeId" element={<UpdateCM />} />
         {localStorage.getItem("ACCESS_TOKEN") && getRoutes(customRoutes)}
         {render && <Route path="*" element={<Navigate to="/sign-in" />} />}
       </Routes>

@@ -577,7 +577,7 @@ function DetailCM() {
                         variant="gradient"
                         color="light"
                         size="small"
-                        onClick={() => navigate("/cm/list-cm")}
+                        onClick={() => navigate("/applications/list-cm")}
                       >
                         Cancel
                       </MDButton>

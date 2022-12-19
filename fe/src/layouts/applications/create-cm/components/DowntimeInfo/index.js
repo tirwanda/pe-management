@@ -181,7 +181,7 @@ function DowntimeInfo() {
     setIsSubmited(true);
     await saveDowntime(data)
       .then(() => {
-        Navigate("/cm/list-cm");
+        Navigate("/applications/list-cm");
       })
       .catch(() => {
         Navigate("/sign-in");

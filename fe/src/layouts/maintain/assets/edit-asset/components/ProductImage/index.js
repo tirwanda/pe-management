@@ -9,7 +9,7 @@ import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 
 // Images
-import productImage from "assets/images/products/product-11.jpg";
+import productImage from "assets/images/products/product-details-2.jpg";
 
 function ProductImage({ assetName }) {
   return (

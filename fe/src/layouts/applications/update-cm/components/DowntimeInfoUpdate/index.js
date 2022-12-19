@@ -171,7 +171,7 @@ function DowntimeInfoUpdate({ downtimeInfo }) {
     setIsUpdated(true);
     await updateDowntime(data)
       .then(() => {
-        Navigate("/cm/list-cm");
+        Navigate("/applications/list-cm");
       })
       .catch(() => {
         localStorage.clear();
