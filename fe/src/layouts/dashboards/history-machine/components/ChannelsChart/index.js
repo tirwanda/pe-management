@@ -65,7 +65,7 @@ function ChannelsChart({ data }) {
             {labels &&
               labels.map((label, index) => (
                 <p key={label}>
-                  <strong>{datasets.data[index] || ""}</strong> Machine di {label || ""}.
+                  <strong>{datasets.data[index]}</strong> Machine di {label || ""}.
                 </p>
               ))}{" "}
           </MDTypography>

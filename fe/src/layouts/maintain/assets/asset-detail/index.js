@@ -606,7 +606,11 @@ function ProductPage() {
                 Add Part to Asset
               </MDTypography>
             </MDBox>
-            <DataTable table={allPartList} canSearch />
+            <DataTable
+              table={allPartList}
+              canSearch
+              entriesPerPage={{ defaultValue: 5, entries: [5, 10, 15, 20, 25] }}
+            />
             <MDBox mt={3}>
               <Grid container spacing={3}>
                 <MDBox mt={3} ml="auto" display="flex">

@@ -40,7 +40,11 @@ public class PrintDashboardServiceImpl implements PrintDashboardService{
 
         for (Line line : lineList) {
             pieChartAssetDTO.getLabels().add(line.getLineCode());
-            datasets.getData().add(line.getAssets().size());
+            if (line.getAssets().isEmpty()) {
+                datasets.getData().add(0);
+            } else {
+                datasets.getData().add(line.getAssets().size());
+            }
         }
 
         pieChartAssetDTO.setDatasets(datasets);
@@ -60,6 +64,7 @@ public class PrintDashboardServiceImpl implements PrintDashboardService{
 
         Calendar now = Calendar.getInstance();
         int year = now.get(Calendar.YEAR);
+//        int year = 2022;
         String yearInString = String.valueOf(year);
 
         int index = 0;
@@ -96,6 +101,7 @@ public class PrintDashboardServiceImpl implements PrintDashboardService{
 
         Calendar now = Calendar.getInstance();
         int year = now.get(Calendar.YEAR);
+//        int year = 2022;
         int index = 0;
         String yearInString = String.valueOf(year);
         List<ReportDowntimeMc> allReportDowntimeMcList = reportDowntimeMcRepository

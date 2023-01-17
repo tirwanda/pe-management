@@ -113,11 +113,11 @@ function HistoryMachine() {
             })),
           });
         }
-        if (response.data === "") {
+        if (response.data === null) {
           setTopDowntimeData({
             ...topDowntimeData,
             rows: {
-              machine: <ProductCell name="-" />,
+              machine: <ProductCell image={mcLogo} name="-" />,
               noAsset: <DefaultCell>-</DefaultCell>,
               time: <DefaultCell>-</DefaultCell>,
               date: <DefaultCell>-</DefaultCell>,
